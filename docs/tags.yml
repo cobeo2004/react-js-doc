@@ -1,0 +1,8 @@
+introduction:
+  label: Introduction
+  permalink: /introduction
+  description: Tags được dùng cho trang giới thiệu
+hello:
+  label: Hello
+  permalink: /hello
+  description: Tags cho trang giới thiệu Tài Liệu
