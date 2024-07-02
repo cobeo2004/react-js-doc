@@ -18,6 +18,7 @@ const config: Config = {
 
   organizationName: 'cobeo2004', // Usually your GitHub org/user name.
   projectName: 'react-js-doc', // Usually your repo name.
+  deploymentBranch: 'main',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
