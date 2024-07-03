@@ -35,16 +35,13 @@ Tại nơi đây, quý bạn và các vị sẽ tìm thấy những kiến thứ
 ## Những gì bạn cần ?
 
 - Một chiếc máy tính chạy một trong ba hệ điều hành **Windows, MacOS hoặc Linux**.
-- Với mỗi hệ điều hành, các anh em phải có các **Package Manager** có sẵn distributions của **NodeJS** và **NPM**.
+- Với mỗi hệ điều hành, các anh em phải có các **Package Manager** có sẵn distributions của **NodeJS** và **npm**.
   :::tip
   - Theo Cò, anh em có thể theo dùng các Package Managers sau:
     - Với **Windows**, **Package Managers** mình khuyên dùng là: [Chocolatey](https://chocolatey.org/) và [Scoop](https://scoop.sh/).
     - Với **MacOS**, **Package Managers** mình khuyên dùng là (_strongly_): [Homebrew](https://brew.sh/).
-    - Với **Linux**, **Package Managers** sẽ tùy thuộc vào từng hệ, tuy nhiên có thể sử dụng: 
-      - **Ubuntu-based**: [Advanced Packaging Tool](https://ubuntu.com/server/docs/package-management) (Đã có sẵn). 
-      - **Debian-based**: [Yellowdog Updater Modified](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/5/html/deployment_guide/c1-yum#s1-yum-repo-setup).
-      và [RedHat Package Manager](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/5/html/deployment_guide/ch-rpm). 
-      - Và các **Package Managers** có support dist từ `NodeJS` và `NPM`.
+    - Với **Linux**, **Package Managers** sẽ tùy thuộc vào từng hệ, tuy nhiên có thể sử dụng: - **Ubuntu-based**: [Advanced Packaging Tool](https://ubuntu.com/server/docs/package-management) (Đã có sẵn). - **Debian-based**: [Yellowdog Updater Modified](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/5/html/deployment_guide/c1-yum#s1-yum-repo-setup).
+      và [RedHat Package Manager](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/5/html/deployment_guide/ch-rpm). - Và các **Package Managers** có support dist từ `NodeJS` và `npm` (`pnpm`, `yarn`, `bun`).
   :::
 - Cuối cùng, là một **tâm hồn và tinh thần cầu tiến, chịu học hỏi những cái mới** dù bất chấp có khó khăn đến nhường nào !!!!.
 
