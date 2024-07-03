@@ -1,9 +1,10 @@
 ---
 id: tai-lieu-tham-khao-hoc-html-css-co-ban
-slug: /tai-lieu-tham-khao-html-css
-title: Tài liệu tham khảo HTML CSS cơ bản 🎉
+slug: tai-lieu-tham-khao-html-css
+title: Tài liệu tham khảo HTML CSS Cơ Bản 🎉
 sidebar_label: Tài liệu tham khảo
 image: https://images.unsplash.com/photo-1592439162403-e2ba684a9cd6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80
+sidebar_position: 2
 ---
 
 Mặc dù trong docs này sẽ không có bất cứ thứ gì liên quan đến HTML và CSS, nhưng Cò vẫn sẽ chia sẻ những gì mà Cò dùng để học HTML và CSS nhé. Việc chọn lọc ra những tài nguyên để tham khảo khi mới bắt đầu học thật sự không dễ dàng tí nào khi có cả rất nhiều nguồn khác nhau. Hiểu được lý do đó, mình có tổng hợp lại một số link tham khảo hay, hi vọng có thể giúp ịch cho mọi người 😉.
