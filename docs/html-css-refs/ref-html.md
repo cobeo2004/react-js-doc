@@ -25,7 +25,7 @@ Mặc dù trong docs này sẽ không có bất cứ thứ gì liên quan đến
 
 ## Vlog / Youtube channel
 
-- Easy Frontend (kênh của mình 🤣) https://youtube.com/easyfrontend
+- Easy Frontend: https://youtube.com/easyfrontend
 - Evondev: https://www.youtube.com/c/evondev
 - Fireship: https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA
 - ...

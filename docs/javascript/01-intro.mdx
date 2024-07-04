@@ -3,7 +3,7 @@ sidebar_position: 1
 slug: intro-to-javascript
 title: Sơ lược về JavaScript
 authors: Simon
-tags: [introduction]
+tags: [introduction, javascript]
 ---
 
 :::warning
@@ -65,65 +65,67 @@ Ngắn gọn và xúc tích, vì **bố mày đẹp trai hơn Java**.
 
 <h3>Nhược điểm</h3>
 
-1. **Bảo mật**: Do JavaScript chạy trên trình duyệt của người dùng, mã JavaScript có thể bị xem và sửa đổi dễ dàng, gây ra các vấn đề bảo mật.
-   :::tip
-   Lấy ví dụ như khi làm việc với `React`, hãy **build project** trước khi deploy lên website.
-   :::
-2. **Khả năng hỗ trợ không đồng nhất:** Một số tính năng mới của JavaScript có thể không được hỗ trợ trên tất cả các trình duyệt, gây ra các vấn đề tương thích.
-   :::tip
-   Anh em có thể check khả năng tương thích của các `built-in functions` của JavaScript thông qua website: [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Browser_support_for_JavaScript_APIs).
-   :::
-3. **Hiệu suất**: So với một số ngôn ngữ lập trình khác, JavaScript có thể không hiệu quả trong một số tình huống yêu cầu xử lý nặng nề.
-4. **Động (dynamic)**: Như đã đề cập ở trên, tuy ngôn ngữ lập trình động này mang lại **sự linh hoạt**, nhưng nó cũng là **một con dao hai lưỡi** gây ra lỗi nếu không được kiểm soát cẩn thận.
-   :::danger[Phân tích]
-      <h3>Xét đoạn code sau đây: </h3>
+1.  **Bảo mật**: Do JavaScript chạy trên trình duyệt của người dùng, mã JavaScript có thể bị xem và sửa đổi dễ dàng, gây ra các vấn đề bảo mật.
+    :::tip
+    Lấy ví dụ như khi làm việc với `React`, hãy **build project** trước khi deploy lên website.
+    :::
+2.  **Khả năng hỗ trợ không đồng nhất:** Một số tính năng mới của JavaScript có thể không được hỗ trợ trên tất cả các trình duyệt, gây ra các vấn đề tương thích.
+    :::tip
+    Anh em có thể check khả năng tương thích của các `built-in functions` của JavaScript thông qua website: [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Browser_support_for_JavaScript_APIs).
+    :::
+3.  **Hiệu suất**: So với một số ngôn ngữ lập trình khác, JavaScript có thể không hiệu quả trong một số tình huống yêu cầu xử lý nặng nề.
+4.  **Động (dynamic)**: Như đã đề cập ở trên, tuy ngôn ngữ lập trình động này mang lại **sự linh hoạt**, nhưng nó cũng là **một con dao hai lưỡi** gây ra lỗi nếu không được kiểm soát cẩn thận.
+    :::danger[Phân tích]
+    <h3>Xét đoạn code sau đây: </h3>
 
-   ```js title="src/add.js"
-   export default function add(param1, param2) {
-     return param1 + param2;
-   }
-   ```
+        ```js title="src/add.js"
+        export default function add(param1, param2) {
+          return param1 + param2;
+        }
+        ```
 
-   **Trường hợp 1**: Khi `param1` và `param2` cùng kiểu dữ liệu `number`:
+        **Trường hợp 1**: Khi `param1` và `param2` cùng kiểu dữ liệu `number`:
 
-   ```js title="src/index.js"
-   import add from "add";
-   const param1 = 5;
-   const param2 = 10;
-   console.log(add(param1, param2)); //15
-   ```
+        ```js title="src/index.js"
+        import add from "add";
+        const param1 = 5;
+        const param2 = 10;
+        console.log(add(param1, param2)); //15
+        ```
 
-   **Trường hợp 2**: Khi `param1` và `param2` khác kiểu dữ liệu, cụ thể là `string` và `number`:
+        **Trường hợp 2**: Khi `param1` và `param2` khác kiểu dữ liệu, cụ thể là `string` và `number`:
 
-   ```js title="src/index.js"
-   import add from "add";
-   const param1 = 5;
-   const param2 = "abc";
-   console.log(add(param1, param2)); //5abc
-   ```
+        ```js title="src/index.js"
+        import add from "add";
+        const param1 = 5;
+        const param2 = "abc";
+        console.log(add(param1, param2)); //5abc
+        ```
 
-   #### Thông qua ví dụ trên, anh em có thể thấy rằng việc không nêu rõ kiểu dữ liệu mình muốn dùng sẽ có thể đưa ra kết quả không mong muốn.
+        #### Thông qua ví dụ trên, anh em có thể thấy rằng việc không nêu rõ kiểu dữ liệu mình muốn dùng sẽ có thể đưa ra kết quả không mong muốn.
 
-   :::tip
-   Để tránh việc kiểu dữ liệu đầu vào không mong muốn, chúng ta có thể sử dụng `TypeScript` thay vì `JavaScript`, hoặc **định nghĩa kiểu dữ liệu** bằng cách dùng `jsdoc` như sau:
+            :::tip
+            Để tránh việc kiểu dữ liệu đầu vào không mong muốn, chúng ta có thể sử dụng `TypeScript` thay vì `JavaScript`, hoặc **định nghĩa kiểu dữ liệu** bằng cách dùng `jsdoc` như sau:
 
-   ```js title="src/add.js"
-   /**
-    * Cộng hai số lại với nhau
-    * @param {number} param1 - Số đầu tiên
-    * @param {number} param2 - Số thứ hai
-    * @returns {number} tổng hai số
-    **/
-   export default function add(param1, param2) {
-     return param1 + param2;
-   }
-   ```
+            ```js title="src/add.js"
+            /**
+             * Cộng hai số lại với nhau
+            * @param {number} param1 - Số đầu tiên
+            * @param {number} param2 - Số thứ hai
+            * @returns {number} tổng hai số
+            **/
+            export default function add(param1, param2) {
+            return param1 + param2;
+            }
+            ```
 
-   :::danger[Lưu Ý]
-   Việc sử dụng `jsdoc` chỉ giúp chúng ta **định nghĩa kiểu dữ liệu trong JavaScript**, nhưng sẽ không giúp chúng ta **phòng tránh** việc sử dụng sai kiểu dữ liệu. Vậy nên, **Be Responsive** :D
-   :::
-   :::
-   :::
+                :::danger[Lưu Ý]
+                Việc sử dụng `jsdoc` chỉ giúp chúng ta **định nghĩa kiểu dữ liệu trong JavaScript**, nhưng sẽ không giúp chúng ta **phòng tránh** việc sử dụng sai kiểu dữ liệu. Vậy nên, **Be Responsive** :D
+                :::
+
+            :::
+
+    :::
 
 ## Áp dụng thực tiễn của JavaScript
 
@@ -133,3 +135,9 @@ JavaScript có rất nhiều ứng dụng thực tiễn, bao gồm:
 2. **Ứng dụng di động**: Sử dụng các framework như React Native để phát triển ứng dụng di động cho cả iOS và Android.
 3. **Phát triển máy tính để bàn:** Với các công cụ như Electron, bạn có thể phát triển các ứng dụng máy tính để bàn sử dụng JavaScript.
 4. **Phát triển trò chơi**: JavaScript có thể được sử dụng để phát triển trò chơi 2D và 3D thông qua các thư viện và framework như Phaser và Three.js.
+
+## Một vài project mình đã làm với JavaScript (TypeScript)
+
+- [Portfolio Sử dụng ThreeJS, NextJS và TypeScript](https://github.com/cobeo2004/portfolio-nextjs)
+- [Book API sử dụng ExpressJS, NodeJS, MongoDB và JavaScript](https://github.com/cobeo2004/Book-BackEnd)
+- [Twitter Fake sử dụng T3 Stack](https://github.com/cobeo2004/t3-social-media)

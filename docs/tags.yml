@@ -6,3 +6,15 @@ hello:
   label: Hello
   permalink: /hello
   description: Tags cho trang giới thiệu Tài Liệu
+javascript:
+  label: JavaScript
+  permalink: /javascript
+  description: Tags được dùng cho các post liên quan tới JavaScript
+react:
+  label: React
+  permalink: /react
+  description: Tags được dùng cho các post liên quan tới React
+setup:
+  label: Setup
+  permalink: /setup
+  description: Tags được dùng cho các post setup projects

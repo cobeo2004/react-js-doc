@@ -1,0 +1,90 @@
+---
+sidebar_position: 3
+slug: hello-world-js
+title: Hello World với JavaScript
+authors: Simon
+tags: [introduction, hello, javascript]
+---
+
+:::info[Mục Tiêu]
+- Ở bài viết trước, chúng ta đã tìm hiểu sơ qua về cách cài `npm` và `NodeJS`, hai công cụ không thể thiếu khi làm việc với JavaScript.
+- Trong bài viết này, chúng ta sẽ đi **tạo một JavaScript Project** dùng `npm` và `NodeJS`.
+- Bằng cách đọc và thực hành theo bài này, anh em sẽ đạt được:
+  - Tạo được một project **Hello World** với `npm`.
+  - Biết cách chạy một file JavaScript với `NodeJS`.
+  - Nắm được một số hàm căn bản, cách dùng comment trong `JavaScript`.
+  
+:::
+
+## Tạo một Project với `npm`
+<h3>1. Tạo thư mục cho project:</h3>
+
+- Mở Terminal hoặc Command Prompt và tạo một thư mục mới cho dự án của bạn, sau đó di chuyển vào thư mục đó:
+    ```sh title="terminal"
+    mkdir hello-world-js
+    cd hello-world-js
+    ```
+
+<h3>2. Khởi tạo project với `npm`:</h3>
+
+- Khởi tạo một project mới bằng lệnh sau:
+    ```sh title="terminal"
+    npm init -y
+    ```
+- Lệnh này sẽ tạo một file `package.json` với các thông tin mặc định.
+
+
+## Tạo file `JavaScript` và viết chương trình **Hello World**
+<h3>1. Tạo file Javascript</h3>
+- Tạo một file mới trong thư mục dự án và đặt tên là `index.js`:
+    ```sh title="terminal"
+    touch index.js
+    ```
+<h3>2. Viết chương trình Hello World</h3>
+- Mở file `index.js` bằng bất kỳ trình soạn thảo văn bản nào (như **VSCode**, **Sublime Text**, hoặc **Notepad++**) và thêm đoạn mã sau:
+    ```ts title="index.js"
+    // In ra màn hình "Hello World"
+    console.log("Hello World!");
+    ```
+## Chạy file `JavaScript` với `NodeJS`
+<h3>1. Chạy chương trình</h3>
+- Mở Terminal hoặc Command Prompt và chạy file `index.js` với `NodeJS`:
+    ```sh title="terminal"
+    node index.js
+    ```
+<h3>2. Yay-yeah !!!</h3>
+- Nếu chương trình bạn hiển thị như thế này, **thì tôi yêu bạn vãi lìn**!!!
+    ```sh title="terminal"
+    Hello World!
+    ```
+## Những điều cần lưu ý
+- **Cách sử dụng comment trong JavaScript:**
+Comment là cách để chú thích mã nguồn mà không ảnh hưởng đến quá trình thực thi chương trình
+    :::tip
+    - Đây là **single-line comment (comment một dòng)** trong `JavaScript`:
+        ```js title="index.js"
+        // Đây là một comment
+        ```
+    - Đây là **multi-line comment (comment nhiều dòng)** trong `JavaScript`:
+        ```js title="index.js"
+        /*
+        Đây là một comment
+        nhiều dòng
+        */
+        ```
+    :::
+- Một số **hàm căn bản** trong JavaScript:
+    :::info
+    - `console.log()`: In ra màn hình một chuỗi hoặc giá trị.
+    - `console.error()`: In ra màn hình một lỗi.
+    - `console.warn()`: In ra màn hình một cảnh báo.
+    - `alert()`: Hiển thị một thông báo trên trình duyệt.
+    :::
+    :::tip[Thử]
+    - Hãy click vào nút bên dưới để xem giá trị được in ra bởi hàm `alert()`:
+    <div style={{display: "flex", justifyContent: 'center', alignItems: 'center'}}>
+    <button onClick={() => alert("Tui là giá trị được in ra nè!!!!")}>Click Tui Nè!</button>
+    </div>
+    :::
+## Kết luận
+- <h3>Qua bài viết này, anh em đã học cách tạo một project JavaScript với npm, viết một chương trình Hello World đơn giản, và chạy chương trình đó bằng NodeJS. Những kiến thức căn bản này là nền tảng quan trọng để tiếp tục khám phá và phát triển các ứng dụng JavaScript phức tạp hơn.</h3>

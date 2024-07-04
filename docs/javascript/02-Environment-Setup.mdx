@@ -1,0 +1,48 @@
+---
+sidebar_position: 2
+slug: javascript-environment-setup
+title: Cài đặt môi trường cho JS
+authors: Simon
+tags: [introduction, setup, javascript]
+---
+
+:::info[Mục Tiêu]
+
+- Ở mục này, chúng ta sẽ đi tìm hiểu sơ lược về cách cài đặt môi trường cho JavaScript, bao gồm cả NodeJS và npm.
+- Bằng cách đọc xong bài này, anh em sẽ đạt được:
+  - Hiểu rõ hơn về NodeJS và npm.
+  - Biết cách cài đặt NodeJS và npm.
+  - Biết cách tạo một project mới và chạy thử một số lệnh cơ bản.
+:::
+
+## NodeJS và npm là gì ?
+
+- `NodeJS` là một môi trường chạy JavaScript bên ngoài trình duyệt, cho phép chúng ta xây dựng các ứng dụng server-side sử dụng JavaScript. Nó rất mạnh mẽ, có thể xử lý nhiều yêu cầu cùng một lúc và rất phổ biến trong việc xây dựng các ứng dụng web hiện đại.
+
+- `npm` (**Node Package Manager**) là trình quản lý các gói JavaScript. Nó đi kèm với NodeJS và giúp chúng ta dễ dàng cài đặt, quản lý các thư viện, và module mà chúng ta cần cho dự án của mình.
+
+## Cài NodeJS và npm
+
+:::warning[Lưu ý]
+
+- Tùy thuộc vào hệ điều hành của anh em mà cách cài đặt sẽ khác nhau, hãy quay lại trang [**Tài Liệu**](/docs/intro.md) để tìm ra Package Manager phù hợp nhất với bạn.
+- Ở bài viết này, Cò sẽ tập trung vào cài đặt bằng cách tải trực tiếp từ website của NodeJS và từ `brew` trên MacOS.
+:::
+
+### Cài đặt NodeJS trực tiếp từ website
+1. Truy cập và trang chủ của [NodeJS](https://nodejs.org/en/).
+2. Tải phiên bản LTS (Long Term Support) về máy.
+3. Mở file tải về và làm theo các bước cài đặt mặc định.
+
+### Cài đặt NodeJS trên MacOS
+1. Mở terminal và chạy lệnh sau để cài `brew`.
+```sh title="terminal"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+2. Sau khi `brew` được cài đặt, hãy chạy lệnh sau để cài `NodeJS`.
+```sh title="terminal"
+brew install node
+```
+
+## Kết luận
+- <h3>Qua bài viết này, anh em đã nắm được cách cài đặt NodeJS và npm, cũng như cách tạo một project mới và chạy thử một số lệnh cơ bản. Đây là những bước đầu tiên để xây dựng các ứng dụng web mạnh mẽ với JavaScript.</h3>
