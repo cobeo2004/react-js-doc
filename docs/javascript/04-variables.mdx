@@ -1,0 +1,172 @@
+---
+sidebar_position: 4
+slug: variables-js
+title: Biến và kiểu dữ liệu trong JavaScript
+authors: Simon
+tags: [introduction, hello, foundation]
+---
+
+:::info[Mục Tiêu]
+
+- Ở trong bài viết trước, chúng ta đã thực hành tạo chương trình `Hello World` sử dụng `JavaScript` và thực thi trên `NodeJS`.
+- Trong bài viết này, chúng ta sẽ đi tìm hiểu về biến và kiểu dữ liệu trong `JavaScript`.
+- Bằng cách đọc bài viết này, anh em sẽ hiểu được:
+  - Khái niệm về **biến và kiểu dữ liệu** trong `JavaScript`.
+  - Từ khóa `var`, `let` và `const` trong `JavaScript`.
+  - Cách **khai báo** biến và **gán giá trị** cho biến.
+  - Các **kiểu dữ liệu cơ bản** trong `JavaScript`.
+:::
+
+## Biến và Kiểu dữ liệu trong JavaScript
+
+- `Biến` trong JavaScript thực ra như là các khái niệm `biến` trong các ngôn ngữ lập trình khác. `Biến` được ví như là một chiếc _hộp_ dùng để chứa dữ liệu,`dữ liệu` này có thể là một `chuỗi`, một `số`, một `mảng`, một `đối tượng`, hoặc bất kỳ kiểu dữ liệu nào khác.
+- `Kiểu dữ liệu` trong JavaScript là một khái niệm quan trọng, nó giúp chúng ta xác định được loại dữ liệu mà một biến có thể chứa. Có nhiều kiểu dữ liệu khác nhau trong JavaScript, nhưng ở bài viết này, chúng ta sẽ tìm hiểu về các kiểu dữ liệu cơ bản nhất.
+
+## Các kiểu dữ liệu cơ bản trong JavaScript
+
+Trong JavaScript, có **7 kiểu dữ liệu** cơ bản mà các bạn nên biết:
+
+- `Number`: Là kiểu dữ liệu số, bao gồm cả kiểu **số nguyên (Integer)** và kiểu **số thực (Float, Double)**.
+
+```js title="var.js"
+const age = 25; //Kiểu Integer number
+const height = 1.75; //Kiểu Float number
+```
+
+- `String`: Là kiểu dữ liệu chuỗi, dùng để lưu trữ các ký tự, từ, hoặc câu chữ.
+
+```js title="var.js"
+const title = "Tao ký ngực fan 2k3 hai em Tây"; // Kiểu String
+```
+
+- `Boolean`: Là kiểu dữ liệu logic, chỉ mang hai giá trị `true` hoặc `false`.
+
+```js title="var.js"
+const isGay = false; // Kiểu Boolean
+const noLGBT = true; // Kiểu Boolean
+```
+
+- `Null`: Là kiểu dữ liệu đặc biệt, đại diện cho một giá trị **không tồn tại**.
+
+```js title="var.js"
+const mustNullable = null; // Kiểu Null
+```
+
+- `Undefined`: Là kiẻu dữ liệu đặc biệt, đại diện cho một biến **chưa đươc định nghĩa (gán) giá trị**.
+
+```js title="var.js"
+const mustUndefined; // Kiểu Undefined
+const mustBeUndefined = undefined; // Kiểu undefined
+```
+
+- `Object`: Là kiểu dữ liệu đặc biệt, dùng để lưu trữ các dữ liệu theo cặp **key-value**.
+
+```js title="var.js"
+const Identity = {
+  name: "Minh",
+  age: 18,
+  isMen: true,
+}; // Kiểu Object
+```
+
+- `Array`: Là kiểu dữ liệu đặc biệt, dùng để lưu trữ một tập hợp các giá trị theo thứ tự.
+
+```js title="var.js"
+const fruits = ["Apple", "Banana", "Orange"]; // Kiểu Array
+```
+
+:::tip[Nâng cao]
+
+- Trong `TypeScript`, chúng ta có thể định nghĩa kiểu dữ liệu sử dụng `interface` hoặc `type`. Tránh việc thiếu sót trong kiểu dữ liệu và giúp chúng ta viết code chính xác hơn.
+- Ví dụ:
+  ```ts title="var.ts"
+  const mustBeNumber: number! = 25; // Kiểu Number
+  const mustBeString: string! = "Hello World"; // Kiểu String
+  const mustBeBoolean: boolean! = true; // Kiểu Boolean
+  const mustBeArray: string[]! = ["Apple", "Banana", "Orange"]; // Kiểu Array
+  const nullableString: string | null = null; // Kiểu Null
+  const undefineableString: string | undefined = undefined; // Kiểu Undefined
+  ```
+- Ngoài ra, chúng ta có thể sử dụng `type` và `interface` keyword để định nghĩa một `object`:
+  ```ts title="var.ts"
+    type TIdentity = {
+        name: string;
+        age: number;
+        isMen: boolean;
+    };
+
+    type TSwipeable = {
+        isSwipeable: boolean;
+        message: string | null;
+    }
+    interface IIdentity {
+        identifier: TIdentity;
+        swipeable () => TSwipeable;
+    }
+
+    const SimonID: TIdentity = {
+        name: "Minh",
+        age: 18,
+        isMen: true
+    };
+
+    const Simon: IIdentity = {
+        identifier: SimonID,
+        swipeable: () => {
+            return {
+                isSwipeable: true,
+                message: "Swipeable"
+            }
+        }
+    };
+
+      ```
+
+  :::
+
+## `var`, `let` và `const` là gì ?
+
+Nếu mấy anh em có tiếp xúc với `JavaScript` thì chắc khá quen với từ khóa `var`, `let` và `const` rồi chứ ? Đúng vậy, trong `JavaScript`, ba từ khóa `var`, `let` và `const` được sử dụng để khai báo biến. Tuy vậy, mỗi từ khóa có những đặc điểm riêng, phù hợp vỡi những tình huống sử dụng khác nhau.
+- `var`: Là từ khóa cũ nhất trong `JavaScript`, được sử dụng để khai báo biến toàn cục hoặc cục bộ. Biến được khai báo bằng `var` có phạm vi là **function-scoped**.
+
+```js title="var.js"
+var x = 10;
+var x = 20; // Valid
+```
+
+- `let`: Là từ khóa mới được giới thiệu trong `ES6`, được sử dụng để khai báo biến cục bộ. Biến được khai báo bằng `let` có phạm vi là **block-scoped**.
+
+```js title="var.js"
+let x = 10;
+let x = 20; // Invalid, Error: 'x' has been declared.
+x = 20; // Valid
+```
+
+- `const`: Là từ khóa cũng được giới thiệu trong `ES6`, được sử dụng để khai báo biến cục bộ. Biến được khai báo bằng `const` cũng có phạm vi là **block-scoped**, tuy nhiên, biến được khai báo bằng `const` không thể thay đổi giá trị sau khi đã được gán.
+
+```js title="var.js"
+const x = 10;
+x = 20; // Invalid, Error: Assignment to constant variable.
+```
+
+## Khai báo và Gán giá trị cho biến
+Như đã đề cập ở mục trên, để khai báo biến trong `JavaScript`, anh em có thể sử dụng cả `var`, `let` và `const` để gán giá trị cho biến ngay khi khai báo (tùy vào trường hợp sử dụng)
+```js title="var.js"
+// Sử dụng var
+var x = 10;
+var name;
+name = "Simon";
+// Sử dụng let
+let y = 20;
+let isMen;
+isMen = true;
+//Sử dụng const
+const z = 30;
+```
+:::warning[Chú Ý]
+- Lưu ý rằng, anh em phải gán gia trị cho `const` ngay khi khai báo, nếu không sẽ gây ra lỗi.
+- Biến được khai báo bằng `var` có thể được khai báo lại, trong khi biến được khai báo bằng `let` và `const` không thể được khai báo lại.
+:::
+
+## Tổng kết
+- <h3>Hy vọng qua bài viết này, bạn đã có một cái nhìn tổng quan về biến và kiểu dữ liệu trong JavaScript. Đây là những kiến thức cơ bản nhưng rất quan trọng để bạn tiếp tục học và làm việc với JavaScript một cách hiệu quả.</h3>
