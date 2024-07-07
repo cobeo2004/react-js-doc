@@ -18,3 +18,7 @@ setup:
   label: Setup
   permalink: /setup
   description: Tags được dùng cho các post setup projects
+foundation:
+  label: Foundation
+  permalink: /foundation
+  description: Tags về các khái niệm trừu tượng trong JavaScript
