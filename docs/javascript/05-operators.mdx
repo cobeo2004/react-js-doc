@@ -3,8 +3,6 @@ title: Toán Tử trong JavaScript
 description: Tìm hiểu về các loại toán tử trong JavaScript, cách sử dụng và các ví dụ minh họa.
 ---
 
-import { Callout } from 'nextra/components'
-
 # Toán Tử trong JavaScript (Operators)
 
 Chào mừng các bạn đến với thế giới của các toán tử trong JavaScript! Nghe có vẻ "nguy hiểm" nhưng thực ra chúng là những công cụ vô cùng hữu ích, giúp chúng ta thực hiện đủ loại thao tác với dữ liệu. Toán tử cho phép chúng ta tính toán, so sánh, gán giá trị, và nhiều hơn thế nữa. Hãy cùng khám phá xem JavaScript có những "trợ thủ đắc lực" nào nhé!
@@ -27,9 +25,11 @@ let loiChao = "Chào bạn, " + "Cò!"; // loiChao sẽ là "Chào bạn, Cò!"
 console.log(loiChao);
 ```
 
-<Callout type="info">
+:::info[Info]
+
 Lưu ý: Khi dùng toán tử `+` với một số và một chuỗi, JavaScript sẽ "ưu ái" biến số thành chuỗi rồi thực hiện phép nối. Cẩn thận nhé!
-</Callout>
+
+:::
 
 ```javascript
 let ketHop = "Điểm của bạn là: " + 9; // ketHop sẽ là "Điểm của bạn là: 9"
@@ -193,9 +193,11 @@ console.log("5 == 5:", 5 == 5);     // true
 console.log("5 == '5':", 5 == '5'); // true (chuỗi '5' được chuyển thành số 5)
 ```
 
-<Callout type="warning">
+:::warning[Warning]
+
 **Thận trọng với `==`!** Việc tự động chuyển đổi kiểu có thể dẫn đến kết quả không mong muốn. Nên ưu tiên dùng `===` khi có thể.
-</Callout>
+
+:::
 
 ### Bằng tuyệt đối (`===`)
 
@@ -285,9 +287,11 @@ let cuaHangMoCua = false;
 console.log("Mua được hàng (một cái false):", coTien && cuaHangMoCua); // false
 ```
 
-<Callout type="info">
+:::info[Info]
+
 `&&` có một tính năng "short-circuiting": nếu toán hạng đầu tiên là `false`, nó sẽ không cần kiểm tra toán hạng thứ hai nữa mà trả về `false` luôn.
-</Callout>
+
+:::
 
 ### Hoặc (`||` - Logical OR)
 
@@ -303,9 +307,11 @@ let cuoiTuan = false;
 console.log("Có được nghỉ làm không (cả hai false):", nghiLe || cuoiTuan); // false
 ```
 
-<Callout type="info">
+:::info[Info]
+
 `||` cũng có "short-circuiting": nếu toán hạng đầu tiên là `true`, nó sẽ không cần kiểm tra toán hạng thứ hai nữa mà trả về `true` luôn.
-</Callout>
+
+:::
 
 ### Phủ định (`!` - Logical NOT)
 
@@ -323,9 +329,11 @@ console.log("Không mệt mỏi:", !metMoi); // true
 
 Toán tử bitwise làm việc trực tiếp trên các bit (0 và 1) của các số nguyên. Chúng thường được sử dụng trong các tác vụ cấp thấp, xử lý đồ họa, hoặc các thuật toán tối ưu hóa cụ thể. Đối với lập trình web hàng ngày, bạn có thể ít gặp chúng hơn, nhưng biết về sự tồn tại của chúng cũng rất hữu ích.
 
-<Callout type="warning">
+:::warning[Warning]
+
 Toán tử bitwise coi các toán hạng của chúng là một chuỗi 32 bit (0 và 1). Kết quả trả về cũng là một số.
-</Callout>
+
+:::
 
 ### AND Bitwise (`&`)
 

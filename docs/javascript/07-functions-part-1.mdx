@@ -3,8 +3,6 @@ title: Hàm trong JavaScript (Phần 1)
 description: Tìm hiểu những kiến thức cơ bản về hàm trong JavaScript, bao gồm cách khai báo, tham số, giá trị trả về và arrow functions.
 ---
 
-import { Callout } from 'nextra/components'
-
 # Hàm trong JavaScript (Phần 1) - Những Viên Gạch Vạn Năng
 
 Chào mừng các bạn đến với thế giới của **hàm (functions)** trong JavaScript! Nếu ví von code như một công trình xây dựng, thì hàm chính là những viên gạch đa năng, những cỗ máy nhỏ mà bạn có thể tự tạo ra để thực hiện các tác vụ cụ thể. Thay vì phải viết đi viết lại những đoạn code giống nhau ở nhiều nơi, bạn chỉ cần "gọi tên" hàm, và nó sẽ thực hiện công việc đó cho bạn. Quá tuyệt vời phải không nào?
@@ -53,7 +51,8 @@ chaoBan("Simon"); // Kết quả: Chao bạn Simon! Chúc một ngày tốt làn
 
 Thấy không? Chỉ cần định nghĩa hàm `chaoBan` một lần, bạn có thể gọi nó bao nhiêu lần cũng được, với những cái tên khác nhau. Tiện lợi quá phải không nào?
 
-<Callout type="info" emoji="💡">
+:::info[💡 Info]
+
 **Hoisting với Function Declarations:** Một đặc điểm thú vị (và đôi khi hơi "ma thuật") của khai báo hàm là chúng được "hoisted" (đưa lên đầu). Điều này có nghĩa là bạn có thể gọi hàm trước cả khi bạn khai báo nó trong code.
 ```javascript
 // Gọi hàm trước khi khai báo
@@ -64,7 +63,8 @@ function xinChao() {
 }
 ```
 Tuy nhiên, để code dễ đọc và dễ hiểu, tốt nhất là bạn nên khai báo hàm trước khi sử dụng nó nhé!
-</Callout>
+
+:::
 
 ### 2. Biểu Thức Hàm (Function Expressions)
 
@@ -96,7 +96,8 @@ let loiChao = function(ten) {
 loiChao("Bo"); // Kết quả: Xin chào Bo từ biểu thức hàm!
 ```
 
-<Callout type="warning" emoji="⚠️">
+:::warning[⚠️ Warning]
+
 **Không có Hoisting cho Function Expressions (theo cách của declaration):** Biến `loiChao` ở trên được hoisted (vì nó là biến khai báo với `let`), nhưng bản thân hàm thì không. Nghĩa là, bạn không thể gọi `loiChao()` *trước* dòng lệnh gán hàm cho nó.
 ```javascript
 // thuGoiHam(); // Lỗi! TypeError: thuGoiHam is not a function
@@ -105,7 +106,8 @@ let thuGoiHam = function() {
   console.log("Hàm này sẽ không được gọi nếu gọi trước khi gán.");
 };
 ```
-</Callout>
+
+:::
 
 **Khi nào dùng cái nào?**
 - **Function Declarations** thường được dùng cho các hàm "chính", có vai trò rõ ràng trong chương trình của bạn. Việc hoisting có thể tiện lợi trong một số trường hợp.
@@ -179,9 +181,11 @@ lietKeTatCa(1, "hello", true, null);
 // null
 ```
 
-<Callout type="warning">
+:::warning[Warning]
+
 Đối tượng `arguments` không phải là một mảng thực sự (nó không có các phương thức của mảng như `forEach`, `map`). Để thao tác như mảng, bạn có thể chuyển nó thành mảng, ví dụ: `let argsArray = Array.from(arguments);`. Tuy nhiên, với sự ra đời của **rest parameters** (sẽ tìm hiểu ở phần sau), việc sử dụng `arguments` đã ít phổ biến hơn.
-</Callout>
+
+:::
 
 ## Giá Trị Trả Về (Return Values) - "Sản Phẩm Đầu Ra"
 
@@ -281,9 +285,11 @@ console.log(nguoiB); // { ten: 'Tí', tuoi: 25 }
 2.  **`this` không bị ràng buộc (lexical `this`):** Đây là điểm khác biệt quan trọng nhất. Arrow function không có `this` của riêng nó. Thay vào đó, nó "mượn" giá trị `this` của context (ngữ cảnh) bao quanh nó lúc nó được định nghĩa. Điều này rất hữu ích trong việc xử lý sự kiện hoặc khi làm việc với các phương thức của đối tượng mà cần truy cập `this` của đối tượng đó. (Chúng ta sẽ đào sâu hơn về `this` ở một bài khác nhé!)
 3.  **Không có đối tượng `arguments`:** Arrow function không có đối tượng `arguments` như hàm truyền thống. Nếu bạn cần truy cập tất cả các đối số, bạn nên sử dụng "rest parameters" (`...tenBien`).
 
-<Callout type="info">
+:::info[Info]
+
 Arrow function rất tuyệt vời cho các hàm callback (hàm được truyền làm đối số cho hàm khác) và các hàm xử lý logic đơn giản. Tuy nhiên, chúng không phải lúc nào cũng là lựa chọn tốt nhất để thay thế hoàn toàn hàm truyền thống, đặc biệt khi bạn cần hành vi của `this`แบบ truyền thống hoặc cần dùng làm constructor (hàm tạo đối tượng).
-</Callout>
+
+:::
 
 ## Tạm Kết Phần 1
 

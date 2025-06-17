@@ -6,18 +6,17 @@ authors: Simon
 tags: [introduction, javascript]
 ---
 
-:::warning
-
+:::warning[WARNING]
 - Anh em có thể đọc phần này để biết sâu hơn về JavaScript và tính ứng dụng của nó trong thực tiễn như thế nào thôi nhé.
 - Nếu anh em đã nắm rõ JavaScript rồi thì có thể đi tới phần [Cài đặt môi trường](/docs/intro.md).
-  :::
+:::
 
 ## Vậy rốt cuộc JavaScript là cái quái gì ?
 
 Được phát triển bởi Brendan Eich tại Netscape vào năm 1995, JavaScript là một ngôn ngữ lập trình linh hoạt và phổ biến.
 Ban đầu, nó được thiết kế để thêm tính năng tương tác vào các trang web, giúp cho các trang web trở nên sống động và
 tương tác hơn.
-:::info
+:::info[INFO]
 **JavaScript khác với Java, dù tên của chúng có phần giống nhau.**
 :::
 
@@ -29,11 +28,11 @@ JavaScript đã trải qua nhiều giai đoạn phát triển và nâng cấp k�
 2. **Thông dịch (interpreted)**: JavaScript là một ngôn ngữ thông dịch, tức là mã JavaScript được thực thi trực tiếp bởi trình duyệt mà không cần phải biên dịch trước. Điều này giúp quá trình phát triển và thử nghiệm trở nên nhanh chóng và linh hoạt.
 3. **Đa nền tảng (cross-platform)**: JavaScript có thể chạy trên hầu hết mọi nền tảng mà không cần thay đổi mã, miễn là nền tảng đó có trình duyệt hỗ trợ JavaScript. Điều này bao gồm cả máy tính để bàn, máy tính xách tay, điện thoại di động, và các thiết bị khác.
 4. **Động (dynamic)**: JavaScript là một ngôn ngữ lập trình động, cho phép thay đổi kiểu dữ liệu của biến trong quá trình thực thi chương trình.
-    :::danger
+    :::danger[DANGER]
     **Tuy ngôn ngữ lập trình động này mang lại sự linh hoạt, nhưng cũng có thể gây ra lỗi nếu không được kiểm soát cẩn thận.**
     :::
 5. **Hướng đối tượng (object-oriented)**: JavaScript hỗ trợ lập trình hướng đối tượng thông qua các đối tượng (objects) và nguyên mẫu (prototypes). Điều này giúp cấu trúc mã nguồn và quản lý dễ dàng hơn.
-    :::info
+    :::info[INFO]
     Lưu ý: JavaScript **không phải là ngôn ngữ hướng đối tượng hoàn toàn**, JavaScript chỉ hỗ trợ hướng đối tượng nhưng bản chất của JavaScript là **lập trình hàm (Functional Programming - FP)**.
     :::
 
@@ -52,12 +51,12 @@ Ngắn gọn và xúc tích, vì **bố mày đẹp trai hơn Java**.
 
 1. **Dễ học và sử dụng**: JavaScript có cú pháp tương đối dễ hiểu và dễ học, đặc biệt đối với những người mới bắt đầu.
 2. **Chạy trên mọi nền tảng**: JavaScript có thể chạy trên bất kỳ trình duyệt web nào mà không cần cấu hình thêm.
-   :::info
+   :::info[INFO]
    Có thể chạy cùng với HTML không, hoặc kết hợp với các Package Manager khác như: `npm`, `pnpm`, `yarn` và mới nhất là `bun`.
    :::
 3. **Tính tương tác cao**: Cho phép tạo ra các trang web và ứng dụng web tương tác, nâng cao trải nghiệm người dùng.
 4. **Thư viện và Framework phong phú**: Có rất nhiều thư viện và framework như React, Angular, và Vue.js cho Front-end và Express, MongoDB và NestJS cho back end, giúp hỗ trợ phát triển ứng dụng nhanh chóng và hiệu quả.
-   :::info
+   :::info[INFO]
    - **Với lập trình phía Ứng Dụng**: `React Native`, `Angular.io`, `NativeScript`, `PhoneGap`, `ElectronJS`, ...
    - **Với lập trình phía Web**: `React`, `Next`, `Vue`, `Angular`, `Svelte`, `ThreeJS`, ...
    - **Với lập trình phía Server**: `ExpressJS`, `tRPC`, `NestJS`, `Socket.io`, `FeathersJS`, ...
@@ -66,11 +65,11 @@ Ngắn gọn và xúc tích, vì **bố mày đẹp trai hơn Java**.
 <h3>Nhược điểm</h3>
 
 1.  **Bảo mật**: Do JavaScript chạy trên trình duyệt của người dùng, mã JavaScript có thể bị xem và sửa đổi dễ dàng, gây ra các vấn đề bảo mật.
-    :::tip
+    :::tip[TIP]
     Lấy ví dụ như khi làm việc với `React`, hãy **build project** trước khi deploy lên website.
     :::
 2.  **Khả năng hỗ trợ không đồng nhất:** Một số tính năng mới của JavaScript có thể không được hỗ trợ trên tất cả các trình duyệt, gây ra các vấn đề tương thích.
-    :::tip
+    :::tip[TIP]
     Anh em có thể check khả năng tương thích của các `built-in functions` của JavaScript thông qua website: [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Browser_support_for_JavaScript_APIs).
     :::
 3.  **Hiệu suất**: So với một số ngôn ngữ lập trình khác, JavaScript có thể không hiệu quả trong một số tình huống yêu cầu xử lý nặng nề.
@@ -104,7 +103,7 @@ Ngắn gọn và xúc tích, vì **bố mày đẹp trai hơn Java**.
 
         #### Thông qua ví dụ trên, anh em có thể thấy rằng việc không nêu rõ kiểu dữ liệu mình muốn dùng sẽ có thể đưa ra kết quả không mong muốn.
 
-            :::tip
+            :::tip[TIP]
             Để tránh việc kiểu dữ liệu đầu vào không mong muốn, chúng ta có thể sử dụng `TypeScript` thay vì `JavaScript`, hoặc **định nghĩa kiểu dữ liệu** bằng cách dùng `jsdoc` như sau:
 
             ```js title="src/add.js"
@@ -122,9 +121,7 @@ Ngắn gọn và xúc tích, vì **bố mày đẹp trai hơn Java**.
                 :::danger[Lưu Ý]
                 Việc sử dụng `jsdoc` chỉ giúp chúng ta **định nghĩa kiểu dữ liệu trong JavaScript**, nhưng sẽ không giúp chúng ta **phòng tránh** việc sử dụng sai kiểu dữ liệu. Vậy nên, **Be Responsive** :D
                 :::
-
             :::
-
     :::
 
 ## Áp dụng thực tiễn của JavaScript

@@ -3,8 +3,6 @@ title: Đối Tượng trong JavaScript (Phần 1)
 description: Tìm hiểu những kiến thức cơ bản về đối tượng trong JavaScript, bao gồm object literals, thuộc tính, phương thức và từ khóa 'this'.
 ---
 
-import { Callout } from 'nextra/components'
-
 # Đối Tượng trong JavaScript (Phần 1) - Xây Dựng Thế Giới Của Riêng Bạn
 
 Chào mừng các bạn đến với thế giới của **đối tượng (objects)** trong JavaScript! Đây là một trong những khái niệm trụ cột, nền tảng nhất của ngôn ngữ này. Nếu bạn đã từng nghe JavaScript là một ngôn ngữ "hướng đối tượng" (object-oriented) hoặc "dựa trên đối tượng" (object-based), thì đây chính là "nhân vật chính" mà chúng ta sắp tìm hiểu.
@@ -202,9 +200,11 @@ console.log("Máy ảnh sau khi xóa:", mayAnh);
 // Máy ảnh sau khi xóa: {hang: "Canon", model: "EOS R6"}
 ```
 
-<Callout type="info">
+:::info[Info]
+
 Toán tử `delete` trả về `true` nếu xóa thành công (hoặc nếu thuộc tính không tồn tại), và `false` nếu thuộc tính không thể xóa được (ví dụ, các thuộc tính kế thừa không thể xóa trực tiếp bằng `delete` trên đối tượng con). Nó chỉ xóa thuộc tính của chính đối tượng đó, không xóa thuộc tính từ prototype chain (sẽ học ở phần sau).
-</Callout>
+
+:::
 
 ## Phương Thức Đối Tượng (Object Methods) - Khi Đối Tượng "Hành Động"
 
@@ -253,7 +253,8 @@ Trong ví dụ `chienBinh`:
 
 Điều này cho phép phương thức truy cập và thao tác trên các thuộc tính khác của cùng một đối tượng.
 
-<Callout type="warning" emoji="⚠️">
+:::warning[⚠️ Warning]
+
 **Hành vi của `this` có thể thay đổi!** Như đã học ở bài về Hàm (Phần 2), giá trị của `this` phụ thuộc vào cách hàm được gọi. Nếu bạn tách một phương thức ra khỏi đối tượng của nó và gọi nó như một hàm thông thường, `this` bên trong nó có thể không còn trỏ đến đối tượng ban đầu nữa (mà có thể là `window` hoặc `undefined` trong strict mode).
 ```javascript
 let game = {
@@ -274,7 +275,8 @@ let boundStartFunction = game.start.bind(game);
 boundStartFunction(); // Starting Awesome Game (this đã được bind đúng)
 ```
 Chúng ta sẽ tìm hiểu kỹ hơn về các cách ràng buộc `this` và các trường hợp phức tạp của nó ở những phần sau.
-</Callout>
+
+:::
 
 ## Tạm Kết Phần 1 về Đối Tượng
 

@@ -3,8 +3,6 @@ title: Hàm trong JavaScript (Phần 2)
 description: Khám phá các khái niệm nâng cao về hàm trong JavaScript như scope, closures, từ khóa 'this', default và rest parameters.
 ---
 
-import { Callout } from 'nextra/components'
-
 # Hàm trong JavaScript (Phần 2) - Khai Phá Sức Mạnh Tiềm Ẩn
 
 Chào mừng các bạn quay trở lại với hành trình khám phá hàm trong JavaScript! Ở [Phần 1](/docs/javascript/07-functions-part-1), chúng ta đã làm quen với những khái niệm cơ bản như cách khai báo, tham số, giá trị trả về và arrow functions. Giờ đây, ở Phần 2, chúng ta sẽ cùng nhau "lặn sâu" hơn để khám phá những khía cạnh nâng cao và mạnh mẽ hơn của hàm. Những "bí thuật" này sẽ giúp bạn viết code JavaScript không chỉ chạy được mà còn thực sự hiệu quả, linh hoạt và "ảo diệu".
@@ -37,9 +35,11 @@ console.log(loiChaoToanCau); // Vẫn truy cập được
 // console.log(loiChaoCucBo); // Lỗi! loiChaoCucBo is not defined (vì nó là cục bộ của hàm chaoHoi)
 ```
 
-<Callout type="warning" emoji="️🚨">
+:::warning[🚨 Warning]
+
 **Cẩn thận với biến toàn cục!** Mặc dù tiện lợi, việc lạm dụng biến toàn cục có thể dẫn đến "xung đột tên" (khi nhiều phần của code cùng thay đổi một biến toàn cục mà không hay biết) và làm code khó theo dõi, khó gỡ lỗi hơn. Hãy cố gắng hạn chế sử dụng biến toàn cục nếu không thực sự cần thiết.
-</Callout>
+
+:::
 
 ### 2. Phạm Vi Cục Bộ / Phạm Vi Hàm (Local Scope / Function Scope)
 
@@ -98,11 +98,13 @@ kiemTraBlockScope();
 // Bên ngoài if, trong hàm: 1 2 5
 ```
 
-<Callout type="info" emoji="💡">
+:::info[💡 Info]
+
 **`var` vs `let`/`const` về scope:**
 - `var`: Có function scope (hoặc global scope nếu khai báo ngoài hàm). Nó không "tôn trọng" block scope.
 - `let`, `const`: Có block scope. Đây là lý do chính mà `let` và `const` được ưa chuộng hơn `var` trong JavaScript hiện đại, vì chúng giúp kiểm soát phạm vi biến chặt chẽ hơn, giảm thiểu lỗi.
-</Callout>
+
+:::
 
 ## Closures - "Tay Trong" Của Hàm
 
@@ -247,9 +249,12 @@ let nguoi = {
 nguoi.chaoHoi(); // Xin chào, tôi là Cò. Tôi 30 tuổi.
 // nguoi.thongTin();
 ```
-<Callout type="warning" emoji="️⚠️">
+
+:::warning[⚠️ Warning]
+
 **Lưu ý với hàm lồng bên trong phương thức!** Trong ví dụ `thongTin` ở trên, `this` bên trong `hamBenTrong` không còn trỏ đến `nguoi` nữa (nếu gọi theo kiểu hàm thường). Đây là một cạm bẫy phổ biến. Để khắc phục, người ta thường dùng `let self = this;` hoặc arrow functions.
-</Callout>
+
+:::
 
 ### 4. `this` trong Hàm Mũi Tên (Arrow Functions)
 
@@ -383,9 +388,11 @@ gioiThieuNhom("Sếp", "Nhân viên A", "Nhân viên B", "Thực tập sinh C");
 -   **Tính chọn lọc:** Rest parameters chỉ thu thập các đối số *chưa được đặt tên* trong khai báo hàm. Đối tượng `arguments` chứa *tất cả* các đối số được truyền vào.
 -   **Sử dụng trong Arrow Function:** Rest parameters hoạt động bình thường trong arrow function. Arrow function **không có** đối tượng `arguments` của riêng nó.
 
-<Callout type="info" emoji="👍">
+:::info[👍 Info]
+
 Trong JavaScript hiện đại, **rest parameters được ưa chuộng hơn** so với đối tượng `arguments` vì tính rõ ràng, dễ sử dụng và là một mảng thực sự.
-</Callout>
+
+:::
 
 ## Tổng Kết Phần 2
 

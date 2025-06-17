@@ -3,8 +3,6 @@ title: Luồng Điều Khiển trong JavaScript
 description: Tìm hiểu về các cấu trúc điều khiển luồng trong JavaScript như if/else, switch, vòng lặp for, while, do...while, break, continue và xử lý lỗi với try/catch/finally.
 ---
 
-import { Callout } from 'nextra/components'
-
 # Luồng Điều Khiển trong JavaScript (Control Flow)
 
 Chào các bạn! Trong hành trình "code dạo" với JavaScript, không phải lúc nào chúng ta cũng muốn các dòng lệnh chạy tuần tự từ trên xuống dưới. Sẽ có lúc bạn muốn chương trình "rẽ nhánh" để đưa ra quyết định, hoặc "lặp đi lặp lại" một công việc nào đó nhiều lần. İşte (đó là tiếng Thổ Nhĩ Kỳ, nghĩa là "đây này" hoặc "chính là nó"), những công cụ giúp bạn làm điều đó được gọi là **cấu trúc điều khiển luồng (control flow structures)**.
@@ -67,9 +65,11 @@ if (diem >= 8) {
 
 Chương trình sẽ kiểm tra các điều kiện từ trên xuống dưới. Điều kiện nào đúng đầu tiên, khối lệnh tương ứng sẽ được thực thi, và các `else if` hoặc `else` còn lại sẽ được bỏ qua.
 
-<Callout type="info">
+:::info[Info]
+
 Khối `else` cuối cùng là tùy chọn. Bạn có thể chỉ dùng `if` hoặc `if...else if` mà không có `else`.
-</Callout>
+
+:::
 
 ## Câu Lệnh `switch` (Switch Statements)
 
@@ -133,9 +133,11 @@ switch (homNay) {
 console.log("Hôm nay là:", tenThu);
 ```
 
-<Callout type="warning" emoji="⚠️">
+:::warning[⚠️ Warning]
+
 **Cẩn thận với "fall-through"!** Nếu bạn cố ý muốn nhiều `case` cùng thực thi một khối lệnh, bạn có thể bỏ `break`. Nhưng hãy chắc chắn đó là ý đồ của bạn, nếu không sẽ dễ gây ra lỗi khó tìm.
-</Callout>
+
+:::
 
 ```javascript
 // Ví dụ về fall-through (có chủ ý)
@@ -197,9 +199,11 @@ for (let i = 0; i < traiCay.length; i++) {
 }
 ```
 
-<Callout type="info">
+:::info[Info]
+
 JavaScript còn có các biến thể vòng lặp `for...in` (để duyệt qua các thuộc tính của đối tượng) và `for...of` (để duyệt qua các phần tử của các đối tượng có thể lặp lại như mảng, chuỗi). Chúng sẽ được tìm hiểu kỹ hơn ở các bài viết khác.
-</Callout>
+
+:::
 
 ## Vòng Lặp `while` (While Loops)
 
@@ -234,9 +238,11 @@ console.log("Chúc mừng năm mới!");
 // Chúc mừng năm mới!
 ```
 
-<Callout type="danger" emoji="🚨">
+:::danger[🚨 Danger]
+
 **Nguy cơ vòng lặp vô hạn!** Nếu `dieuKien` trong `while` không bao giờ trở thành `false`, chương trình của bạn sẽ bị "treo". Luôn đảm bảo rằng có một cơ chế nào đó bên trong vòng lặp để cuối cùng điều kiện cũng sẽ sai.
-</Callout>
+
+:::
 
 ## Vòng Lặp `do...while` (Do...while Loops)
 

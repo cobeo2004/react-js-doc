@@ -3,8 +3,6 @@ title: Đối Tượng trong JavaScript (Phần 2)
 description: Khám phá các khái niệm nâng cao về đối tượng trong JavaScript như prototype, kế thừa, ES6 classes, getters và setters.
 ---
 
-import { Callout } from 'nextra/components'
-
 # Đối Tượng trong JavaScript (Phần 2) - Sức Mạnh Của Kế Thừa và "Khuôn Đúc" Hiện Đại
 
 Chào mừng các bạn đã quay trở lại với hành trình khám phá đối tượng trong JavaScript! Ở [Phần 1](/docs/javascript/09-objects-part-1), chúng ta đã làm quen với cách tạo và sử dụng đối tượng cơ bản thông qua object literals, thuộc tính và phương thức. Giờ đây, ở Phần 2, chúng ta sẽ "đào sâu" hơn vào "cơ chế" bên trong của đối tượng, tìm hiểu về một trong những khái niệm cốt lõi và mạnh mẽ nhất của JavaScript: **kế thừa qua prototype (prototypal inheritance)**. Đồng thời, chúng ta cũng sẽ khám phá **ES6 Classes**, một cú pháp hiện đại và thân thiện hơn để làm việc với đối tượng và kế thừa, cùng với **getters và setters** để kiểm soát việc truy cập thuộc tính.
@@ -55,11 +53,13 @@ console.log(an.chaoHoi === binh.chaoHoi); // true
 -   Không tìm thấy, nó sẽ đi theo liên kết "bí mật" đến `Nguoi.prototype` và tìm `chaoHoi` ở đó.
 -   Tìm thấy! Phương thức được thực thi, và `this` bên trong `chaoHoi` sẽ trỏ đến `an`.
 
-<Callout type="info" emoji="💡">
+:::info[💡 Info]
+
 **Tại sao lại thêm vào `prototype`?**
 Nếu bạn định nghĩa phương thức trực tiếp bên trong hàm constructor (ví dụ `this.chao = function() {...}`), mỗi đối tượng (instance) được tạo ra sẽ có một bản sao riêng của phương thức đó. Điều này tốn bộ nhớ nếu bạn có nhiều instance.
 Bằng cách thêm phương thức vào `prototype`, tất cả các instance sẽ **chia sẻ cùng một bản sao** của phương thức đó, giúp tiết kiệm bộ nhớ và hiệu quả hơn.
-</Callout>
+
+:::
 
 ### 2. Liên Kết Prototype (`__proto__` và `Object.getPrototypeOf()`)
 
@@ -104,9 +104,11 @@ console.log("Năm sinh của An:", an.getNamSinh()); // (Năm hiện tại - 25)
 console.log("Năm sinh của Bình:", binh.getNamSinh()); // (Năm hiện tại - 30)
 ```
 
-<Callout type="warning" emoji="⚠️">
+:::warning[⚠️ Warning]
+
 **Không nên sửa đổi `prototype` của các đối tượng dựng sẵn** (built-in objects) như `Object.prototype`, `Array.prototype` trừ khi bạn thực sự biết mình đang làm gì. Việc này có thể gây ra xung đột với các thư viện khác hoặc các phiên bản JavaScript trong tương lai (gọi là "monkey patching" và thường không được khuyến khích).
-</Callout>
+
+:::
 
 ## ES6 Classes: "Khuôn Đúc" Hiện Đại Cho Đối Tượng
 
@@ -172,9 +174,11 @@ boeing787.catCanh();
 -   **Phương thức của instance (Instance Methods)**: Như `khoiDong()`, `dungLai()`. Chúng được định nghĩa bên trong class và tự động được thêm vào `TenClass.prototype`.
 -   **Phương thức tĩnh (Static Methods)**: Được đánh dấu bằng từ khóa `static`. Đây là các phương thức thuộc về chính class, không phải của các instance. Bạn gọi chúng trực tiếp trên class (ví dụ: `XeHoi.thongTinChung()`). Chúng không thể được gọi từ một instance. Static methods thường được dùng cho các hàm tiện ích liên quan đến class.
 
-<Callout type="info" emoji="💡">
+:::info[💡 Info]
+
 **Class Hoisting:** Class declarations không được hoisted như function declarations. Bạn phải khai báo class trước khi có thể sử dụng nó.
-</Callout>
+
+:::
 
 ### 2. Kế Thừa với `extends` và `super()`
 

@@ -3,8 +3,6 @@ title: JavaScript Modules (ES6 Modules) - Tổ Chức Code Chuyên Nghiệp
 description: Tìm hiểu về ES6 Modules trong JavaScript, cách sử dụng export, import, default exports để tổ chức code hiệu quả, dễ bảo trì và tái sử dụng.
 ---
 
-import { Callout } from 'nextra/components'
-
 # JavaScript Modules (ES6 Modules) - Tổ Chức Code Chuyên Nghiệp
 
 Chào các bạn! Khi các dự án JavaScript ngày càng lớn và phức tạp, việc giữ cho code của chúng ta gọn gàng, dễ hiểu và dễ bảo trì trở thành một thách thức lớn. Nếu tất cả code đều nằm trong một file khổng lồ, hoặc nếu các biến và hàm từ các file khác nhau "đụng độ" nhau trong không gian tên toàn cục (global namespace), chúng ta sẽ sớm lạc vào một "mớ bòng bong".
@@ -20,7 +18,8 @@ Sử dụng modules mang lại vô số lợi ích:
 4.  **Tránh Ô Nhiễm Global Namespace (Avoiding Global Namespace Pollution):** Các biến, hàm, class được khai báo trong một module chỉ "sống" bên trong module đó theo mặc định. Chúng không tự động trở thành biến toàn cục, giúp tránh xung đột tên không mong muốn.
 5.  **Quản Lý Phụ Thuộc (Dependency Management):** Modules cho phép bạn khai báo rõ ràng những gì chúng cần (imports) và những gì chúng cung cấp (exports), giúp việc theo dõi và quản lý các mối quan hệ giữa các phần của code trở nên dễ dàng.
 
-<Callout type="info">
+:::info[Info]
+
 **Bối Cảnh Lịch Sử (Ngắn Gọn):**
 Trước khi ES6 Modules ra đời, cộng đồng JavaScript đã tự tạo ra nhiều hệ thống module khác nhau để giải quyết vấn đề tổ chức code, ví dụ:
 -   **CommonJS (CJS):** Phổ biến trong môi trường Node.js, sử dụng `require()` để nhập và `module.exports` hoặc `exports` để xuất.
@@ -28,7 +27,8 @@ Trước khi ES6 Modules ra đời, cộng đồng JavaScript đã tự tạo ra
 -   **UMD (Universal Module Definition):** Cố gắng tạo ra một định dạng module có thể chạy được ở cả môi trường CommonJS và AMD.
 
 Tuy nhiên, ES6 Modules hiện là tiêu chuẩn chính thức và được hỗ trợ rộng rãi trong cả trình duyệt hiện đại và Node.js, mang lại một cách tiếp cận thống nhất. Bài viết này sẽ tập trung vào **ES6 Modules**.
-</Callout>
+
+:::
 
 ## `export`: "Xuất Khẩu" Hàng Hóa Từ Module
 
@@ -211,10 +211,13 @@ export default defaultConfig;
 // Export default một giá trị (ít phổ biến hơn cho giá trị đơn lẻ)
 export default "Đây là giá trị mặc định";
 ```
-<Callout type="info">
+
+:::info[Info]
+
 Bạn không thể `export default` trực tiếp với `let`, `const`, hoặc `var` theo kiểu `export default const myVar = 10;`. Bạn phải khai báo trước rồi `export default myVar;`.
 Tuy nhiên, với `function` và `class`, bạn có thể `export default function() {}` hoặc `export default class {}` (kể cả class/function ẩn danh).
-</Callout>
+
+:::
 
 ### "Nhập Khẩu Đặc Sản" - Tự Do Đặt Tên
 
