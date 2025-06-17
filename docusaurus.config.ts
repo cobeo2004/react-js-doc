@@ -1,42 +1,43 @@
-import { themes as prismThemes } from 'prism-react-renderer';
-import type { Config } from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import { themes as prismThemes } from "prism-react-renderer";
+import type { Config } from "@docusaurus/types";
+import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
-  title: 'Cò Đang Ngủ Chung Với React',
-  tagline: 'Website bổ ích và sáng tạo dành cho anh em ai chưa biết Javascript và React',
-  favicon: 'img/favicon.ico',
+  title: "Cò Đang Ngủ Chung Với React",
+  tagline:
+    "Website bổ ích và sáng tạo dành cho anh em ai chưa biết Javascript và React",
+  favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: 'https://cobeo2004.github.io',
+  url: "https://cobeo2004.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/react-js-doc/',
+  baseUrl: "/react-js-doc/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
+  onBrokenAnchors: "warn",
+  organizationName: "cobeo2004", // Usually your GitHub org/user name.
+  projectName: "react-js-doc", // Usually your repo name.
+  deploymentBranch: "main",
 
-  organizationName: 'cobeo2004', // Usually your GitHub org/user name.
-  projectName: 'react-js-doc', // Usually your repo name.
-  deploymentBranch: 'main',
-
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: "warn",
+  onBrokenMarkdownLinks: "warn",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'vi',
-    locales: ['en', 'vi'],
+    defaultLocale: "vi",
+    locales: ["en", "vi"],
   },
 
   presets: [
     [
-      'classic',
+      "classic",
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: "./sidebars.ts",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:
@@ -50,33 +51,32 @@ const config: Config = {
           //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       } satisfies Preset.Options,
     ],
   ],
-
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: 'React+JS Cùng Cò',
+      title: "React+JS Cùng Cò",
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/react-icon.svg',
+        alt: "My Site Logo",
+        src: "img/react-icon.svg",
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Tài Liệu',
+          type: "docSidebar",
+          sidebarId: "tutorialSidebar",
+          position: "left",
+          label: "Tài Liệu",
         },
-        { to: '/blog', label: 'Blog Nhảm', position: 'left' },
+        { to: "/blog", label: "Blog Nhảm", position: "left" },
         {
-          href: 'https://github.com/cobeo2004',
-          label: 'GitHub',
-          position: 'right',
+          href: "https://github.com/cobeo2004",
+          label: "GitHub",
+          position: "right",
         },
         // {
         //   type: "docsVersionDropdown",
@@ -85,44 +85,44 @@ const config: Config = {
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
-          title: 'Docs',
+          title: "Docs",
           items: [
             {
-              label: 'Tài Liệu',
-              to: '/docs/intro',
+              label: "Tài Liệu",
+              to: "/docs/intro",
             },
           ],
         },
         {
-          title: 'Community',
+          title: "Community",
           items: [
             {
-              label: 'Instagram',
-              href: 'https://www.instagram.com/immsimonnnn__/',
+              label: "Instagram",
+              href: "https://www.instagram.com/immsimonnnn__/",
             },
             {
-              label: 'Facebook',
-              href: 'https://www.facebook.com/profile.php?id=100022930086716',
+              label: "Facebook",
+              href: "https://www.facebook.com/profile.php?id=100022930086716",
             },
             {
-              label: 'LinkedIn',
-              href: 'https://www.linkedin.com/in/xu%C3%A2n-tu%E1%BA%A5n-minh-nguy%E1%BB%85n-7836822b5/',
+              label: "LinkedIn",
+              href: "https://www.linkedin.com/in/xu%C3%A2n-tu%E1%BA%A5n-minh-nguy%E1%BB%85n-7836822b5/",
             },
           ],
         },
         {
-          title: 'More',
+          title: "More",
           items: [
             {
-              label: 'Blog Nhảm',
-              to: '/blog',
+              label: "Blog Nhảm",
+              to: "/blog",
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/cobeo2004',
+              label: "GitHub",
+              href: "https://github.com/cobeo2004",
             },
           ],
         },

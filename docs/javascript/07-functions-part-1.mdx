@@ -1,4 +1,7 @@
 ---
+authors: Simon
+tags: [introduction, hello, foundation]
+sidebar_position: 7
 title: Hàm trong JavaScript (Phần 1)
 description: Tìm hiểu những kiến thức cơ bản về hàm trong JavaScript, bao gồm cách khai báo, tham số, giá trị trả về và arrow functions.
 ---
@@ -45,7 +48,7 @@ function chaoBan(ten) {
 }
 
 // Giờ thì "gọi" hàm thôi
-chaoBan("Cò");    // Kết quả: Chào bạn Cò! Chúc một ngày tốt lành!
+chaoBan("Cò"); // Kết quả: Chào bạn Cò! Chúc một ngày tốt lành!
 chaoBan("Simon"); // Kết quả: Chao bạn Simon! Chúc một ngày tốt lành!
 ```
 
@@ -54,6 +57,7 @@ Thấy không? Chỉ cần định nghĩa hàm `chaoBan` một lần, bạn có 
 :::info[💡 Info]
 
 **Hoisting với Function Declarations:** Một đặc điểm thú vị (và đôi khi hơi "ma thuật") của khai báo hàm là chúng được "hoisted" (đưa lên đầu). Điều này có nghĩa là bạn có thể gọi hàm trước cả khi bạn khai báo nó trong code.
+
 ```javascript
 // Gọi hàm trước khi khai báo
 xinChao(); // Vẫn chạy ngon ơ!
@@ -62,6 +66,7 @@ function xinChao() {
   console.log("Xin chào từ hàm được hoisted!");
 }
 ```
+
 Tuy nhiên, để code dễ đọc và dễ hiểu, tốt nhất là bạn nên khai báo hàm trước khi sử dụng nó nhé!
 
 :::
@@ -73,7 +78,7 @@ Biểu thức hàm là một cách khác để định nghĩa hàm. Thay vì "kh
 #### Cú pháp "gắn kết"
 
 ```javascript
-let tenBienChuaHam = function(thamSo1, thamSo2) {
+let tenBienChuaHam = function (thamSo1, thamSo2) {
   // Code để thực hiện công việc
   return ketQua;
 }; // Lưu ý dấu chấm phẩy ở cuối nếu đây là một phần của câu lệnh gán lớn hơn
@@ -88,7 +93,7 @@ let tenBienKhac = function tenHamNoiBo(thamSo1) {
 **Ví dụ tương tự hàm chào:**
 
 ```javascript
-let loiChao = function(ten) {
+let loiChao = function (ten) {
   console.log("Xin chào " + ten + " từ biểu thức hàm!");
 };
 
@@ -98,11 +103,12 @@ loiChao("Bo"); // Kết quả: Xin chào Bo từ biểu thức hàm!
 
 :::warning[⚠️ Warning]
 
-**Không có Hoisting cho Function Expressions (theo cách của declaration):** Biến `loiChao` ở trên được hoisted (vì nó là biến khai báo với `let`), nhưng bản thân hàm thì không. Nghĩa là, bạn không thể gọi `loiChao()` *trước* dòng lệnh gán hàm cho nó.
+**Không có Hoisting cho Function Expressions (theo cách của declaration):** Biến `loiChao` ở trên được hoisted (vì nó là biến khai báo với `let`), nhưng bản thân hàm thì không. Nghĩa là, bạn không thể gọi `loiChao()` _trước_ dòng lệnh gán hàm cho nó.
+
 ```javascript
 // thuGoiHam(); // Lỗi! TypeError: thuGoiHam is not a function
 
-let thuGoiHam = function() {
+let thuGoiHam = function () {
   console.log("Hàm này sẽ không được gọi nếu gọi trước khi gán.");
 };
 ```
@@ -110,6 +116,7 @@ let thuGoiHam = function() {
 :::
 
 **Khi nào dùng cái nào?**
+
 - **Function Declarations** thường được dùng cho các hàm "chính", có vai trò rõ ràng trong chương trình của bạn. Việc hoisting có thể tiện lợi trong một số trường hợp.
 - **Function Expressions** rất hữu ích khi bạn muốn truyền một hàm như một đối số cho một hàm khác (callback functions), hoặc khi bạn muốn định nghĩa một hàm dựa trên một điều kiện nào đó. Chúng cũng thường được dùng trong các IIFE (Immediately Invoked Function Expressions - Biểu thức hàm được gọi ngay lập tức), một khái niệm nâng cao hơn.
 
@@ -118,8 +125,10 @@ let thuGoiHam = function() {
 Đây là hai khái niệm dễ gây nhầm lẫn, nhưng thực ra lại rất đơn giản nếu bạn hình dung đúng.
 
 - **Tham số (Parameters):** Là những cái tên biến bạn liệt kê trong dấu ngoặc đơn `()` khi **định nghĩa** (khai báo hoặc tạo biểu thức) hàm. Chúng giống như những "chỗ giữ chỗ" cho các giá trị mà hàm sẽ nhận vào khi nó được gọi.
+
   ```javascript
-  function tinhTong(soA, soB) { // soA và soB là THAM SỐ
+  function tinhTong(soA, soB) {
+    // soA và soB là THAM SỐ
     console.log(soA + soB);
   }
   ```
@@ -152,12 +161,14 @@ Từ phiên bản ES6, bạn có thể gán giá trị mặc định cho tham s�
 
 ```javascript
 function loiMoi(tenKhach = "bạn", diaDiem = "bữa tiệc") {
-  console.log("Chào " + tenKhach + ", mời bạn đến " + diaDiem + " của chúng tôi!");
+  console.log(
+    "Chào " + tenKhach + ", mời bạn đến " + diaDiem + " của chúng tôi!"
+  );
 }
 
 loiMoi("Anh Ba", "đám cưới"); // Chào Anh Ba, mời bạn đến đám cưới của chúng tôi!
-loiMoi("Chị Tư");           // Chào Chị Tư, mời bạn đến bữa tiệc của chúng tôi! (diaDiem lấy giá trị mặc định)
-loiMoi();                   // Chào bạn, mời bạn đến bữa tiệc của chúng tôi! (cả hai lấy giá trị mặc định)
+loiMoi("Chị Tư"); // Chào Chị Tư, mời bạn đến bữa tiệc của chúng tôi! (diaDiem lấy giá trị mặc định)
+loiMoi(); // Chào bạn, mời bạn đến bữa tiệc của chúng tôi! (cả hai lấy giá trị mặc định)
 ```
 
 ### Đối tượng `arguments` (Arguments Object)
@@ -192,6 +203,7 @@ lietKeTatCa(1, "hello", true, null);
 Không phải hàm nào cũng chỉ im lặng làm việc rồi thôi. Nhiều hàm sau khi hoàn thành nhiệm vụ sẽ "trả về" một kết quả nào đó. Đó chính là lúc từ khóa `return` phát huy tác dụng.
 
 Khi JavaScript gặp câu lệnh `return` trong một hàm, nó sẽ:
+
 1.  **Dừng ngay lập tức** việc thực thi hàm đó (bất kể còn code nào phía sau `return` trong hàm hay không).
 2.  **Trả về giá trị** được chỉ định sau `return` cho nơi đã gọi hàm.
 
@@ -226,16 +238,17 @@ Một hàm chỉ có thể `return` một giá trị duy nhất. Tuy nhiên, gi�
 
 ```javascript
 function thongTinCaNhan(ten, tuoi) {
-  return { // Trả về một đối tượng
+  return {
+    // Trả về một đối tượng
     tenNguoiDung: ten,
     tuoiNguoiDung: tuoi,
-    namSinh: new Date().getFullYear() - tuoi
+    namSinh: new Date().getFullYear() - tuoi,
   };
 }
 
 let nguoiA = thongTinCaNhan("Tèo", 30);
 console.log(nguoiA.tenNguoiDung); // Tèo
-console.log(nguoiA.namSinh);    // (Năm hiện tại - 30)
+console.log(nguoiA.namSinh); // (Năm hiện tại - 30)
 ```
 
 ## Hàm Mũi Tên (Arrow Functions - ES6) - Cú Pháp Ngắn Gọn, Hiện Đại
@@ -252,13 +265,13 @@ const chaoBuoiSang = () => {
 chaoBuoiSang();
 
 // Cách 2: Một tham số (có thể bỏ qua dấu ngoặc đơn quanh tham số)
-const binhPhuong = x => {
+const binhPhuong = (x) => {
   return x * x;
 };
 // Hoặc ngắn hơn nữa nếu hàm chỉ có một dòng return
-const binhPhuongNgon = x => x * x; // Tự động return giá trị của biểu thức x * x
+const binhPhuongNgon = (x) => x * x; // Tự động return giá trị của biểu thức x * x
 
-console.log("Bình phương của 5 là:", binhPhuong(5));       // 25
+console.log("Bình phương của 5 là:", binhPhuong(5)); // 25
 console.log("Bình phương (ngắn) của 6 là:", binhPhuongNgon(6)); // 36
 
 // Cách 3: Nhiều tham số (bắt buộc có dấu ngoặc đơn)
@@ -268,8 +281,8 @@ const phepNhan = (a, b) => {
 // Hoặc ngắn hơn
 const phepNhanNgon = (a, b) => a * b;
 
-console.log("Tích của 7 và 8 là:", phepNhan(7, 8));             // 56
-console.log("Tích (ngắn) của 3 và 4 là:", phepNhanNgon(3, 4));   // 12
+console.log("Tích của 7 và 8 là:", phepNhan(7, 8)); // 56
+console.log("Tích (ngắn) của 3 và 4 là:", phepNhanNgon(3, 4)); // 12
 
 // Cách 4: Trả về một đối tượng (cần dấu ngoặc đơn bao quanh đối tượng)
 const taoNguoi = (ten, tuoi) => ({ ten: ten, tuoi: tuoi });

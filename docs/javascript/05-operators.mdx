@@ -1,6 +1,9 @@
 ---
+sidebar_position: 5
 title: Toán Tử trong JavaScript
 description: Tìm hiểu về các loại toán tử trong JavaScript, cách sử dụng và các ví dụ minh họa.
+authors: Simon
+tags: [introduction, hello, foundation]
 ---
 
 # Toán Tử trong JavaScript (Operators)
@@ -81,8 +84,9 @@ console.log("7 là số lẻ phải không? (dư 1 là lẻ):", kiemTraChanLe);
 ### Tăng lên một đơn vị (`++`)
 
 Tăng giá trị của một biến số lên 1. Có hai cách dùng:
-- **Tiền tố (`++bien`):** Tăng giá trị của `bien` lên 1, *sau đó* trả về giá trị mới.
-- **Hậu tố (`bien++`):** Trả về giá trị *hiện tại* của `bien`, *sau đó* tăng giá trị của `bien` lên 1.
+
+- **Tiền tố (`++bien`):** Tăng giá trị của `bien` lên 1, _sau đó_ trả về giá trị mới.
+- **Hậu tố (`bien++`):** Trả về giá trị _hiện tại_ của `bien`, _sau đó_ tăng giá trị của `bien` lên 1.
 
 ```javascript
 let soA = 5;
@@ -97,8 +101,9 @@ console.log("soB:", soB, "ketQuaB:", ketQuaB);
 ### Giảm đi một đơn vị (`--`)
 
 Tương tự như `++`, nhưng là giảm giá trị của biến số đi 1.
-- **Tiền tố (`--bien`):** Giảm giá trị của `bien` đi 1, *sau đó* trả về giá trị mới.
-- **Hậu tố (`bien--`):** Trả về giá trị *hiện tại* của `bien`, *sau đó* giảm giá trị của `bien` đi 1.
+
+- **Tiền tố (`--bien`):** Giảm giá trị của `bien` đi 1, _sau đó_ trả về giá trị mới.
+- **Hậu tố (`bien--`):** Trả về giá trị _hiện tại_ của `bien`, _sau đó_ giảm giá trị của `bien` đi 1.
 
 ```javascript
 let soC = 10;
@@ -184,13 +189,13 @@ Toán tử so sánh giúp chúng ta "cân đo đong đếm" các giá trị, xem
 
 ### Bằng (`==`)
 
-So sánh xem hai giá trị có bằng nhau không, *sau khi đã thực hiện chuyển đổi kiểu dữ liệu nếu cần*.
+So sánh xem hai giá trị có bằng nhau không, _sau khi đã thực hiện chuyển đổi kiểu dữ liệu nếu cần_.
 Ví dụ, `5 == "5"` sẽ là `true` vì JavaScript sẽ chuyển chuỗi `"5"` thành số `5` trước khi so sánh.
 
 ```javascript
-console.log("5 == 8:", 5 == 8);     // false
-console.log("5 == 5:", 5 == 5);     // true
-console.log("5 == '5':", 5 == '5'); // true (chuỗi '5' được chuyển thành số 5)
+console.log("5 == 8:", 5 == 8); // false
+console.log("5 == 5:", 5 == 5); // true
+console.log("5 == '5':", 5 == "5"); // true (chuỗi '5' được chuyển thành số 5)
 ```
 
 :::warning[Warning]
@@ -201,12 +206,12 @@ console.log("5 == '5':", 5 == '5'); // true (chuỗi '5' được chuyển thàn
 
 ### Bằng tuyệt đối (`===`)
 
-So sánh xem hai giá trị có bằng nhau không *VÀ* có cùng kiểu dữ liệu không. Không có chuyển đổi kiểu tự động.
+So sánh xem hai giá trị có bằng nhau không _VÀ_ có cùng kiểu dữ liệu không. Không có chuyển đổi kiểu tự động.
 Đây là cách so sánh "an toàn" và được khuyên dùng hơn.
 
 ```javascript
-console.log("5 === 5:", 5 === 5);     // true (cùng giá trị, cùng kiểu số)
-console.log("5 === '5':", 5 === '5'); // false (khác kiểu dữ liệu)
+console.log("5 === 5:", 5 === 5); // true (cùng giá trị, cùng kiểu số)
+console.log("5 === '5':", 5 === "5"); // false (khác kiểu dữ liệu)
 ```
 
 ### Không bằng (`!=`)
@@ -214,19 +219,19 @@ console.log("5 === '5':", 5 === '5'); // false (khác kiểu dữ liệu)
 Ngược lại với `==`. Trả về `true` nếu hai giá trị không bằng nhau (sau khi chuyển đổi kiểu).
 
 ```javascript
-console.log("5 != 8:", 5 != 8);     // true
-console.log("5 != 5:", 5 != 5);     // false
-console.log("5 != '5':", 5 != '5'); // false (vì '5' chuyển thành 5, nên chúng bằng nhau)
+console.log("5 != 8:", 5 != 8); // true
+console.log("5 != 5:", 5 != 5); // false
+console.log("5 != '5':", 5 != "5"); // false (vì '5' chuyển thành 5, nên chúng bằng nhau)
 ```
 
 ### Không bằng tuyệt đối (`!==`)
 
-Ngược lại với `===`. Trả về `true` nếu hai giá trị không bằng nhau *HOẶC* không cùng kiểu dữ liệu.
+Ngược lại với `===`. Trả về `true` nếu hai giá trị không bằng nhau _HOẶC_ không cùng kiểu dữ liệu.
 
 ```javascript
-console.log("5 !== 5:", 5 !== 5);     // false
-console.log("5 !== '5':", 5 !== '5'); // true (khác kiểu dữ liệu)
-console.log("5 !== 8:", 5 !== 8);     // true
+console.log("5 !== 5:", 5 !== 5); // false
+console.log("5 !== '5':", 5 !== "5"); // true (khác kiểu dữ liệu)
+console.log("5 !== 8:", 5 !== 8); // true
 ```
 
 ### Lớn hơn (`>`)
@@ -236,7 +241,7 @@ Kiểm tra xem giá trị bên trái có lớn hơn giá trị bên phải khôn
 ```javascript
 console.log("10 > 5:", 10 > 5); // true
 console.log("5 > 10:", 5 > 10); // false
-console.log("5 > 5:", 5 > 5);   // false
+console.log("5 > 5:", 5 > 5); // false
 ```
 
 ### Nhỏ hơn (`<`)
@@ -246,7 +251,7 @@ Kiểm tra xem giá trị bên trái có nhỏ hơn giá trị bên phải khôn
 ```javascript
 console.log("10 < 5:", 10 < 5); // false
 console.log("5 < 10:", 5 < 10); // true
-console.log("5 < 5:", 5 < 5);   // false
+console.log("5 < 5:", 5 < 5); // false
 ```
 
 ### Lớn hơn hoặc bằng (`>=`)
@@ -256,7 +261,7 @@ Kiểm tra xem giá trị bên trái có lớn hơn hoặc bằng giá trị bê
 ```javascript
 console.log("10 >= 5:", 10 >= 5); // true
 console.log("5 >= 10:", 5 >= 10); // false
-console.log("5 >= 5:", 5 >= 5);   // true
+console.log("5 >= 5:", 5 >= 5); // true
 ```
 
 ### Nhỏ hơn hoặc bằng (`<=`)
@@ -266,7 +271,7 @@ Kiểm tra xem giá trị bên trái có nhỏ hơn hoặc bằng giá trị bê
 ```javascript
 console.log("10 <= 5:", 10 <= 5); // false
 console.log("5 <= 10:", 5 <= 10); // true
-console.log("5 <= 5:", 5 <= 5);   // true
+console.log("5 <= 5:", 5 <= 5); // true
 ```
 
 ## Toán Tử Logic (Logical Operators)
@@ -275,7 +280,7 @@ Toán tử logic cho phép chúng ta kết hợp nhiều điều kiện lại v�
 
 ### Và (`&&` - Logical AND)
 
-Trả về `true` nếu *cả hai* điều kiện (toán hạng) đều là `true`. Nếu một trong hai là `false`, kết quả sẽ là `false`.
+Trả về `true` nếu _cả hai_ điều kiện (toán hạng) đều là `true`. Nếu một trong hai là `false`, kết quả sẽ là `false`.
 
 ```javascript
 let coBangLai = true;
@@ -295,7 +300,7 @@ console.log("Mua được hàng (một cái false):", coTien && cuaHangMoCua); /
 
 ### Hoặc (`||` - Logical OR)
 
-Trả về `true` nếu *ít nhất một trong hai* điều kiện là `true`. Chỉ trả về `false` nếu cả hai đều `false`.
+Trả về `true` nếu _ít nhất một trong hai_ điều kiện là `true`. Chỉ trả về `false` nếu cả hai đều `false`.
 
 ```javascript
 let troiMua = true;
@@ -431,13 +436,15 @@ Nếu `dieu_kien` là `false`, biểu thức sẽ trả về `gia_tri_neu_sai`.
 
 ```javascript
 let tuoiNguoiDung = 20;
-let thongBao = (tuoiNguoiDung >= 18) ? "Bạn đã đủ tuổi" : "Bạn chưa đủ tuổi";
+let thongBao = tuoiNguoiDung >= 18 ? "Bạn đã đủ tuổi" : "Bạn chưa đủ tuổi";
 console.log(thongBao); // "Bạn đã đủ tuổi"
 
 let diemTrungBinh = 7.5;
-let xepLoai = (diemTrungBinh >= 8) ? "Giỏi" : (diemTrungBinh >= 6.5) ? "Khá" : "Trung bình";
+let xepLoai =
+  diemTrungBinh >= 8 ? "Giỏi" : diemTrungBinh >= 6.5 ? "Khá" : "Trung bình";
 console.log("Xếp loại của bạn là:", xepLoai); // "Khá"
 ```
+
 Toán tử ba ngôi giúp code ngắn gọn hơn trong nhiều trường hợp gán giá trị dựa trên điều kiện đơn giản.
 
 ## Toán Tử `typeof`
@@ -445,17 +452,18 @@ Toán tử ba ngôi giúp code ngắn gọn hơn trong nhiều trường hợp g
 Toán tử `typeof` trả về một chuỗi cho biết kiểu dữ liệu của một biến hoặc một biểu thức.
 
 ```javascript
-console.log("typeof 5:", typeof 5);                     // "number"
-console.log("typeof 'Xin chào':", typeof "Xin chào");   // "string"
-console.log("typeof true:", typeof true);                 // "boolean"
-console.log("typeof undefined:", typeof undefined);         // "undefined"
-console.log("typeof null:", typeof null);                 // "object" (Đây là một đặc điểm lâu đời của JS, null thực ra là một kiểu nguyên thủy)
-console.log("typeof {ten: 'Cò'}:", typeof {ten: "Cò"});   // "object"
-console.log("typeof [1, 2, 3]:", typeof [1, 2, 3]);       // "object" (Mảng cũng là một loại object)
-console.log("typeof function(){}:", typeof function(){}); // "function"
-console.log("typeof Symbol():", typeof Symbol());         // "symbol"
-console.log("typeof NaN:", typeof NaN);                   // "number" (NaN là viết tắt của Not-a-Number, nhưng kiểu của nó vẫn là number)
+console.log("typeof 5:", typeof 5); // "number"
+console.log("typeof 'Xin chào':", typeof "Xin chào"); // "string"
+console.log("typeof true:", typeof true); // "boolean"
+console.log("typeof undefined:", typeof undefined); // "undefined"
+console.log("typeof null:", typeof null); // "object" (Đây là một đặc điểm lâu đời của JS, null thực ra là một kiểu nguyên thủy)
+console.log("typeof {ten: 'Cò'}:", typeof { ten: "Cò" }); // "object"
+console.log("typeof [1, 2, 3]:", typeof [1, 2, 3]); // "object" (Mảng cũng là một loại object)
+console.log("typeof function(){}:", typeof function () {}); // "function"
+console.log("typeof Symbol():", typeof Symbol()); // "symbol"
+console.log("typeof NaN:", typeof NaN); // "number" (NaN là viết tắt của Not-a-Number, nhưng kiểu của nó vẫn là number)
 ```
+
 `typeof` rất hữu ích để kiểm tra kiểu dữ liệu trước khi thực hiện các thao tác cụ thể.
 
 ## Toán Tử `instanceof`
@@ -468,16 +476,16 @@ function Dog(name) {
 }
 let myDog = new Dog("Buddy");
 
-console.log("myDog instanceof Dog:", myDog instanceof Dog);         // true
-console.log("myDog instanceof Object:", myDog instanceof Object);     // true (vì Dog kế thừa từ Object)
-console.log("myDog instanceof Array:", myDog instanceof Array);       // false
+console.log("myDog instanceof Dog:", myDog instanceof Dog); // true
+console.log("myDog instanceof Object:", myDog instanceof Object); // true (vì Dog kế thừa từ Object)
+console.log("myDog instanceof Array:", myDog instanceof Array); // false
 
 let ngaySinh = new Date();
-console.log("ngaySinh instanceof Date:", ngaySinh instanceof Date);     // true
+console.log("ngaySinh instanceof Date:", ngaySinh instanceof Date); // true
 
 let arr = [1, 2, 3];
-console.log("arr instanceof Array:", arr instanceof Array);       // true
-console.log("arr instanceof Object:", arr instanceof Object);     // true (vì Array kế thừa từ Object)
+console.log("arr instanceof Array:", arr instanceof Array); // true
+console.log("arr instanceof Object:", arr instanceof Object); // true (vì Array kế thừa từ Object)
 ```
 
 `instanceof` hữu ích khi bạn làm việc với các đối tượng phức tạp và cần xác định "nguồn gốc" hoặc loại của chúng.
