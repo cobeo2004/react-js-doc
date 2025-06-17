@@ -1,0 +1,396 @@
+---
+title: Hàm trong JavaScript (Phần 2)
+description: Khám phá các khái niệm nâng cao về hàm trong JavaScript như scope, closures, từ khóa 'this', default và rest parameters.
+---
+
+import { Callout } from 'nextra/components'
+
+# Hàm trong JavaScript (Phần 2) - Khai Phá Sức Mạnh Tiềm Ẩn
+
+Chào mừng các bạn quay trở lại với hành trình khám phá hàm trong JavaScript! Ở [Phần 1](/docs/javascript/07-functions-part-1), chúng ta đã làm quen với những khái niệm cơ bản như cách khai báo, tham số, giá trị trả về và arrow functions. Giờ đây, ở Phần 2, chúng ta sẽ cùng nhau "lặn sâu" hơn để khám phá những khía cạnh nâng cao và mạnh mẽ hơn của hàm. Những "bí thuật" này sẽ giúp bạn viết code JavaScript không chỉ chạy được mà còn thực sự hiệu quả, linh hoạt và "ảo diệu".
+
+Chúng ta sẽ tìm hiểu về "lãnh địa" của biến (scope), khả năng "ghi nhớ" của hàm (closures), "nhân vật" bí ẩn `this`, cùng với những "trợ thủ đắc lực" như default và rest parameters. Nào, cùng thắt dây an toàn và tiếp tục cuộc phiêu lưu!
+
+## Phạm Vi của Biến (Scope) - "Lãnh Địa" Riêng
+
+Scope (phạm vi) quyết định "tầm nhìn" và "tuổi thọ" của các biến trong code của bạn. Nói cách khác, nó xác định từ đâu bạn có thể truy cập một biến và khi nào biến đó sẽ "biến mất". Hiểu rõ về scope là cực kỳ quan trọng để tránh những lỗi không đáng có và viết code có tổ chức.
+
+### 1. Phạm Vi Toàn Cục (Global Scope)
+
+Biến được khai báo bên ngoài tất cả các hàm hoặc khối lệnh (`{}`) sẽ thuộc về phạm vi toàn cục. Chúng có thể được truy cập từ bất kỳ đâu trong chương trình của bạn, cả bên trong lẫn bên ngoài các hàm.
+
+```javascript
+let loiChaoToanCau = "Chào cả thế giới từ global scope!";
+
+function chaoHoi() {
+  console.log(loiChaoToanCau); // Truy cập được biến toàn cục
+  let loiChaoCucBo = "Chào bạn từ bên trong hàm!";
+  console.log(loiChaoCucBo);
+}
+
+chaoHoi();
+// Kết quả:
+// Chào cả thế giới từ global scope!
+// Chào bạn từ bên trong hàm!
+
+console.log(loiChaoToanCau); // Vẫn truy cập được
+// console.log(loiChaoCucBo); // Lỗi! loiChaoCucBo is not defined (vì nó là cục bộ của hàm chaoHoi)
+```
+
+<Callout type="warning" emoji="️🚨">
+**Cẩn thận với biến toàn cục!** Mặc dù tiện lợi, việc lạm dụng biến toàn cục có thể dẫn đến "xung đột tên" (khi nhiều phần của code cùng thay đổi một biến toàn cục mà không hay biết) và làm code khó theo dõi, khó gỡ lỗi hơn. Hãy cố gắng hạn chế sử dụng biến toàn cục nếu không thực sự cần thiết.
+</Callout>
+
+### 2. Phạm Vi Cục Bộ / Phạm Vi Hàm (Local Scope / Function Scope)
+
+Biến được khai báo bên trong một hàm (sử dụng `var`, `let`, hoặc `const`) sẽ thuộc về phạm vi cục bộ của hàm đó. Chúng chỉ có thể được truy cập từ bên trong hàm đó mà thôi. Mỗi khi hàm được gọi, một scope mới sẽ được tạo ra cho các biến cục bộ của nó.
+
+```javascript
+function tinhToan() {
+  let x = 10; // x là biến cục bộ của tinhToan
+  var y = 20; // y cũng là biến cục bộ của tinhToan
+
+  if (true) {
+    let z = 30; // z là biến cục bộ khối (block scope) của if
+    console.log("Trong if:", x, y, z);
+  }
+  // console.log(z); // Lỗi! z is not defined ở đây
+
+  console.log("Trong hàm tinhToan:", x, y);
+}
+
+tinhToan();
+// Kết quả:
+// Trong if: 10 20 30
+// Trong hàm tinhToan: 10 20
+
+// console.log(x); // Lỗi! x is not defined
+// console.log(y); // Lỗi! y is not defined
+```
+
+### 3. Phạm Vi Khối (Block Scope - với `let` và `const`)
+
+Từ ES6, JavaScript giới thiệu `let` và `const`, cho phép tạo ra các biến có phạm vi khối (block scope). Một "khối" là bất cứ thứ gì được bao quanh bởi cặp dấu ngoặc nhọn `{}`, ví dụ như trong câu lệnh `if`, `for`, `while`, hoặc thậm chí là một khối độc lập.
+
+Biến khai báo bằng `let` hoặc `const` bên trong một khối chỉ "sống" và có thể truy cập được từ bên trong khối đó và các khối con của nó.
+
+```javascript
+function kiemTraBlockScope() {
+  let a = 1;
+  const b = 2;
+
+  if (true) {
+    let c = 3; // c có block scope, chỉ tồn tại trong if này
+    const d = 4; // d cũng vậy
+    var e = 5;   // e có function scope, "thoát" ra khỏi if
+
+    console.log("Bên trong if:", a, b, c, d, e);
+  }
+
+  console.log("Bên ngoài if, trong hàm:", a, b, e);
+  // console.log(c); // Lỗi! c is not defined
+  // console.log(d); // Lỗi! d is not defined
+}
+
+kiemTraBlockScope();
+// Kết quả:
+// Bên trong if: 1 2 3 4 5
+// Bên ngoài if, trong hàm: 1 2 5
+```
+
+<Callout type="info" emoji="💡">
+**`var` vs `let`/`const` về scope:**
+- `var`: Có function scope (hoặc global scope nếu khai báo ngoài hàm). Nó không "tôn trọng" block scope.
+- `let`, `const`: Có block scope. Đây là lý do chính mà `let` và `const` được ưa chuộng hơn `var` trong JavaScript hiện đại, vì chúng giúp kiểm soát phạm vi biến chặt chẽ hơn, giảm thiểu lỗi.
+</Callout>
+
+## Closures - "Tay Trong" Của Hàm
+
+Closures là một trong những khái niệm "ảo diệu" và mạnh mẽ nhất của JavaScript. Nghe thì có vẻ hơi trừu tượng, nhưng một khi đã "thấm", bạn sẽ thấy nó cực kỳ hữu ích.
+
+Nói một cách nôm na, closure xảy ra khi một hàm "con" (inner function) có thể truy cập và sử dụng các biến của hàm "cha" (outer function), ngay cả khi hàm "cha" đã thực thi xong và "biến mất". Cứ như thể hàm con giữ lại một "ba lô" chứa các biến của hàm cha vậy!
+
+### Tại sao lại có "phép màu" này?
+
+Khi một hàm được tạo ra trong JavaScript, nó không chỉ nhớ code của chính nó mà còn nhớ cả **lexical environment (môi trường từ vựng)** nơi nó được tạo ra. Môi trường này bao gồm tất cả các biến cục bộ mà hàm đó có thể truy cập tại thời điểm nó được định nghĩa.
+
+**Xem ví dụ để "ngộ" ra nhé:**
+
+```javascript
+function hamCha() {
+  let loiChao = "Xin chào từ hàm Cha!";
+  let soDem = 0;
+
+  function hamCon() {
+    soDem++;
+    console.log(loiChao + " Bạn đã gọi lần thứ " + soDem);
+  }
+
+  return hamCon; // Hàm Cha trả về hàm Con
+}
+
+let chucNangChao = hamCha(); // Gọi hamCha(), nó trả về hamCon và gán cho chucNangChao
+// Tại thời điểm này, hamCha đã thực thi xong.
+// Biến loiChao và soDem đáng lẽ phải "biến mất".
+
+chucNangChao(); // Kết quả: Xin chào từ hàm Cha! Bạn đã gọi lần thứ 1
+chucNangChao(); // Kết quả: Xin chào từ hàm Cha! Bạn đã gọi lần thứ 2
+chucNangChao(); // Kết quả: Xin chào từ hàm Cha! Bạn đã gọi lần thứ 3
+```
+
+Bạn thấy không? Mặc dù `hamCha()` đã chạy xong từ lâu, nhưng `chucNangChao` (chính là `hamCon` được trả về) vẫn "nhớ" và truy cập được biến `loiChao`, và thậm chí còn thay đổi được biến `soDem`. Đó chính là closure đó! `hamCon` đã "đóng gói" (closed over) môi trường của `hamCha`.
+
+### Ứng dụng thực tế của Closures:
+
+1.  **Tạo biến riêng tư (Private Variables / Data Encapsulation):**
+    JavaScript không có từ khóa `private` như các ngôn ngữ hướng đối tượng khác. Closures cung cấp một cách để mô phỏng điều này.
+
+    ```javascript
+    function taoBoDem() {
+      let _dem = 0; // Biến này là "riêng tư"
+
+      return {
+        tang: function() { _dem++; },
+        giam: function() { _dem--; },
+        giaTri: function() { return _dem; }
+      };
+    }
+
+    let boDemCuaToi = taoBoDem();
+    boDemCuaToi.tang();
+    boDemCuaToi.tang();
+    console.log("Giá trị bộ đếm:", boDemCuaToi.giaTri()); // Giá trị bộ đếm: 2
+    // console.log(boDemCuaToi._dem); // Lỗi! _dem is not defined (không truy cập trực tiếp được)
+    ```
+    Ở đây, `_dem` không thể được truy cập từ bên ngoài `taoBoDem`, chỉ có thể thông qua các phương thức được trả về.
+
+2.  **Duy trì trạng thái (Maintaining State):**
+    Như ví dụ `chucNangChao` ở trên, closure giúp duy trì trạng thái của biến `soDem` qua nhiều lần gọi hàm. Điều này hữu ích trong việc tạo các hàm generator, quản lý sự kiện, v.v.
+
+3.  **Callbacks và Function Factories (Hàm tạo ra hàm):**
+    Closures rất quan trọng khi làm việc với các hàm callback, đặc biệt là trong các tác vụ bất đồng bộ, để đảm bảo callback có quyền truy cập vào đúng dữ liệu khi nó được thực thi.
+
+    ```javascript
+    function taoHamNhanVoi(heSo) {
+      return function(soKhac) { // Hàm này là một closure
+        return soKhac * heSo;
+      };
+    }
+
+    let nhanVoi5 = taoHamNhanVoi(5);
+    console.log("3 nhân 5 là:", nhanVoi5(3)); // 15
+
+    let nhanVoi10 = taoHamNhanVoi(10);
+    console.log("7 nhân 10 là:", nhanVoi10(7)); // 70
+    ```
+
+Closures là một công cụ mạnh mẽ. Hiểu chúng sẽ giúp bạn viết code JavaScript tinh tế và hiệu quả hơn rất nhiều!
+
+## Từ Khóa `this` - "Nhân Vật" Đa Nhân Cách
+
+Từ khóa `this` trong JavaScript có lẽ là một trong những khái niệm gây bối rối nhất cho người mới học (và đôi khi cả người đã có kinh nghiệm!). Giá trị của `this` không cố định, mà phụ thuộc hoàn toàn vào **ngữ cảnh (context)** mà hàm được gọi. `this` trỏ đến "chủ sở hữu" của hàm đang được thực thi.
+
+Hãy cùng xem xét các trường hợp phổ biến:
+
+### 1. `this` trong Ngữ Cảnh Toàn Cục (Global Context)
+
+Khi `this` được sử dụng bên ngoài bất kỳ hàm nào (trong global scope):
+-   Trong trình duyệt, `this` sẽ trỏ đến đối tượng `window`.
+-   Trong Node.js, `this` sẽ trỏ đến đối tượng `global` (hoặc `module.exports` trong một số trường hợp khi ở trong module).
+
+```javascript
+console.log(this === window); // Trong trình duyệt: true
+this.tenBienToanCuc = "Tôi là biến toàn cục";
+console.log(window.tenBienToanCuc); // "Tôi là biến toàn cục"
+```
+
+### 2. `this` trong Lời Gọi Hàm Thông Thường (Regular Function Calls)
+
+Khi một hàm thông thường (không phải là phương thức của đối tượng hay arrow function) được gọi:
+-   Trong "strict mode" (`'use strict';`), `this` sẽ là `undefined`.
+-   Trong "non-strict mode" (chế độ không nghiêm ngặt), `this` sẽ trỏ về đối tượng toàn cục (`window` trong trình duyệt). Đây là một hành vi dễ gây lỗi, nên `'use strict';` được khuyến khích.
+
+```javascript
+function kiemTraThis1() {
+  'use strict';
+  console.log("Hàm thường (strict):", this); // undefined
+}
+kiemTraThis1();
+
+function kiemTraThis2() {
+  console.log("Hàm thường (non-strict):", this); // window (trong trình duyệt)
+}
+// kiemTraThis2(); // Nếu chạy trong môi trường non-strict
+```
+
+### 3. `this` trong Lời Gọi Phương Thức (Method Calls)
+
+Khi một hàm được gọi như một phương thức của một đối tượng, `this` sẽ trỏ đến chính đối tượng đó.
+
+```javascript
+let nguoi = {
+  ten: "Cò",
+  tuoi: 30,
+  chaoHoi: function() {
+    console.log("Xin chào, tôi là " + this.ten + ". Tôi " + this.tuoi + " tuổi.");
+    // 'this' ở đây trỏ đến đối tượng 'nguoi'
+  },
+  thongTin: function() {
+    function hamBenTrong() {
+        // 'use strict'; // Nếu có strict mode, this ở đây sẽ là undefined
+        console.log("this bên trong hàm lồng:", this); // window (non-strict) hoặc undefined (strict)
+    }
+    hamBenTrong();
+  }
+};
+
+nguoi.chaoHoi(); // Xin chào, tôi là Cò. Tôi 30 tuổi.
+// nguoi.thongTin();
+```
+<Callout type="warning" emoji="️⚠️">
+**Lưu ý với hàm lồng bên trong phương thức!** Trong ví dụ `thongTin` ở trên, `this` bên trong `hamBenTrong` không còn trỏ đến `nguoi` nữa (nếu gọi theo kiểu hàm thường). Đây là một cạm bẫy phổ biến. Để khắc phục, người ta thường dùng `let self = this;` hoặc arrow functions.
+</Callout>
+
+### 4. `this` trong Hàm Mũi Tên (Arrow Functions)
+
+Arrow functions không có `this` của riêng nó. Thay vào đó, nó "thừa hưởng" giá trị `this` từ **môi trường từ vựng (lexical scope)** bao quanh nó tại thời điểm nó được định nghĩa.
+
+```javascript
+let gameThu = {
+  ten: "GamerPro",
+  diem: [100, 150, 200],
+  tongDiem: function() {
+    console.log("this trong tongDiem (hàm thường):", this); // trỏ đến gameThu
+    this.diem.forEach(d => {
+      // Arrow function ở đây "thừa hưởng" this từ tongDiem
+      console.log("this trong forEach (arrow function):", this); // vẫn trỏ đến gameThu
+      // Nếu dùng hàm thường: this.ten sẽ là undefined (hoặc lỗi trong strict mode)
+      console.log(this.ten + " có điểm: " + d);
+    });
+  }
+};
+
+gameThu.tongDiem();
+```
+Đây là lý do arrow function rất hữu ích cho các hàm callback hoặc các hàm lồng nhau, nơi bạn muốn giữ nguyên giá trị `this` của ngữ cảnh bên ngoài.
+
+### 5. `this` với `call()`, `apply()`, và `bind()`
+
+JavaScript cung cấp ba phương thức của `Function.prototype` để bạn có thể **chủ động thiết lập** giá trị của `this` cho một hàm khi gọi nó, bất kể hàm đó được định nghĩa hay gọi như thế nào.
+
+-   **`call(thisArg, arg1, arg2, ...)`**: Gọi hàm với `this` được đặt thành `thisArg`, và các đối số `arg1, arg2, ...` được truyền vào riêng lẻ.
+    ```javascript
+    function gioiThieu(chucVu, thanhPho) {
+      console.log(`Tôi là ${this.ten}, ${chucVu} ở ${thanhPho}.`);
+    }
+    let nguoiA = { ten: "An" };
+    let nguoiB = { ten: "Bình" };
+
+    gioiThieu.call(nguoiA, "Lập trình viên", "Hà Nội"); // Tôi là An, Lập trình viên ở Hà Nội.
+    gioiThieu.call(nguoiB, "Nhà thiết kế", "TP.HCM");   // Tôi là Bình, Nhà thiết kế ở TP.HCM.
+    ```
+
+-   **`apply(thisArg, [argsArray])`**: Tương tự `call`, nhưng các đối số được truyền vào dưới dạng một mảng (hoặc một đối tượng giống mảng).
+    ```javascript
+    let args = ["Quản lý dự án", "Đà Nẵng"];
+    gioiThieu.apply(nguoiA, args); // Tôi là An, Quản lý dự án ở Đà Nẵng.
+    ```
+    `apply` rất hữu ích khi bạn có một mảng các đối số.
+
+-   **`bind(thisArg, arg1, arg2, ...)`**: Không gọi hàm ngay lập tức, mà **tạo ra một hàm mới** với `this` được "ràng buộc" vĩnh viễn với `thisArg` (và các đối số ban đầu `arg1, arg2,...` nếu có). Hàm mới này sau đó có thể được gọi như bình thường.
+    ```javascript
+    let gioiThieuAn = gioiThieu.bind(nguoiA, "Chuyên gia AI");
+    gioiThieuAn("Đà Lạt"); // Tôi là An, Chuyên gia AI ở Đà Lạt.
+
+    let nguoiC = {
+      ten: "Chi",
+      chao: function() {
+        console.log("Xin chào từ " + this.ten);
+      }
+    };
+    // let chaoCuaChi = nguoiC.chao;
+    // chaoCuaChi(); // Lỗi hoặc this là window/undefined, vì ngữ cảnh đã thay đổi
+
+    let chaoCuaChiRangBuoc = nguoiC.chao.bind(nguoiC);
+    chaoCuaChiRangBuoc(); // Xin chào từ Chi (this đã được bind đúng)
+    ```
+    `bind` cực kỳ hữu ích trong việc xử lý sự kiện hoặc khi truyền phương thức làm callback.
+
+Nắm vững `this` đòi hỏi thực hành và chú ý đến ngữ cảnh gọi hàm. Nó là một khía cạnh tinh tế nhưng rất quan trọng của JavaScript.
+
+## Tham Số Mặc Định (Default Parameters - ES6) - Điểm Lại
+
+Như đã đề cập ngắn gọn ở Phần 1, ES6 cho phép bạn đặt giá trị mặc định cho các tham số của hàm. Nếu một đối số không được truyền cho tham số đó khi gọi hàm (hoặc nếu đối số là `undefined`), tham số sẽ tự động lấy giá trị mặc định.
+
+```javascript
+function taoNguoiDung(ten, tuoi = 18, vaiTro = "nguoiDung") {
+  console.log(`Tên: ${ten}, Tuổi: ${tuoi}, Vai trò: ${vaiTro}`);
+}
+
+taoNguoiDung("Mạnh", 25, "quanTriVien"); // Tên: Mạnh, Tuổi: 25, Vai trò: quanTriVien
+taoNguoiDung("Linh", undefined, "bienTapVien"); // Tên: Linh, Tuổi: 18, Vai trò: bienTapVien (tuoi lấy giá trị mặc định)
+taoNguoiDung("Dũng"); // Tên: Dũng, Tuổi: 18, Vai trò: nguoiDung (tuoi và vaiTro lấy giá trị mặc định)
+
+// Giá trị mặc định có thể là biểu thức hoặc kết quả gọi hàm khác
+let demId = 0;
+function taoIdMacDinh() {
+  demId++;
+  return `id_${demId}`;
+}
+
+function taoSanPham(tenSP, id = taoIdMacDinh()) {
+  console.log(`Sản phẩm: ${tenSP}, ID: ${id}`);
+}
+
+taoSanPham("Laptop Xịn"); // Sản phẩm: Laptop Xịn, ID: id_1
+taoSanPham("Chuột Gaming"); // Sản phẩm: Chuột Gaming, ID: id_2
+taoSanPham("Bàn Phím Cơ", "custom_keyboard_001"); // Sản phẩm: Bàn Phím Cơ, ID: custom_keyboard_001
+```
+Tham số mặc định giúp code của bạn linh hoạt hơn và giảm bớt việc phải kiểm tra `undefined` cho các tham số tùy chọn.
+
+## Tham Số Còn Lại (Rest Parameters - ES6) - Gom Nhặt Tất Cả
+
+Rest parameters (`...tenBien`) cho phép một hàm nhận một số lượng đối số không xác định dưới dạng một **mảng thực sự**. Nó "gom" tất cả các đối số còn lại (sau các tham số đã được đặt tên, nếu có) vào một mảng.
+
+```javascript
+function tinhTongTatCa(...cacSo) { // cacSo sẽ là một mảng
+  let tong = 0;
+  for (let so of cacSo) {
+    tong += so;
+  }
+  console.log("Các số nhận được:", cacSo);
+  return tong;
+}
+
+console.log("Tổng 1, 2, 3 là:", tinhTongTatCa(1, 2, 3)); // Các số nhận được: [1, 2, 3] -> Tổng 1, 2, 3 là: 6
+console.log("Tổng 10, 20, 30, 40 là:", tinhTongTatCa(10, 20, 30, 40)); // Các số nhận được: [10, 20, 30, 40] -> Tổng 10, 20, 30, 40 là: 100
+console.log("Không có số nào:", tinhTongTatCa()); // Các số nhận được: [] -> Không có số nào: 0
+
+// Kết hợp với tham số thường
+function gioiThieuNhom(truongNhom, ...thanhVien) {
+  console.log("Trưởng nhóm là:", truongNhom);
+  console.log("Các thành viên còn lại:", thanhVien.join(", "));
+}
+
+gioiThieuNhom("Sếp", "Nhân viên A", "Nhân viên B", "Thực tập sinh C");
+// Trưởng nhóm là: Sếp
+// Các thành viên còn lại: Nhân viên A, Nhân viên B, Thực tập sinh C
+```
+
+### Rest Parameters vs `arguments` Object
+
+-   **Kiểu dữ liệu:** Rest parameters (`...tenBien`) là một **mảng thực sự**, có đầy đủ các phương thức của mảng (`map`, `filter`, `forEach`, ...). Đối tượng `arguments` chỉ là một đối tượng *giống mảng*, không có các phương thức này trực tiếp.
+-   **Tính chọn lọc:** Rest parameters chỉ thu thập các đối số *chưa được đặt tên* trong khai báo hàm. Đối tượng `arguments` chứa *tất cả* các đối số được truyền vào.
+-   **Sử dụng trong Arrow Function:** Rest parameters hoạt động bình thường trong arrow function. Arrow function **không có** đối tượng `arguments` của riêng nó.
+
+<Callout type="info" emoji="👍">
+Trong JavaScript hiện đại, **rest parameters được ưa chuộng hơn** so với đối tượng `arguments` vì tính rõ ràng, dễ sử dụng và là một mảng thực sự.
+</Callout>
+
+## Tổng Kết Phần 2
+
+Chúng ta vừa đi qua một chặng đường khá dài và khám phá những "vùng đất" sâu hơn của hàm trong JavaScript. Từ việc hiểu rõ "lãnh thổ" của biến với **scope**, "phép thuật" của **closures**, sự "biến hóa khôn lường" của từ khóa **`this`**, cho đến sự tiện lợi của **default parameters** và **rest parameters**.
+
+Những khái niệm này có thể ban đầu hơi "khó nhằn", nhưng chúng là chìa khóa để bạn thực sự làm chủ JavaScript và viết ra những đoạn code không chỉ hoạt động đúng mà còn hiệu quả, dễ bảo trì và tận dụng được hết sức mạnh của ngôn ngữ. Đừng ngần ngại đọc lại, thử nghiệm với các ví dụ và áp dụng chúng vào các dự án của bạn. Càng thực hành nhiều, bạn sẽ càng "thấm" và sử dụng chúng một cách tự nhiên.
+
+Hẹn gặp lại các bạn trong những chủ đề thú vị khác của JavaScript!

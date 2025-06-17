@@ -1,0 +1,349 @@
+---
+title: JavaScript Modules (ES6 Modules) - Tổ Chức Code Chuyên Nghiệp
+description: Tìm hiểu về ES6 Modules trong JavaScript, cách sử dụng export, import, default exports để tổ chức code hiệu quả, dễ bảo trì và tái sử dụng.
+---
+
+import { Callout } from 'nextra/components'
+
+# JavaScript Modules (ES6 Modules) - Tổ Chức Code Chuyên Nghiệp
+
+Chào các bạn! Khi các dự án JavaScript ngày càng lớn và phức tạp, việc giữ cho code của chúng ta gọn gàng, dễ hiểu và dễ bảo trì trở thành một thách thức lớn. Nếu tất cả code đều nằm trong một file khổng lồ, hoặc nếu các biến và hàm từ các file khác nhau "đụng độ" nhau trong không gian tên toàn cục (global namespace), chúng ta sẽ sớm lạc vào một "mớ bòng bong".
+
+Đây chính là lúc **Modules (Mô-đun)** trong JavaScript ra đời như một vị cứu tinh! ES6 Modules (còn gọi là ECMAScript Modules) là một hệ thống module chuẩn hóa, được tích hợp sẵn vào ngôn ngữ JavaScript, cho phép chúng ta chia nhỏ code thành các file (module) độc lập, mỗi file có một mục đích và không gian tên riêng.
+
+### Tại Sao Phải "Chia Để Trị" với Modules?
+
+Sử dụng modules mang lại vô số lợi ích:
+1.  **Tổ Chức Code (Code Organization):** Mỗi module tập trung vào một chức năng hoặc một tập hợp các chức năng liên quan. Điều này làm cho cấu trúc dự án rõ ràng hơn nhiều.
+2.  **Tái Sử Dụng (Reusability):** Bạn có thể dễ dàng sử dụng lại các module hữu ích trong nhiều phần khác nhau của dự án, hoặc thậm chí trong các dự án khác.
+3.  **Dễ Bảo Trì (Maintainability):** Khi cần sửa lỗi hoặc cập nhật một chức năng, bạn chỉ cần tập trung vào module cụ thể đó mà không sợ ảnh hưởng đến các phần khác.
+4.  **Tránh Ô Nhiễm Global Namespace (Avoiding Global Namespace Pollution):** Các biến, hàm, class được khai báo trong một module chỉ "sống" bên trong module đó theo mặc định. Chúng không tự động trở thành biến toàn cục, giúp tránh xung đột tên không mong muốn.
+5.  **Quản Lý Phụ Thuộc (Dependency Management):** Modules cho phép bạn khai báo rõ ràng những gì chúng cần (imports) và những gì chúng cung cấp (exports), giúp việc theo dõi và quản lý các mối quan hệ giữa các phần của code trở nên dễ dàng.
+
+<Callout type="info">
+**Bối Cảnh Lịch Sử (Ngắn Gọn):**
+Trước khi ES6 Modules ra đời, cộng đồng JavaScript đã tự tạo ra nhiều hệ thống module khác nhau để giải quyết vấn đề tổ chức code, ví dụ:
+-   **CommonJS (CJS):** Phổ biến trong môi trường Node.js, sử dụng `require()` để nhập và `module.exports` hoặc `exports` để xuất.
+-   **AMD (Asynchronous Module Definition):** Dùng cho trình duyệt, nổi bật với thư viện RequireJS, tập trung vào việc tải module bất đồng bộ.
+-   **UMD (Universal Module Definition):** Cố gắng tạo ra một định dạng module có thể chạy được ở cả môi trường CommonJS và AMD.
+
+Tuy nhiên, ES6 Modules hiện là tiêu chuẩn chính thức và được hỗ trợ rộng rãi trong cả trình duyệt hiện đại và Node.js, mang lại một cách tiếp cận thống nhất. Bài viết này sẽ tập trung vào **ES6 Modules**.
+</Callout>
+
+## `export`: "Xuất Khẩu" Hàng Hóa Từ Module
+
+Để một module khác có thể sử dụng được "hàng hóa" (biến, hàm, class) từ module của bạn, bạn cần phải "xuất khẩu" (export) chúng. Có hai loại export chính: **Named Exports** (xuất khẩu theo tên) và **Default Export** (xuất khẩu mặc định).
+
+### 1. "Xuất Khẩu" Chọn Lọc với Named Exports
+
+Khi module của bạn có nhiều "món hàng" mà bạn muốn chia sẻ, named exports là lựa chọn tuyệt vời. Bạn có thể "đóng gói" và "gửi đi" từng món một, và người "nhận hàng" (module khác) có thể chọn lựa chính xác những gì họ cần.
+
+#### Cách 1: "Dán Nhãn" Trực Tiếp Khi Khai Báo
+
+Bạn có thể đặt từ khóa `export` ngay trước khi khai báo biến (`let`, `const`, `var`), hàm (`function`, `async function`), hoặc class:
+
+```javascript
+// === file: mathUtils.js ===
+export const PI = 3.1415926535;
+export let E = 2.71828;
+
+export function tinhTong(a, b) {
+  return a + b;
+}
+
+export class MayTinhBoTui {
+  constructor(ten) {
+    this.ten = ten;
+  }
+  cong(a,b) { return a + b; }
+}
+
+// Bạn cũng có thể export một generator function
+export function* demSo() {
+  yield 1; yield 2; yield 3;
+}
+```
+Với cách này, `PI`, `E`, `tinhTong`, `MayTinhBoTui`, và `demSo` đều sẵn sàng để được "nhập khẩu" ở nơi khác.
+
+#### Cách 2: "Lên Danh Sách" Xuất Khẩu Ở Cuối File
+
+Hoặc, bạn có thể khai báo mọi thứ trước, rồi tạo một "danh sách các món hàng cần xuất khẩu" ở cuối module, đặt trong dấu ngoặc nhọn `{}`.
+
+```javascript
+// === file: stringUtils.js ===
+const PHIEN_BAN = "1.0.2"; // Biến này không được export, chỉ dùng nội bộ
+
+function vietHoaChuDau(str) {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function demSoTu(str) {
+  if (!str) return 0;
+  return str.trim().split(/\s+/).length;
+}
+
+// "Đóng gói" và "gửi đi" nè
+export { vietHoaChuDau, demSoTu };
+// PHIEN_BAN không được liệt kê ở đây nên không được export
+```
+
+#### "Đổi Tên Hàng" Khi Xuất Khẩu (Dùng `as`)
+
+Đôi khi, tên "món hàng" trong module của bạn có thể không phù hợp khi "xuất khẩu", hoặc bạn muốn tránh xung đột tên tiềm ẩn, hoặc đơn giản là muốn có một tên "công khai" khác. Lúc này, `as` sẽ giúp bạn "dán nhãn mới" cho món hàng đó khi nó được xuất đi.
+
+```javascript
+// === file: dataProcessor.js ===
+function xuLyDuLieuTho() {
+  // ... logic phức tạp để xử lý dữ liệu thô
+  return { daXuLy: true, data: [1, 2, 3] };
+}
+
+function luuTruDuLieu(data) {
+  // ... logic lưu trữ
+  console.log("Đã lưu trữ:", data);
+}
+
+// Đổi tên khi export
+export {
+  xuLyDuLieuTho as processRawData,
+  luuTruDuLieu as saveDataToStorage
+};
+```
+Giờ đây, khi module khác "nhập khẩu", họ sẽ dùng tên `processRawData` và `saveDataToStorage`.
+
+## `import`: "Nhập Khẩu" Hàng Hóa Vào Module
+
+Sau khi một module đã "xuất khẩu" hàng hóa, các module khác có thể "nhập khẩu" (import) chúng để sử dụng.
+
+### 1. "Nhập Khẩu" Hàng Chọn Lọc (Named Imports)
+
+Nếu một module đã export nhiều thứ bằng named exports, bạn có thể chỉ import những thứ bạn thực sự cần, đặt tên chúng trong dấu ngoặc nhọn `{}`.
+
+```javascript
+// === file: main.js ===
+// Giả sử mathUtils.js và stringUtils.js ở cùng thư mục
+import { PI, tinhTong } from './mathUtils.js';
+import { vietHoaChuDau } from './stringUtils.js';
+
+console.log("Số PI là:", PI); // 3.1415926535
+console.log("Tổng của 5 và 7 là:", tinhTong(5, 7)); // 12
+
+let tenCuaToi = "cò";
+console.log("Tên đã chuẩn hóa:", vietHoaChuDau(tenCuaToi)); // Cò
+```
+-   Đường dẫn đến module (ví dụ: `./mathUtils.js`) thường là tương đối (relative) so với file hiện tại.
+-   Bạn phải sử dụng đúng tên đã được export (trừ khi bạn đổi tên khi import).
+
+### 2. "Nhập Khẩu" Toàn Bộ Hàng Hóa Dưới Một Cái Tên (Namespace Import)
+
+Đôi khi, bạn muốn import tất cả named exports từ một module và gom chúng lại thành một đối tượng duy nhất. Lúc này, `import * as <TenDaiDien>` sẽ ra tay.
+
+```javascript
+// === file: app.js ===
+import * as maths from './mathUtils.js'; // maths là một đối tượng
+import * as strings from './stringUtils.js';
+
+console.log("Epsilon của toán học:", maths.E);
+console.log("Tổng 10 và 20:", maths.tinhTong(10, 20));
+
+let mayTinh = new maths.MayTinhBoTui("Casio");
+console.log(mayTinh.cong(1,2));
+
+console.log("Chuỗi 'javascript' viết hoa chữ đầu:", strings.vietHoaChuDau("javascript"));
+```
+`maths` và `strings` giờ đây là các đối tượng, mỗi thuộc tính của chúng tương ứng với một named export từ module gốc.
+
+### 3. "Đổi Tên Hàng" Khi Nhập Khẩu (Dùng `as`)
+
+Tương tự như khi export, bạn cũng có thể đổi tên một named import để tránh xung đột tên hoặc để có một cái tên dễ hiểu hơn trong module hiện tại.
+
+```javascript
+// === file: anotherApp.js ===
+import { PI as soPi, tinhTong as congHaiSo } from './mathUtils.js';
+import { processRawData as xuLyData } from './dataProcessor.js'; // Nhớ dataProcessor đã đổi tên khi export
+
+console.log("Giá trị Pi gần đúng:", soPi);
+console.log("15 + 25 =", congHaiSo(15, 25));
+
+let duLieuDaXuLy = xuLyData();
+console.log(duLieuDaXuLy); // { daXuLy: true, data: [1, 2, 3] }
+```
+
+## "Xuất Khẩu" Mặc Định với `export default` - "Đặc Sản" Của Module
+
+Mỗi module có thể có **một và chỉ một** "món hàng đặc biệt" được gọi là **default export (xuất khẩu mặc định)**. Đây thường là thứ quan trọng nhất, hoặc là thứ duy nhất mà module đó muốn cung cấp.
+
+Ví dụ, một module có thể chỉ export một class chính, một hàm chính, hoặc một đối tượng cấu hình.
+
+### Cách "Đóng Gói Đặc Sản"
+
+Bạn có thể `export default` trực tiếp một giá trị, một biểu thức, một hàm, hoặc một class.
+
+```javascript
+// === file: myClass.js ===
+// Export default một class
+export default class UserProfile {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  display() {
+    console.log(`Tên: ${this.name}, Tuổi: ${this.age}`);
+  }
+}
+
+// === file: myFunction.js ===
+// Export default một hàm
+export default function sayHello(name) {
+  return `Hello, ${name}!`;
+}
+
+// === file: myConfig.js ===
+// Export default một đối tượng
+const defaultConfig = {
+  apiKey: "YOUR_API_KEY",
+  timeout: 5000
+};
+export default defaultConfig;
+
+// === file: myValue.js ===
+// Export default một giá trị (ít phổ biến hơn cho giá trị đơn lẻ)
+export default "Đây là giá trị mặc định";
+```
+<Callout type="info">
+Bạn không thể `export default` trực tiếp với `let`, `const`, hoặc `var` theo kiểu `export default const myVar = 10;`. Bạn phải khai báo trước rồi `export default myVar;`.
+Tuy nhiên, với `function` và `class`, bạn có thể `export default function() {}` hoặc `export default class {}` (kể cả class/function ẩn danh).
+</Callout>
+
+### "Nhập Khẩu Đặc Sản" - Tự Do Đặt Tên
+
+Khi import một default export, bạn **không cần dùng dấu ngoặc nhọn `{}`**, và bạn có thể **đặt bất kỳ tên nào** bạn muốn cho "đặc sản" đó khi nhận về.
+
+```javascript
+// === file: mainApp.js ===
+import MyUser from './myClass.js'; // Tên MyUser là do bạn tự đặt
+import greet from './myFunction.js'; // Tên greet cũng vậy
+import config from './myConfig.js';
+import someValue from './myValue.js';
+
+const user = new MyUser("Bình An", 30);
+user.display(); // Tên: Bình An, Tuổi: 30
+
+console.log(greet("Thế Giới")); // Hello, Thế Giới!
+console.log("API Key:", config.apiKey); // YOUR_API_KEY
+console.log("Giá trị từ myValue:", someValue); // Đây là giá trị mặc định
+```
+
+## Kết Hợp Default Export và Named Exports
+
+Một module hoàn toàn có thể có cả default export và nhiều named exports.
+
+```javascript
+// === file: logger.js ===
+const VERSION = "1.0.0";
+
+function logMessage(message, level = "info") {
+  console.log(`[${level.toUpperCase()} - ${new Date().toISOString()}] ${message}`);
+}
+
+export function warn(message) {
+  logMessage(message, "warn");
+}
+
+export function error(message) {
+  logMessage(message, "error");
+}
+
+// Default export là hàm log chính
+export default logMessage;
+
+// Bạn cũng có thể export VERSION nếu muốn
+export { VERSION };
+```
+
+**Cách import khi có cả hai:**
+
+```javascript
+// === file: service.js ===
+// Import default export (tên `ghiLog`) và named exports (warn, error, VERSION)
+import ghiLog, { warn, error as logError, VERSION as LoggerVersion } from './logger.js';
+
+ghiLog("Dịch vụ đã khởi động."); // Gọi default export
+warn("Có một cảnh báo nhỏ.");    // Gọi named export
+logError("Đã xảy ra lỗi nghiêm trọng!"); // Gọi named export đã đổi tên
+
+console.log("Phiên bản Logger:", LoggerVersion);
+```
+
+## Những Lưu Ý Quan Trọng Khi "Chơi" Với Modules
+
+### 1. `<script type="module">` trên Trình Duyệt
+
+Để trình duyệt hiểu và xử lý code JavaScript có sử dụng ES6 Modules, bạn phải khai báo thẻ `<script>` của mình với thuộc tính `type="module"`:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ES6 Modules Demo</title>
+</head>
+<body>
+  <!-- main.js sử dụng import/export -->
+  <script type="module" src="main.js"></script>
+
+  <!-- moduleUtils.js cũng là một module -->
+  <!-- <script type="module" src="moduleUtils.js"></script> -->
+  <!-- Bạn không cần phải load từng module riêng lẻ như thế này nếu main.js đã import chúng -->
+</body>
+</html>
+```
+Trình duyệt sẽ tự động xử lý việc tải các module được `import` bên trong `main.js`.
+
+### 2. Đường Dẫn File Khi Import
+
+-   **Thường là tương đối (Relative paths):** Bắt đầu bằng `./` (cùng thư mục) hoặc `../` (thư mục cha). Ví dụ: `import { myFunc } from './utils.js';`.
+-   **Hoặc tuyệt đối (Absolute paths):** Bắt đầu bằng `/` (tính từ gốc của domain). Ít dùng hơn cho các module tự viết, thường dùng cho các thư viện được phục vụ từ gốc.
+-   **URL:** Bạn thậm chí có thể import từ một URL đầy đủ (ví dụ: từ một CDN), nhưng hãy cẩn thận về vấn đề bảo mật và CORS.
+-   **Không cần đuôi `.js`?** Trong một số môi trường build hoặc Node.js với cấu hình nhất định, bạn có thể bỏ qua đuôi `.js`. Tuy nhiên, trên trình duyệt thuần túy, việc ghi rõ đuôi file (ví dụ: `.js` hoặc `.mjs`) thường là bắt buộc hoặc an toàn hơn.
+
+### 3. Modules Luôn Ở "Strict Mode"
+
+Code bên trong ES6 modules (cả được import và file gốc có `type="module"`) tự động được thực thi ở **chế độ nghiêm ngặt (strict mode)**. Bạn không cần phải viết `'use strict';` ở đầu file nữa. Điều này giúp tránh một số lỗi ngầm và làm code an toàn hơn.
+
+### 4. Modules Chỉ Thực Thi Một Lần
+
+Một module chỉ được tải và thực thi **một lần duy nhất**, ngay cả khi nó được `import` ở nhiều nơi khác nhau trong ứng dụng của bạn. Kết quả của lần thực thi đầu tiên (các đối tượng, hàm, giá trị đã được export) sẽ được "cached" (lưu trữ tạm) và tái sử dụng cho các lần import sau. Điều này đảm bảo tính nhất quán và tránh việc chạy lại code khởi tạo không cần thiết.
+
+```javascript
+// === file: counter.js ===
+let count = 0;
+console.log("Module counter.js đang được thực thi!");
+
+export function increment() {
+  count++;
+  return count;
+}
+export function getCount() {
+  return count;
+}
+
+// === file: app1.js ===
+import { increment, getCount } from './counter.js';
+console.log("App1:", increment()); // Module counter.js đang được thực thi! (chỉ 1 lần) -> App1: 1
+console.log("App1 getCount:", getCount()); // 1
+
+// === file: app2.js ===
+import { increment, getCount } from './counter.js'; // Sẽ dùng lại module đã cached
+console.log("App2:", increment()); // App2: 2 (count tiếp tục từ giá trị trước đó)
+console.log("App2 getCount:", getCount()); // 2
+
+// Nếu bạn load app1.js và app2.js trong HTML (dưới dạng type="module")
+// bạn sẽ thấy "Module counter.js đang được thực thi!" chỉ in ra một lần.
+```
+
+## Tổng Kết: Sức Mạnh Của Sự Ngăn Nắp
+
+ES6 Modules đã mang lại một cuộc cách mạng cho cách chúng ta viết và tổ chức code JavaScript. Bằng cách chia nhỏ ứng dụng thành các module độc lập, có thể tái sử dụng, chúng ta không chỉ làm cho code dễ quản lý, dễ bảo trì hơn mà còn cải thiện đáng kể khả năng hợp tác trong các dự án lớn.
+
+Việc hiểu rõ cách `export` và `import` hoạt động, sự khác biệt giữa named exports và default export, cùng những lưu ý khi sử dụng trên trình duyệt sẽ giúp bạn tận dụng tối đa sức mạnh của hệ thống module này. Hãy bắt đầu "chia để trị" cho dự án JavaScript tiếp theo của bạn, và bạn sẽ thấy sự khác biệt rõ rệt!

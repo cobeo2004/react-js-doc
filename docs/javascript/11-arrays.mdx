@@ -1,0 +1,478 @@
+---
+title: Mảng (Arrays) trong JavaScript - Những Người Bạn Thích Xếp Hàng
+description: Tìm hiểu toàn diện về Mảng (Arrays) trong JavaScript, từ cách tạo, truy cập, các thuộc tính, phương thức phổ biến, đến các kỹ thuật lặp và biến đổi mạnh mẽ.
+---
+
+import { Callout } from 'nextra/components'
+
+# Mảng (Arrays) trong JavaScript - Những Người Bạn Thích Xếp Hàng
+
+Chào các bạn! Hôm nay chúng ta sẽ làm quen với một "nhân vật" cực kỳ quan trọng và đa năng trong JavaScript: **Mảng (Array)**. Nếu đối tượng (object) giống như một cái túi chứa các món đồ có tên (thuộc tính), thì mảng lại giống như một **danh sách có thứ tự**, nơi mỗi món đồ (phần tử - element) được xếp ngay ngắn theo một vị trí (chỉ số - index) cụ thể.
+
+Mảng cho phép bạn lưu trữ một tập hợp các giá trị – có thể là số, chuỗi, boolean, đối tượng, hàm, hoặc thậm chí là các mảng khác (tạo thành mảng đa chiều). Chúng là công cụ không thể thiếu khi bạn cần làm việc với danh sách dữ liệu, thực hiện các thao tác lặp, sắp xếp, tìm kiếm, và biến đổi dữ liệu. Hãy cùng khám phá xem những "người bạn thích xếp hàng" này có gì thú vị nhé!
+
+## "Triệu Hồi" Mảng: Tạo Ra Danh Sách
+
+Có hai cách chính để tạo ra một mảng trong JavaScript.
+
+### Cách 1: Dùng "Khung Vuông Thần Thánh" (Array Literal)
+
+Đây là cách phổ biến, ngắn gọn và được khuyên dùng nhất để tạo mảng.
+
+```javascript
+// Mảng rỗng (chưa có ai ngồi)
+let mangRong = [];
+console.log("Mảng rỗng nè:", mangRong); // []
+console.log("Số lượng phần tử:", mangRong.length); // 0
+
+// Mảng các con số yêu thích
+let cacSoYeuThich = [3, 7, 9, 15, 100];
+console.log("Các số yêu thích của Cò:", cacSoYeuThich); // [3, 7, 9, 15, 100]
+
+// Mảng các món ăn Việt Nam
+let monAnViet = ["Phở", "Bún chả", "Nem rán", "Cao lầu", "Bánh mì"];
+console.log("Món ngon phải thử:", monAnViet); // ["Phở", "Bún chả", "Nem rán", "Cao lầu", "Bánh mì"]
+
+// Mảng chứa "thập cẩm" các loại dữ liệu
+let mangThapCam = ["Cò", 20, true, { ten: "Simon", tuoi: 2 }, null, undefined];
+console.log("Mảng gì cũng có:", mangThapCam);
+```
+Chỉ cần đặt các giá trị bạn muốn vào giữa cặp dấu ngoặc vuông `[]`, cách nhau bởi dấu phẩy `,`, là bạn đã có ngay một mảng xịn sò!
+
+### Cách 2: Dùng "Ngài" `new Array()` (Ít Dùng Hơn)
+
+Bạn cũng có thể tạo mảng bằng từ khóa `new Array()` (hàm constructor của Array).
+
+```javascript
+// Mảng rỗng
+let mangBangNew1 = new Array();
+console.log("Mảng tạo bằng new (rỗng):", mangBangNew1); // []
+
+// Mảng với các phần tử được liệt kê
+let traiCay = new Array("Táo", "Xoài", "Chuối", "Dâu");
+console.log("Vườn trái cây:", traiCay); // ["Táo", "Xoài", "Chuối", "Dâu"]
+
+// Mảng với một số duy nhất làm đối số
+let mangVoiSoLuong = new Array(5); // Tạo mảng có 5 "ghế trống" (empty slots)
+console.log("Mảng 5 ghế trống:", mangVoiSoLuong); // [ <5 empty items> ]
+console.log("Độ dài:", mangVoiSoLuong.length); // 5
+console.log("Phần tử đầu tiên:", mangVoiSoLuong[0]); // undefined
+
+// Mảng với một phần tử là số
+let mangMotSo = new Array(10); // Tạo mảng có 10 phần tử rỗng
+let mangMotSoLiteral = [10];   // Tạo mảng có 1 phần tử là số 10
+console.log("new Array(10):", mangMotSo);       // [ <10 empty items> ]
+console.log("[10]:", mangMotSoLiteral); // [10]
+```
+
+<Callout type="warning" emoji="⚠️">
+**Lưu ý "nhỏ mà có võ" với `new Array(number)`**:
+Khi bạn truyền **một số duy nhất** cho `new Array(someNumber)`, nó sẽ tạo ra một mảng với `someNumber` phần tử rỗng (empty slots), chứ *không phải* một mảng chứa một phần tử là `someNumber` đó. Ví dụ, `new Array(3)` tạo ra `[empty, empty, empty]`, khác với `[3]`.
+Chính vì sự "khó hiểu" tiềm ẩn này, cộng đồng coder thường ưu ái cách dùng array literal `[]` hơn cho nó rõ ràng và "an toàn, bạn nhé"!
+</Callout>
+
+## Truy Cập và Sửa Đổi Phần Tử - "Gặp Gỡ" Từng Vị Khách
+
+Mỗi phần tử trong mảng được đánh một **chỉ số (index)**, bắt đầu từ `0` cho phần tử đầu tiên, `1` cho phần tử thứ hai, và cứ thế tiếp tục.
+
+```javascript
+let banNhac = ["Sơn Tùng M-TP", "Đen Vâu", "Hoàng Thùy Linh", "Hà Anh Tuấn"];
+// Chỉ số:       0                 1             2                  3
+
+// Truy cập phần tử bằng chỉ số
+console.log("Ca sĩ yêu thích nhất:", banNhac[0]); // Sơn Tùng M-TP
+console.log("Ca sĩ ở vị trí thứ 3 (index 2):", banNhac[2]); // Hoàng Thùy Linh
+
+// Nếu truy cập chỉ số không tồn tại, sẽ nhận được undefined
+console.log("Ca sĩ ở vị trí 10:", banNhac[10]); // undefined
+
+// Sửa đổi (thay đổi) giá trị của phần tử
+banNhac[1] = "SOOBIN"; // Đen Vâu được thay thế bằng SOOBIN
+console.log("Mảng sau khi đổi:", banNhac); // ["Sơn Tùng M-TP", "SOOBIN", "Hoàng Thùy Linh", "Hà Anh Tuấn"]
+
+// Thêm phần tử mới vào vị trí cụ thể (có thể tạo ra "lỗ hổng" - empty slots)
+banNhac[5] = "Vũ Cát Tường";
+console.log("Mảng sau khi thêm ở index 5:", banNhac);
+// ["Sơn Tùng M-TP", "SOOBIN", "Hoàng Thùy Linh", "Hà Anh Tuấn", <1 empty item>, "Vũ Cát Tường"]
+console.log("Phần tử ở index 4:", banNhac[4]); // undefined
+```
+
+## Thuộc Tính Của Mảng - "Thông Tin Bên Lề"
+
+### `length`: Độ Dài Của Mảng
+
+Thuộc tính quan trọng nhất của mảng là `length`, cho biết số lượng phần tử trong mảng.
+
+```javascript
+let lopHoc = ["An", "Bình", "Chi", "Dũng"];
+console.log("Sĩ số lớp:", lopHoc.length); // 4
+
+let mangTrong = [];
+console.log("Sĩ số lớp vắng:", mangTrong.length); // 0
+```
+
+Điều thú vị là `length` không chỉ để đọc, mà bạn còn có thể **thay đổi** nó:
+-   Nếu bạn đặt `length` thành một số nhỏ hơn số phần tử hiện có, mảng sẽ bị **cắt ngắn (truncate)**.
+-   Nếu bạn đặt `length` thành một số lớn hơn, mảng sẽ được mở rộng với các **phần tử rỗng (empty slots)**.
+
+```javascript
+let numbers = [10, 20, 30, 40, 50];
+console.log("Mảng ban đầu:", numbers, "Độ dài:", numbers.length); // [10, 20, 30, 40, 50], Độ dài: 5
+
+// Cắt ngắn mảng
+numbers.length = 3;
+console.log("Sau khi cắt ngắn:", numbers, "Độ dài:", numbers.length); // [10, 20, 30], Độ dài: 3
+console.log(numbers[3]); // undefined
+
+// Mở rộng mảng (tạo empty slots)
+numbers.length = 5;
+console.log("Sau khi mở rộng:", numbers, "Độ dài:", numbers.length); // [10, 20, 30, <2 empty items>], Độ dài: 5
+console.log(numbers[3]); // undefined
+```
+
+## Các Phương Thức Mảng Phổ Biến - "Công Cụ Vạn Năng"
+
+JavaScript cung cấp vô số phương thức (methods) tiện lợi để làm việc với mảng. Dưới đây là những "người bạn" thường xuyên gặp nhất. Hãy chú ý xem phương thức nào **thay đổi mảng gốc (mutating)** và phương thức nào **trả về một mảng mới (non-mutating)**.
+
+### 1. Thêm/Xóa Phần Tử (Mutating)
+
+-   **`push(...items)`**: Thêm một hoặc nhiều phần tử vào **cuối** mảng. Trả về độ dài mới của mảng.
+    ```javascript
+    let mauSac = ["Đỏ", "Vàng"];
+    let newLength = mauSac.push("Xanh", "Tím");
+    console.log(mauSac);     // ["Đỏ", "Vàng", "Xanh", "Tím"]
+    console.log(newLength);  // 4
+    ```
+-   **`pop()`**: Xóa phần tử **cuối cùng** của mảng. Trả về phần tử đã xóa.
+    ```javascript
+    let ptuBiXoa = mauSac.pop();
+    console.log(mauSac);     // ["Đỏ", "Vàng", "Xanh"]
+    console.log(ptuBiXoa); // "Tím"
+    ```
+-   **`unshift(...items)`**: Thêm một hoặc nhiều phần tử vào **đầu** mảng. Trả về độ dài mới của mảng.
+    ```javascript
+    newLength = mauSac.unshift("Hồng", "Cam");
+    console.log(mauSac);     // ["Hồng", "Cam", "Đỏ", "Vàng", "Xanh"]
+    console.log(newLength);  // 5
+    ```
+-   **`shift()`**: Xóa phần tử **đầu tiên** của mảng. Trả về phần tử đã xóa.
+    ```javascript
+    ptuBiXoa = mauSac.shift();
+    console.log(mauSac);     // ["Cam", "Đỏ", "Vàng", "Xanh"]
+    console.log(ptuBiXoa); // "Hồng"
+    ```
+
+### 2. "Cắt Lát" và "Chắp Vá" Mảng
+
+-   **`slice(startIndex, endIndex)` (Non-mutating)**: Trả về một **mảng mới** chứa một bản sao nông (shallow copy) của một phần mảng gốc, từ `startIndex` (bao gồm) đến `endIndex` (không bao gồm). Mảng gốc không bị thay đổi.
+    -   Nếu `endIndex` bỏ qua, sẽ cắt đến hết mảng.
+    -   Nếu `startIndex` âm, sẽ đếm từ cuối mảng.
+    ```javascript
+    let dongVat = ["Mèo", "Chó", "Cá", "Chim", "Chuột"];
+    let petMoi = dongVat.slice(1, 3); // Từ index 1 đến trước index 3
+    console.log(petMoi);        // ["Chó", "Cá"]
+    console.log(dongVat);       // ["Mèo", "Chó", "Cá", "Chim", "Chuột"] (không đổi)
+
+    let conLai = dongVat.slice(2); // Từ index 2 đến hết
+    console.log(conLai);        // ["Cá", "Chim", "Chuột"]
+
+    let cuoiCung = dongVat.slice(-2); // 2 phần tử cuối
+    console.log(cuoiCung);      // ["Chim", "Chuột"]
+    ```
+
+-   **`splice(startIndex, deleteCount, ...itemsToAdd)` (Mutating)**: Thay đổi nội dung của mảng bằng cách xóa hoặc thay thế các phần tử hiện có và/hoặc thêm các phần tử mới **tại chỗ**. Trả về một mảng chứa các phần tử đã bị xóa.
+    ```javascript
+    let numbersGame = [10, 20, 30, 40, 50];
+    // Xóa 2 phần tử từ index 1
+    let deletedItems = numbersGame.splice(1, 2);
+    console.log(numbersGame);   // [10, 40, 50]
+    console.log(deletedItems); // [20, 30]
+
+    // Xóa 1 phần tử ở index 2 và thêm 2 phần tử mới vào đó
+    deletedItems = numbersGame.splice(2, 1, 60, 70);
+    console.log(numbersGame);   // [10, 40, 60, 70, 50] (số 50 cũ bị đẩy về sau)
+    console.log(deletedItems); // [50] (phần tử 50 cũ ở vị trí index 2 trước khi thêm 60, 70) -> chú ý chỗ này, 50 là phần tử ở vị trí index 2 của mảng [10,40,50]
+
+    // Chỉ thêm phần tử (deleteCount = 0)
+    deletedItems = numbersGame.splice(1, 0, 15, 25);
+    console.log(numbersGame);   // [10, 15, 25, 40, 60, 70, 50]
+    console.log(deletedItems); // [] (không có gì bị xóa)
+    ```
+
+### 3. "Kết Nối" và "Hợp Nhất" Mảng
+
+-   **`join(separator)` (Non-mutating)**: Nối tất cả các phần tử của mảng thành một chuỗi. `separator` (tùy chọn) là chuỗi dùng để ngăn cách các phần tử (mặc định là dấu phẩy `,`).
+    ```javascript
+    let tuKhoa = ["học", "JavaScript", "thật", "vui"];
+    let cauNoi = tuKhoa.join(" "); // Ngăn cách bằng dấu cách
+    console.log(cauNoi); // "học JavaScript thật vui"
+
+    let csvData = ["An", "25", "Hà Nội"].join(",");
+    console.log(csvData); // "An,25,Hà Nội"
+    ```
+
+-   **`concat(...arraysOrValues)` (Non-mutating)**: Trả về một **mảng mới** là kết quả của việc nối mảng hiện tại với các mảng hoặc giá trị khác được truyền vào.
+    ```javascript
+    let arr1 = [1, 2];
+    let arr2 = [3, 4];
+    let arr3 = [5, 6];
+    let gopMang = arr1.concat(arr2, arr3, 7, "Tám");
+    console.log(gopMang); // [1, 2, 3, 4, 5, 6, 7, "Tám"]
+    console.log(arr1);    // [1, 2] (không đổi)
+    ```
+
+### 4. Tìm Kiếm Phần Tử
+
+-   **`indexOf(searchElement, fromIndex)` (Non-mutating)**: Trả về chỉ số (index) **đầu tiên** của `searchElement` trong mảng. Trả về `-1` nếu không tìm thấy. `fromIndex` (tùy chọn) là chỉ số bắt đầu tìm kiếm.
+    ```javascript
+    let diemThi = [5, 8, 7, 9, 7, 10];
+    console.log(diemThi.indexOf(7));       // 2 (tìm thấy 7 đầu tiên ở index 2)
+    console.log(diemThi.indexOf(7, 3));    // 4 (bắt đầu tìm 7 từ index 3, thấy ở index 4)
+    console.log(diemThi.indexOf(6));       // -1 (không có số 6)
+    ```
+
+-   **`lastIndexOf(searchElement, fromIndex)` (Non-mutating)**: Tương tự `indexOf`, nhưng tìm kiếm từ **cuối mảng về đầu**. `fromIndex` (tùy chọn) là chỉ số bắt đầu tìm kiếm ngược (mặc định là `array.length - 1`).
+    ```javascript
+    console.log(diemThi.lastIndexOf(7));    // 4 (tìm thấy 7 cuối cùng ở index 4)
+    console.log(diemThi.lastIndexOf(7, 3)); // 2 (bắt đầu tìm ngược 7 từ index 3, thấy ở index 2)
+    ```
+
+-   **`includes(valueToFind, fromIndex)` (ES7 - Non-mutating)**: Trả về `true` nếu mảng chứa `valueToFind`, ngược lại trả về `false`. Dễ đọc hơn `indexOf(item) !== -1`.
+    ```javascript
+    console.log(diemThi.includes(9)); // true
+    console.log(diemThi.includes(6)); // false
+    console.log(diemThi.includes(8, 2)); // false (bắt đầu tìm 8 từ index 2)
+    ```
+    <Callout type="info">
+    `includes` có thể tìm thấy `NaN` trong mảng, trong khi `indexOf(NaN)` sẽ trả về `-1`.
+    ```javascript
+    let mangCoNaN = [1, NaN, 3];
+    console.log(mangCoNaN.includes(NaN)); // true
+    console.log(mangCoNaN.indexOf(NaN));  // -1
+    ```
+    </Callout>
+
+## Lặp Qua Các Phần Tử Mảng - "Thăm Hỏi" Từng Nhà
+
+Có nhiều cách để duyệt qua từng phần tử của mảng.
+
+### 1. Vòng Lặp `for` Truyền Thống
+
+Cách cổ điển, cho phép bạn kiểm soát hoàn toàn chỉ số.
+
+```javascript
+let monTheThao = ["Bóng đá", "Bơi lội", "Chạy bộ", "Cầu lông"];
+for (let i = 0; i < monTheThao.length; i++) {
+  console.log(`Môn thể thao thứ ${i + 1}: ${monTheThao[i]}`);
+}
+```
+
+### 2. Vòng Lặp `for...of` (ES6)
+
+Cách hiện đại và dễ đọc hơn để lấy ra **giá trị** của từng phần tử.
+
+```javascript
+for (let mon of monTheThao) {
+  console.log("Môn:", mon);
+}
+```
+<Callout type="info">
+Nếu bạn cần cả **chỉ số (index)** và **giá trị (value)** với `for...of`, bạn có thể dùng phương thức `entries()` của mảng:
+```javascript
+for (let [index, value] of monTheThao.entries()) {
+  console.log(`Vị trí ${index}: ${value}`);
+}
+```
+</Callout>
+
+### 3. Phương Thức `forEach(callbackFunction)`
+
+Gọi một hàm (callback) một lần cho mỗi phần tử trong mảng. Callback nhận 3 đối số: `currentValue`, `index` (tùy chọn), `array` (tùy chọn). `forEach` không trả về giá trị (luôn là `undefined`) và không thể bị dừng bởi `break` (nhưng có thể dùng `return` bên trong callback để bỏ qua lần lặp hiện tại, giống `continue`).
+
+```javascript
+monTheThao.forEach(function(mon, index, arr) {
+  console.log(`[forEach] Index ${index}: ${mon} (từ mảng: ${arr.length} phần tử)`);
+});
+```
+
+## Các Phương Thức Lặp/Biến Đổi Mạnh Mẽ (ES5+)
+
+Đây là những "siêu anh hùng" giúp bạn xử lý mảng một cách hiệu quả và biểu cảm hơn, thường theo phong cách lập trình hàm (functional programming). Hầu hết chúng **không thay đổi mảng gốc** mà trả về một giá trị mới hoặc mảng mới.
+
+### 1. `map(callbackFunction)` (Non-mutating)
+
+Tạo ra một **mảng mới** bằng cách gọi callback function trên mỗi phần tử của mảng gốc và thu thập kết quả trả về từ callback. Callback nhận `currentValue`, `index`, `array`.
+
+```javascript
+let numbersArr = [1, 2, 3, 4, 5];
+let binhPhuong = numbersArr.map(function(num) {
+  return num * num;
+});
+console.log(binhPhuong); // [1, 4, 9, 16, 25]
+console.log(numbersArr); // [1, 2, 3, 4, 5] (không đổi)
+
+let tenNguoi = ["an", "BÌNH", "cHÂu"];
+let tenChuanHoa = tenNguoi.map(ten => ten.charAt(0).toUpperCase() + ten.slice(1).toLowerCase());
+console.log(tenChuanHoa); // ["An", "Bình", "Châu"]
+```
+
+### 2. `filter(callbackFunction)` (Non-mutating)
+
+Tạo ra một **mảng mới** chứa tất cả các phần tử của mảng gốc mà callback function trả về `true` (hoặc một giá trị "truthy"). Callback nhận `currentValue`, `index`, `array`.
+
+```javascript
+let soChan = numbersArr.filter(function(num) {
+  return num % 2 === 0;
+});
+console.log(soChan); // [2, 4]
+
+let sanPham = [
+  { ten: "Áo Thun", gia: 150000, conHang: true },
+  { ten: "Quần Jean", gia: 500000, conHang: false },
+  { ten: "Giày Sneaker", gia: 800000, conHang: true }
+];
+let spConHangGiaCao = sanPham.filter(sp => sp.conHang && sp.gia > 200000);
+console.log(spConHangGiaCao); // [{ ten: "Giày Sneaker", gia: 800000, conHang: true }]
+```
+
+### 3. `reduce(callbackFunction, initialValue)` (Non-mutating)
+
+"Giảm" mảng xuống thành một giá trị duy nhất bằng cách thực thi callback function cho mỗi phần tử. Callback nhận 4 đối số:
+-   `accumulator` (biến tích lũy): Giá trị trả về từ lần gọi callback trước đó (hoặc `initialValue` nếu là lần đầu).
+-   `currentValue`: Phần tử hiện tại đang được xử lý.
+-   `currentIndex` (tùy chọn).
+-   `array` (tùy chọn).
+`initialValue` (tùy chọn): Giá trị ban đầu cho `accumulator`. Nếu không cung cấp, phần tử đầu tiên của mảng sẽ được dùng làm `initialValue` và callback bắt đầu từ phần tử thứ hai.
+
+```javascript
+let tongCacSo = numbersArr.reduce(function(tong, soHienTai) {
+  console.log(`Tong: ${tong}, SoHienTai: ${soHienTai}`);
+  return tong + soHienTai;
+}, 0); // 0 là initialValue cho tong
+console.log("Tổng là:", tongCacSo); // 15
+
+// Tìm giá trị lớn nhất
+let lonNhat = [5, 1, 9, 3, 7].reduce((max, num) => (num > max ? num : max)); // initialValue là 5 (phần tử đầu)
+console.log("Lớn nhất:", lonNhat); // 9
+
+// Đếm số lần xuất hiện
+let traiCayDem = ["Táo", "Cam", "Táo", "Lê", "Cam", "Táo"];
+let soLuongTraiCay = traiCayDem.reduce((objDem, tenTrai) => {
+  objDem[tenTrai] = (objDem[tenTrai] || 0) + 1;
+  return objDem;
+}, {}); // initialValue là một object rỗng
+console.log(soLuongTraiCay); // {Táo: 3, Cam: 2, Lê: 1}
+```
+
+### 4. `some(callbackFunction)` và `every(callbackFunction)` (Non-mutating)
+
+Kiểm tra các phần tử của mảng.
+-   **`some(cb)`**: Trả về `true` nếu callback `cb` trả về `true` cho **ít nhất một** phần tử. Dừng lặp ngay khi tìm thấy.
+-   **`every(cb)`**: Trả về `true` nếu callback `cb` trả về `true` cho **tất cả** các phần tử. Dừng lặp ngay khi một phần tử không thỏa mãn.
+
+```javascript
+let coSoAm = [-1, 0, 5, 10].some(num => num < 0);
+console.log("Mảng có số âm không?", coSoAm); // true
+
+let tatCaDuong = [-1, 0, 5, 10].every(num => num >= 0);
+console.log("Tất cả các số đều dương hoặc bằng 0?", tatCaDuong); // false
+```
+
+### 5. `find(callbackFunction)` và `findIndex(callbackFunction)` (ES6 - Non-mutating)
+
+Tìm kiếm phần tử trong mảng.
+-   **`find(cb)`**: Trả về **giá trị của phần tử đầu tiên** trong mảng mà callback `cb` trả về `true`. Trả về `undefined` nếu không tìm thấy.
+-   **`findIndex(cb)`**: Trả về **chỉ số (index) của phần tử đầu tiên** mà callback `cb` trả về `true`. Trả về `-1` nếu không tìm thấy.
+
+```javascript
+let sinhVienTim = sanPham.find(sp => sp.ten === "Quần Jean");
+console.log("Tìm thấy Quần Jean:", sinhVienTim); // { ten: "Quần Jean", gia: 500000, conHang: false }
+
+let indexGiay = sanPham.findIndex(sp => sp.ten === "Giày Sneaker");
+console.log("Index của Giày Sneaker:", indexGiay); // 2
+
+let khongTimThay = sanPham.find(sp => sp.gia < 100000);
+console.log("Không tìm thấy sản phẩm giá rẻ:", khongTimThay); // undefined
+```
+
+## Spread Syntax (`...`) với Mảng (ES6) - "Rải" Phần Tử Ra
+
+Toán tử spread (`...`) cho phép bạn "rải" các phần tử của một mảng (hoặc một iterable khác) vào những nơi mong đợi nhiều giá trị riêng lẻ.
+
+### 1. Sao Chép Mảng (Shallow Copy)
+
+```javascript
+let gocArray = [1, 2, 3];
+let banSaoArray = [...gocArray];
+console.log(banSaoArray); // [1, 2, 3]
+banSaoArray.push(4);
+console.log(gocArray);    // [1, 2, 3] (không bị ảnh hưởng)
+console.log(banSaoArray); // [1, 2, 3, 4]
+```
+
+### 2. Nối/Gộp Mảng
+
+Cách hiện đại và dễ đọc hơn `concat`.
+
+```javascript
+let phanDau = ["a", "b"];
+let phanGiua = ["c", "d"];
+let phanCuoi = ["e", "f"];
+let gopTatCa = [...phanDau, ...phanGiua, "X", ...phanCuoi];
+console.log(gopTatCa); // ["a", "b", "c", "d", "X", "e", "f"]
+```
+
+### 3. Truyền Đối Số Cho Hàm
+
+Khi một hàm nhận nhiều đối số riêng lẻ, bạn có thể dùng spread để truyền các phần tử của mảng như các đối số đó.
+
+```javascript
+function tinhTong3So(a, b, c) {
+  return a + b + c;
+}
+let daySo = [5, 10, 15];
+console.log("Tổng 3 số:", tinhTong3So(...daySo)); // Tương đương tinhTong3So(5, 10, 15) -> 30
+```
+
+## Destructuring Mảng (ES6) - "Giải Nén" Phần Tử
+
+Array destructuring là một cú pháp tiện lợi cho phép bạn "bung" các giá trị từ mảng ra các biến riêng lẻ một cách nhanh chóng.
+
+```javascript
+let thongTinNguoi = ["An Nguyễn", 28, "Lập trình viên", "Hà Nội"];
+
+// Cách cũ
+// let ten = thongTinNguoi[0];
+// let tuoi = thongTinNguoi[1];
+
+// Cách mới với destructuring
+let [tenDayDu, tuoi, ngheNghiep, diaChi = "Chưa có"] = thongTinNguoi;
+
+console.log(tenDayDu);    // An Nguyễn
+console.log(tuoi);        // 28
+console.log(ngheNghiep);  // Lập trình viên
+console.log(diaChi);      // Hà Nội (nếu thongTinNguoi[3] là undefined, sẽ lấy "Chưa có")
+
+// Bỏ qua phần tử
+let [tenCongTy, , , thanhPho] = ["Google", "USA", "Mountain View", "CA"];
+console.log(tenCongTy); // Google
+console.log(thanhPho); // CA
+
+// Sử dụng với rest syntax để lấy các phần tử còn lại
+let [nguoiDauTien, nguoiThuHai, ...nhungNguoiConLai] = ["Tèo", "Tí", "Tửn", "Tèo Em"];
+console.log(nguoiDauTien);          // Tèo
+console.log(nhungNguoiConLai);      // ["Tửn", "Tèo Em"]
+
+// Hoán đổi giá trị biến
+let x = 10;
+let y = 20;
+[x, y] = [y, x];
+console.log("x sau hoán đổi:", x); // 20
+console.log("y sau hoán đổi:", y); // 10
+```
+
+## Tổng Kết
+
+Mảng thực sự là một "người bạn đồng hành" không thể thiếu trong hành trình chinh phục JavaScript. Từ những thao tác cơ bản như tạo, truy cập, thêm, xóa phần tử, cho đến những kỹ thuật lặp và biến đổi dữ liệu mạnh mẽ như `map`, `filter`, `reduce`, cùng với cú pháp hiện đại như spread syntax và destructuring, mảng cung cấp cho bạn một bộ công cụ cực kỳ phong phú và linh hoạt.
+
+Hiểu rõ và sử dụng thành thạo các thuộc tính và phương thức của mảng sẽ giúp bạn viết code ngắn gọn hơn, dễ đọc hơn, và hiệu quả hơn rất nhiều khi xử lý các tập hợp dữ liệu. Hãy thử nghiệm, thực hành nhiều với các ví dụ, và bạn sẽ thấy mảng không chỉ là "những người bạn thích xếp hàng" mà còn là những "phù thủy biến hóa" dữ liệu tài ba!
