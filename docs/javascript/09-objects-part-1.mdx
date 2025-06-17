@@ -1,4 +1,7 @@
 ---
+authors: Simon
+tags: [introduction, hello, foundation]
+sidebar_position: 9
 title: Đối Tượng trong JavaScript (Phần 1)
 description: Tìm hiểu những kiến thức cơ bản về đối tượng trong JavaScript, bao gồm object literals, thuộc tính, phương thức và từ khóa 'this'.
 ---
@@ -28,21 +31,21 @@ let tenDoiTuong = {
   "thuộc tính có dấu cách": true, // Nếu key có ký tự đặc biệt hoặc dấu cách, đặt trong "" hoặc ''
 
   // Phương thức (method)
-  tenPhuongThuc1: function() {
+  tenPhuongThuc1: function () {
     // Code của phương thức
     console.log("Phương thức 1 đang chạy!");
   },
-  tenPhuongThuc2: function(thamSo) {
+  tenPhuongThuc2: function (thamSo) {
     console.log("Phương thức 2 chạy với tham số:", thamSo);
-  }
+  },
 };
 ```
 
--   Cặp dấu ngoặc nhọn `{}` chính là "ngôi nhà" của đối tượng.
--   Bên trong là các cặp `key: value` (khóa: giá trị), mỗi cặp được gọi là một **thuộc tính**. Các cặp này cách nhau bởi dấu phẩy `,`.
--   `key` (tên thuộc tính) thường là một chuỗi (string). Nếu tên thuộc tính là một từ hợp lệ trong JavaScript (không chứa dấu cách, ký tự đặc biệt, không bắt đầu bằng số), bạn có thể bỏ qua dấu nháy (`""` hoặc `''`).
--   `value` (giá trị thuộc tính) có thể là bất kỳ kiểu dữ liệu nào trong JavaScript: số (number), chuỗi (string), boolean (`true`/`false`), mảng (array), `null`, `undefined`, thậm chí là một đối tượng khác (tạo thành đối tượng lồng nhau) hoặc một hàm (function).
--   Khi giá trị của một thuộc tính là một hàm, chúng ta gọi nó là một **phương thức (method)** của đối tượng. Phương thức định nghĩa hành vi, những gì đối tượng có thể làm.
+- Cặp dấu ngoặc nhọn `{}` chính là "ngôi nhà" của đối tượng.
+- Bên trong là các cặp `key: value` (khóa: giá trị), mỗi cặp được gọi là một **thuộc tính**. Các cặp này cách nhau bởi dấu phẩy `,`.
+- `key` (tên thuộc tính) thường là một chuỗi (string). Nếu tên thuộc tính là một từ hợp lệ trong JavaScript (không chứa dấu cách, ký tự đặc biệt, không bắt đầu bằng số), bạn có thể bỏ qua dấu nháy (`""` hoặc `''`).
+- `value` (giá trị thuộc tính) có thể là bất kỳ kiểu dữ liệu nào trong JavaScript: số (number), chuỗi (string), boolean (`true`/`false`), mảng (array), `null`, `undefined`, thậm chí là một đối tượng khác (tạo thành đối tượng lồng nhau) hoặc một hàm (function).
+- Khi giá trị của một thuộc tính là một hàm, chúng ta gọi nó là một **phương thức (method)** của đối tượng. Phương thức định nghĩa hành vi, những gì đối tượng có thể làm.
 
 **Ví dụ về "anh bạn" điện thoại:**
 
@@ -53,14 +56,16 @@ let dienThoaiCuaToi = {
   mauSac: "Xám Titan",
   dungLuongGB: 512,
   daBat: true,
-  danhBa: [ // Giá trị là một mảng
+  danhBa: [
+    // Giá trị là một mảng
     { ten: "Mẹ", sdt: "090xxxxxxx" }, // Mảng chứa các đối tượng khác
-    { ten: "Bạn Thân", sdt: "091xxxxxxx" }
+    { ten: "Bạn Thân", sdt: "091xxxxxxx" },
   ],
 
   // Đây là một phương thức
-  goiDien: function(soDienThoai) {
-    if (this.daBat) { // 'this' sẽ được giải thích ngay sau đây
+  goiDien: function (soDienThoai) {
+    if (this.daBat) {
+      // 'this' sẽ được giải thích ngay sau đây
       console.log("Đang gọi tới số: " + soDienThoai + " bằng " + this.model);
     } else {
       console.log(this.model + " đang tắt, không thể gọi!");
@@ -68,10 +73,10 @@ let dienThoaiCuaToi = {
   },
 
   // Một phương thức khác
-  tatMay: function() {
+  tatMay: function () {
     this.daBat = false;
     console.log(this.model + " đã được tắt.");
-  }
+  },
 };
 
 // Xem thử thông tin nào
@@ -100,11 +105,11 @@ Cú pháp: `tenDoiTuong.tenThuocTinh`
 let hocSinh = {
   ten: "Nguyễn Văn An",
   lop: "10A1",
-  tuoi: 16
+  tuoi: 16,
 };
 
 console.log("Tên học sinh:", hocSinh.ten); // Nguyễn Văn An
-console.log("Tuổi:", hocSinh.tuoi);     // 16
+console.log("Tuổi:", hocSinh.tuoi); // 16
 ```
 
 ### 2. Dấu Ngoặc Vuông (Bracket Notation)
@@ -117,7 +122,7 @@ Cú pháp: `tenDoiTuong["tenThuocTinhDayDu"]`
 let mayTinh = {
   "ten san pham": "Laptop Gaming Pro", // Tên thuộc tính có dấu cách
   "cau-hinh": { chip: "Core i9", ram: "32GB" },
-  gia: 50000000
+  gia: 50000000,
 };
 
 // Dùng dấu chấm sẽ lỗi nếu tên thuộc tính có dấu cách hoặc ký tự đặc biệt
@@ -136,15 +141,15 @@ console.log("Chip (cách khác):", mayTinh["cau-hinh"]["chip"]); // Core i9
 
 **Khi nào nên dùng Bracket Notation?**
 
--   **Khi tên thuộc tính chứa dấu cách hoặc các ký tự đặc biệt** mà không hợp lệ cho dot notation (ví dụ: `"Mã sản phẩm"`, `"user-id"`).
--   **Khi tên thuộc tính là một biến hoặc kết quả của một biểu thức (dynamic properties).** Điều này cực kỳ hữu ích khi bạn muốn truy cập thuộc tính một cách linh động dựa trên đầu vào hoặc logic nào đó.
--   Khi tên thuộc tính là số (mặc dù ít phổ biến hơn cho tên thuộc tính đối tượng, nhưng có thể xảy ra).
+- **Khi tên thuộc tính chứa dấu cách hoặc các ký tự đặc biệt** mà không hợp lệ cho dot notation (ví dụ: `"Mã sản phẩm"`, `"user-id"`).
+- **Khi tên thuộc tính là một biến hoặc kết quả của một biểu thức (dynamic properties).** Điều này cực kỳ hữu ích khi bạn muốn truy cập thuộc tính một cách linh động dựa trên đầu vào hoặc logic nào đó.
+- Khi tên thuộc tính là số (mặc dù ít phổ biến hơn cho tên thuộc tính đối tượng, nhưng có thể xảy ra).
 
 ```javascript
 let diemSo = {
   toan: 9,
   ly: 8,
-  hoa: 7
+  hoa: 7,
 };
 let monHoc = "ly";
 console.log("Điểm môn " + monHoc + ":", diemSo[monHoc]); // Điểm môn ly: 8
@@ -161,7 +166,7 @@ Bạn chỉ cần gán một giá trị cho một tên thuộc tính mới (ho�
 ```javascript
 let quyenSach = {
   tieuDe: "Lập Trình JavaScript Cơ Bản",
-  tacGia: "Nguyễn Văn A"
+  tacGia: "Nguyễn Văn A",
 };
 console.log("Sách ban đầu:", quyenSach);
 
@@ -187,7 +192,7 @@ let mayAnh = {
   hang: "Canon",
   model: "EOS R6",
   megapixels: 20,
-  daBan: false
+  daBan: false,
 };
 console.log("Máy ảnh trước khi xóa:", mayAnh);
 
@@ -219,9 +224,11 @@ let chienBinh = {
   nangLuong: 100,
 
   // Định nghĩa phương thức tanCong
-  tanCong: function(mucTieu) {
+  tanCong: function (mucTieu) {
     if (this.nangLuong > 10) {
-      console.log(this.ten + " dùng " + this.vuKhi + " tấn công " + mucTieu + "!");
+      console.log(
+        this.ten + " dùng " + this.vuKhi + " tấn công " + mucTieu + "!"
+      );
       this.nangLuong -= 10; // Giảm năng lượng sau khi tấn công
     } else {
       console.log(this.ten + " đã hết năng lượng, không thể tấn công!");
@@ -229,10 +236,16 @@ let chienBinh = {
   },
 
   // Định nghĩa phương thức napNangLuong
-  napNangLuong: function(luongNap) {
+  napNangLuong: function (luongNap) {
     this.nangLuong += luongNap;
-    console.log(this.ten + " đã nạp " + luongNap + " năng lượng. Năng lượng hiện tại: " + this.nangLuong);
-  }
+    console.log(
+      this.ten +
+        " đã nạp " +
+        luongNap +
+        " năng lượng. Năng lượng hiện tại: " +
+        this.nangLuong
+    );
+  },
 };
 
 // Gọi phương thức
@@ -248,6 +261,7 @@ chienBinh.tanCong("Trùm Cuối"); // Siêu Nhân X dùng Kiếm Ánh Sáng tấ
 Đây là một điểm cực kỳ quan trọng! Bên trong một phương thức của đối tượng (khi phương thức đó được gọi thông qua đối tượng, ví dụ: `chienBinh.tanCong()`), từ khóa `this` sẽ **tham chiếu đến chính đối tượng đó**.
 
 Trong ví dụ `chienBinh`:
+
 - Bên trong `tanCong()`, `this.ten` chính là `chienBinh.ten` ("Siêu Nhân X").
 - `this.nangLuong` chính là `chienBinh.nangLuong`.
 
@@ -256,24 +270,26 @@ Trong ví dụ `chienBinh`:
 :::warning[⚠️ Warning]
 
 **Hành vi của `this` có thể thay đổi!** Như đã học ở bài về Hàm (Phần 2), giá trị của `this` phụ thuộc vào cách hàm được gọi. Nếu bạn tách một phương thức ra khỏi đối tượng của nó và gọi nó như một hàm thông thường, `this` bên trong nó có thể không còn trỏ đến đối tượng ban đầu nữa (mà có thể là `window` hoặc `undefined` trong strict mode).
+
 ```javascript
 let game = {
   title: "Awesome Game",
-  start: function() {
+  start: function () {
     console.log("Starting " + this.title); // 'this' ở đây là 'game'
-  }
+  },
 };
 
 game.start(); // Starting Awesome Game
 
 let startGameFunction = game.start;
 // startGameFunction(); // Nếu gọi thế này, 'this' bên trong sẽ không phải là 'game' nữa!
-                        // Kết quả có thể là "Starting undefined" hoặc lỗi.
+// Kết quả có thể là "Starting undefined" hoặc lỗi.
 
 // Để khắc phục, có thể dùng bind:
 let boundStartFunction = game.start.bind(game);
 boundStartFunction(); // Starting Awesome Game (this đã được bind đúng)
 ```
+
 Chúng ta sẽ tìm hiểu kỹ hơn về các cách ràng buộc `this` và các trường hợp phức tạp của nó ở những phần sau.
 
 :::
@@ -281,6 +297,7 @@ Chúng ta sẽ tìm hiểu kỹ hơn về các cách ràng buộc `this` và cá
 ## Tạm Kết Phần 1 về Đối Tượng
 
 Qua Phần 1 này, chúng ta đã làm quen với những viên gạch đầu tiên để xây dựng nên thế giới đối tượng trong JavaScript:
+
 - Tạo đối tượng một cách nhanh chóng với **object literals**.
 - "Đọc vị" thông tin bằng cách **truy cập thuộc tính** qua dấu chấm `.` hoặc dấu ngoặc vuông `[]`.
 - "Biến hình" đối tượng bằng cách **thêm và xóa thuộc tính**.

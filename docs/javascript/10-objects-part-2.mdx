@@ -1,11 +1,14 @@
 ---
+authors: Simon
+tags: [introduction, hello, foundation]
+sidebar_position: 10
 title: Đối Tượng trong JavaScript (Phần 2)
 description: Khám phá các khái niệm nâng cao về đối tượng trong JavaScript như prototype, kế thừa, ES6 classes, getters và setters.
 ---
 
 # Đối Tượng trong JavaScript (Phần 2) - Sức Mạnh Của Kế Thừa và "Khuôn Đúc" Hiện Đại
 
-Chào mừng các bạn đã quay trở lại với hành trình khám phá đối tượng trong JavaScript! Ở [Phần 1](/docs/javascript/09-objects-part-1), chúng ta đã làm quen với cách tạo và sử dụng đối tượng cơ bản thông qua object literals, thuộc tính và phương thức. Giờ đây, ở Phần 2, chúng ta sẽ "đào sâu" hơn vào "cơ chế" bên trong của đối tượng, tìm hiểu về một trong những khái niệm cốt lõi và mạnh mẽ nhất của JavaScript: **kế thừa qua prototype (prototypal inheritance)**. Đồng thời, chúng ta cũng sẽ khám phá **ES6 Classes**, một cú pháp hiện đại và thân thiện hơn để làm việc với đối tượng và kế thừa, cùng với **getters và setters** để kiểm soát việc truy cập thuộc tính.
+Chào mừng các bạn đã quay trở lại với hành trình khám phá đối tượng trong JavaScript! Ở [Phần 1](./objects-part-1), chúng ta đã làm quen với cách tạo và sử dụng đối tượng cơ bản thông qua object literals, thuộc tính và phương thức. Giờ đây, ở Phần 2, chúng ta sẽ "đào sâu" hơn vào "cơ chế" bên trong của đối tượng, tìm hiểu về một trong những khái niệm cốt lõi và mạnh mẽ nhất của JavaScript: **kế thừa qua prototype (prototypal inheritance)**. Đồng thời, chúng ta cũng sẽ khám phá **ES6 Classes**, một cú pháp hiện đại và thân thiện hơn để làm việc với đối tượng và kế thừa, cùng với **getters và setters** để kiểm soát việc truy cập thuộc tính.
 
 Những kiến thức này sẽ giúp bạn hiểu rõ hơn "bản chất" của JavaScript, cách các đối tượng liên kết và chia sẻ hành vi, từ đó xây dựng những ứng dụng phức tạp một cách có tổ chức và hiệu quả hơn. Nào, cùng vén bức màn bí mật của đối tượng nhé!
 
@@ -30,7 +33,7 @@ function Nguoi(ten, tuoi) {
 }
 
 // Thêm một phương thức vào ĐỐI TƯỢNG prototype của hàm Nguoi
-Nguoi.prototype.chaoHoi = function() {
+Nguoi.prototype.chaoHoi = function () {
   console.log(`Xin chào, tôi là ${this.ten}, ${this.tuoi} tuổi.`);
 };
 
@@ -40,7 +43,7 @@ Nguoi.prototype.quocTich = "Việt Nam"; // Thêm thuộc tính vào prototype
 let an = new Nguoi("An", 25);
 let binh = new Nguoi("Bình", 30);
 
-an.chaoHoi();   // Xin chào, tôi là An, 25 tuổi.
+an.chaoHoi(); // Xin chào, tôi là An, 25 tuổi.
 binh.chaoHoi(); // Xin chào, tôi là Bình, 30 tuổi.
 
 console.log(an.quocTich); // Việt Nam
@@ -49,9 +52,10 @@ console.log(binh.quocTich); // Việt Nam
 // an và binh chia sẻ cùng một phương thức chaoHoi từ Nguoi.prototype
 console.log(an.chaoHoi === binh.chaoHoi); // true
 ```
--   Khi `an.chaoHoi()` được gọi, JavaScript đầu tiên tìm `chaoHoi` trực tiếp trên đối tượng `an`.
--   Không tìm thấy, nó sẽ đi theo liên kết "bí mật" đến `Nguoi.prototype` và tìm `chaoHoi` ở đó.
--   Tìm thấy! Phương thức được thực thi, và `this` bên trong `chaoHoi` sẽ trỏ đến `an`.
+
+- Khi `an.chaoHoi()` được gọi, JavaScript đầu tiên tìm `chaoHoi` trực tiếp trên đối tượng `an`.
+- Không tìm thấy, nó sẽ đi theo liên kết "bí mật" đến `Nguoi.prototype` và tìm `chaoHoi` ở đó.
+- Tìm thấy! Phương thức được thực thi, và `this` bên trong `chaoHoi` sẽ trỏ đến `an`.
 
 :::info[💡 Info]
 
@@ -69,12 +73,14 @@ Mỗi đối tượng (instance) được tạo từ một hàm constructor sẽ
 console.log(an.__proto__ === Nguoi.prototype); // true
 console.log(Object.getPrototypeOf(binh) === Nguoi.prototype); // true (cách chính thống hơn để lấy prototype)
 ```
--   `Object.getPrototypeOf(obj)` là cách được khuyến nghị và chuẩn hóa để lấy prototype của một đối tượng.
--   `obj.__proto__` tuy phổ biến nhưng không phải là chuẩn chính thức và có thể không hoạt động ở mọi môi trường JavaScript (mặc dù hầu hết các trình duyệt hiện đại đều hỗ trợ).
+
+- `Object.getPrototypeOf(obj)` là cách được khuyến nghị và chuẩn hóa để lấy prototype của một đối tượng.
+- `obj.__proto__` tuy phổ biến nhưng không phải là chuẩn chính thức và có thể không hoạt động ở mọi môi trường JavaScript (mặc dù hầu hết các trình duyệt hiện đại đều hỗ trợ).
 
 ### 3. Chuỗi Prototype (Prototype Chain) - Hành Trình Tìm Kiếm
 
 Khi bạn cố gắng truy cập một thuộc tính (hoặc phương thức) trên một đối tượng:
+
 1.  JavaScript sẽ tìm kiếm thuộc tính đó trực tiếp trên chính đối tượng đó.
 2.  Nếu không tìm thấy, nó sẽ đi theo liên kết `__proto__` (hoặc `Object.getPrototypeOf()`) đến đối tượng prototype của nó và tìm kiếm ở đó.
 3.  Nếu vẫn không tìm thấy, nó sẽ tiếp tục đi lên chuỗi prototype (prototype của prototype, v.v.) cho đến khi tìm thấy thuộc tính đó, hoặc cho đến khi gặp `null` (là prototype của `Object.prototype`, đối tượng gốc nhất trong chuỗi).
@@ -89,6 +95,7 @@ console.log(an.toString()); // [object Object]
 console.log(Nguoi.prototype.__proto__ === Object.prototype); // true
 console.log(Object.prototype.__proto__); // null (kết thúc chuỗi)
 ```
+
 Đây chính là **chuỗi prototype (prototype chain)**. Nó cho phép các đối tượng kế thừa thuộc tính và phương thức từ "tổ tiên" của chúng.
 
 ### 4. Sửa Đổi Prototypes (Cẩn Thận!)
@@ -96,7 +103,7 @@ console.log(Object.prototype.__proto__); // null (kết thúc chuỗi)
 Bạn có thể thêm thuộc tính hoặc phương thức mới vào một `prototype` bất cứ lúc nào, và tất cả các đối tượng đã được tạo (hoặc sẽ được tạo) từ hàm constructor đó (mà có prototype đó trong chuỗi của chúng) sẽ có quyền truy cập vào chúng.
 
 ```javascript
-Nguoi.prototype.getNamSinh = function() {
+Nguoi.prototype.getNamSinh = function () {
   return new Date().getFullYear() - this.tuoi;
 };
 
@@ -169,10 +176,10 @@ let boeing787 = new MayBay("Boeing", "787 Dreamliner");
 boeing787.catCanh();
 ```
 
--   `class TenClass {...}`: Khai báo một class.
--   **`constructor(thamSo)`**: Một phương thức đặc biệt để tạo và khởi tạo đối tượng. Mỗi class chỉ có thể có một `constructor`. Nếu không định nghĩa, một `constructor` rỗng mặc định sẽ được cung cấp. Bên trong `constructor`, `this` trỏ đến instance đang được tạo.
--   **Phương thức của instance (Instance Methods)**: Như `khoiDong()`, `dungLai()`. Chúng được định nghĩa bên trong class và tự động được thêm vào `TenClass.prototype`.
--   **Phương thức tĩnh (Static Methods)**: Được đánh dấu bằng từ khóa `static`. Đây là các phương thức thuộc về chính class, không phải của các instance. Bạn gọi chúng trực tiếp trên class (ví dụ: `XeHoi.thongTinChung()`). Chúng không thể được gọi từ một instance. Static methods thường được dùng cho các hàm tiện ích liên quan đến class.
+- `class TenClass {...}`: Khai báo một class.
+- **`constructor(thamSo)`**: Một phương thức đặc biệt để tạo và khởi tạo đối tượng. Mỗi class chỉ có thể có một `constructor`. Nếu không định nghĩa, một `constructor` rỗng mặc định sẽ được cung cấp. Bên trong `constructor`, `this` trỏ đến instance đang được tạo.
+- **Phương thức của instance (Instance Methods)**: Như `khoiDong()`, `dungLai()`. Chúng được định nghĩa bên trong class và tự động được thêm vào `TenClass.prototype`.
+- **Phương thức tĩnh (Static Methods)**: Được đánh dấu bằng từ khóa `static`. Đây là các phương thức thuộc về chính class, không phải của các instance. Bạn gọi chúng trực tiếp trên class (ví dụ: `XeHoi.thongTinChung()`). Chúng không thể được gọi từ một instance. Static methods thường được dùng cho các hàm tiện ích liên quan đến class.
 
 :::info[💡 Info]
 
@@ -185,7 +192,8 @@ boeing787.catCanh();
 ES6 Classes làm cho việc kế thừa trở nên cực kỳ dễ dàng với từ khóa `extends` và `super`.
 
 ```javascript
-class XeTai extends XeHoi { // XeTai kế thừa từ XeHoi
+class XeTai extends XeHoi {
+  // XeTai kế thừa từ XeHoi
   constructor(hang, model, mau, taiTrongTan) {
     console.log("Constructor của XeTai đang chạy...");
     // Gọi constructor của lớp cha (XeHoi)
@@ -197,7 +205,9 @@ class XeTai extends XeHoi { // XeTai kế thừa từ XeHoi
   // Override (ghi đè) phương thức của lớp cha
   khoiDong() {
     super.khoiDong(); // Gọi phương thức khoiDong() của lớp cha
-    console.log(`Xe tải ${this.model} sẵn sàng chở ${this.taiTrongTan} tấn hàng!`);
+    console.log(
+      `Xe tải ${this.model} sẵn sàng chở ${this.taiTrongTan} tấn hàng!`
+    );
   }
 
   // Thêm phương thức mới cho XeTai
@@ -229,11 +239,11 @@ XeTai.thongTinXeTai();
 // Xe tải dùng để vận chuyển hàng hóa nặng.
 ```
 
--   `class Con extends Cha {...}`: Khai báo class `Con` kế thừa từ class `Cha`.
--   **`super(args...)`**:
-    -   Bên trong `constructor` của lớp con, `super()` được dùng để gọi `constructor` của lớp cha. **Nó phải được gọi trước khi bạn sử dụng từ khóa `this`** trong constructor của lớp con.
-    -   Bên trong các phương thức của lớp con, `super.phuongThucCha()` được dùng để gọi một phương thức cụ thể của lớp cha.
-    -   Bên trong static method của lớp con, `super.staticMethodCha()` được dùng để gọi static method của lớp cha.
+- `class Con extends Cha {...}`: Khai báo class `Con` kế thừa từ class `Cha`.
+- **`super(args...)`**:
+  - Bên trong `constructor` của lớp con, `super()` được dùng để gọi `constructor` của lớp cha. **Nó phải được gọi trước khi bạn sử dụng từ khóa `this`** trong constructor của lớp con.
+  - Bên trong các phương thức của lớp con, `super.phuongThucCha()` được dùng để gọi một phương thức cụ thể của lớp cha.
+  - Bên trong static method của lớp con, `super.staticMethodCha()` được dùng để gọi static method của lớp cha.
 
 ES6 Classes thực sự làm cho code hướng đối tượng trong JavaScript trở nên dễ đọc, dễ viết và dễ quản lý hơn rất nhiều, trong khi vẫn giữ được sức mạnh của mô hình kế thừa prototype bên dưới.
 
@@ -290,7 +300,8 @@ class NhietDo {
 
   set celsius(giaTriMoi) {
     console.log("Setter celsius được gọi với giá trị:", giaTriMoi);
-    if (giaTriMoi < -273.15) { // Validate giá trị
+    if (giaTriMoi < -273.15) {
+      // Validate giá trị
       console.error("Lỗi: Nhiệt độ không thể thấp hơn độ không tuyệt đối!");
       return;
     }
@@ -324,10 +335,10 @@ console.log(`Nhiệt độ sau khi gán Fahrenheit: ${nhietDoPhong.celsius}°C`)
 
 ### Tại sao dùng Getters và Setters?
 
--   **Computed Properties (Thuộc tính tính toán):** Tạo ra các thuộc tính mà giá trị của chúng được tính toán từ các thuộc tính khác (ví dụ: `hoTen` từ `ho` và `ten`, `fahrenheit` từ `celsius`).
--   **Validation (Kiểm tra hợp lệ):** Thực hiện kiểm tra dữ liệu trước khi gán giá trị cho một thuộc tính (ví dụ: kiểm tra nhiệt độ không âm).
--   **Encapsulation (Đóng gói):** Che giấu cách dữ liệu được lưu trữ bên trong và chỉ cung cấp một giao diện được kiểm soát để tương tác với nó.
--   **Logging hoặc Debugging:** Thực thi code log mỗi khi một thuộc tính được truy cập hoặc thay đổi.
+- **Computed Properties (Thuộc tính tính toán):** Tạo ra các thuộc tính mà giá trị của chúng được tính toán từ các thuộc tính khác (ví dụ: `hoTen` từ `ho` và `ten`, `fahrenheit` từ `celsius`).
+- **Validation (Kiểm tra hợp lệ):** Thực hiện kiểm tra dữ liệu trước khi gán giá trị cho một thuộc tính (ví dụ: kiểm tra nhiệt độ không âm).
+- **Encapsulation (Đóng gói):** Che giấu cách dữ liệu được lưu trữ bên trong và chỉ cung cấp một giao diện được kiểm soát để tương tác với nó.
+- **Logging hoặc Debugging:** Thực thi code log mỗi khi một thuộc tính được truy cập hoặc thay đổi.
 
 Getters và setters cung cấp một cách mạnh mẽ để làm cho đối tượng của bạn thông minh hơn và dễ quản lý hơn.
 

@@ -1,4 +1,7 @@
 ---
+authors: Simon
+tags: [introduction, hello, foundation]
+sidebar_position: 11
 title: Mảng (Arrays) trong JavaScript - Những Người Bạn Thích Xếp Hàng
 description: Tìm hiểu toàn diện về Mảng (Arrays) trong JavaScript, từ cách tạo, truy cập, các thuộc tính, phương thức phổ biến, đến các kỹ thuật lặp và biến đổi mạnh mẽ.
 ---
@@ -35,6 +38,7 @@ console.log("Món ngon phải thử:", monAnViet); // ["Phở", "Bún chả", "N
 let mangThapCam = ["Cò", 20, true, { ten: "Simon", tuoi: 2 }, null, undefined];
 console.log("Mảng gì cũng có:", mangThapCam);
 ```
+
 Chỉ cần đặt các giá trị bạn muốn vào giữa cặp dấu ngoặc vuông `[]`, cách nhau bởi dấu phẩy `,`, là bạn đã có ngay một mảng xịn sò!
 
 ### Cách 2: Dùng "Ngài" `new Array()` (Ít Dùng Hơn)
@@ -58,15 +62,15 @@ console.log("Phần tử đầu tiên:", mangVoiSoLuong[0]); // undefined
 
 // Mảng với một phần tử là số
 let mangMotSo = new Array(10); // Tạo mảng có 10 phần tử rỗng
-let mangMotSoLiteral = [10];   // Tạo mảng có 1 phần tử là số 10
-console.log("new Array(10):", mangMotSo);       // [ <10 empty items> ]
+let mangMotSoLiteral = [10]; // Tạo mảng có 1 phần tử là số 10
+console.log("new Array(10):", mangMotSo); // [ <10 empty items> ]
 console.log("[10]:", mangMotSoLiteral); // [10]
 ```
 
 :::warning[⚠️ Warning]
 
 **Lưu ý "nhỏ mà có võ" với `new Array(number)`**:
-Khi bạn truyền **một số duy nhất** cho `new Array(someNumber)`, nó sẽ tạo ra một mảng với `someNumber` phần tử rỗng (empty slots), chứ *không phải* một mảng chứa một phần tử là `someNumber` đó. Ví dụ, `new Array(3)` tạo ra `[empty, empty, empty]`, khác với `[3]`.
+Khi bạn truyền **một số duy nhất** cho `new Array(someNumber)`, nó sẽ tạo ra một mảng với `someNumber` phần tử rỗng (empty slots), chứ _không phải_ một mảng chứa một phần tử là `someNumber` đó. Ví dụ, `new Array(3)` tạo ra `[empty, empty, empty]`, khác với `[3]`.
 Chính vì sự "khó hiểu" tiềm ẩn này, cộng đồng coder thường ưu ái cách dùng array literal `[]` hơn cho nó rõ ràng và "an toàn, bạn nhé"!
 
 :::
@@ -112,8 +116,9 @@ console.log("Sĩ số lớp vắng:", mangTrong.length); // 0
 ```
 
 Điều thú vị là `length` không chỉ để đọc, mà bạn còn có thể **thay đổi** nó:
--   Nếu bạn đặt `length` thành một số nhỏ hơn số phần tử hiện có, mảng sẽ bị **cắt ngắn (truncate)**.
--   Nếu bạn đặt `length` thành một số lớn hơn, mảng sẽ được mở rộng với các **phần tử rỗng (empty slots)**.
+
+- Nếu bạn đặt `length` thành một số nhỏ hơn số phần tử hiện có, mảng sẽ bị **cắt ngắn (truncate)**.
+- Nếu bạn đặt `length` thành một số lớn hơn, mảng sẽ được mở rộng với các **phần tử rỗng (empty slots)**.
 
 ```javascript
 let numbers = [10, 20, 30, 40, 50];
@@ -136,121 +141,128 @@ JavaScript cung cấp vô số phương thức (methods) tiện lợi để làm
 
 ### 1. Thêm/Xóa Phần Tử (Mutating)
 
--   **`push(...items)`**: Thêm một hoặc nhiều phần tử vào **cuối** mảng. Trả về độ dài mới của mảng.
-    ```javascript
-    let mauSac = ["Đỏ", "Vàng"];
-    let newLength = mauSac.push("Xanh", "Tím");
-    console.log(mauSac);     // ["Đỏ", "Vàng", "Xanh", "Tím"]
-    console.log(newLength);  // 4
-    ```
--   **`pop()`**: Xóa phần tử **cuối cùng** của mảng. Trả về phần tử đã xóa.
-    ```javascript
-    let ptuBiXoa = mauSac.pop();
-    console.log(mauSac);     // ["Đỏ", "Vàng", "Xanh"]
-    console.log(ptuBiXoa); // "Tím"
-    ```
--   **`unshift(...items)`**: Thêm một hoặc nhiều phần tử vào **đầu** mảng. Trả về độ dài mới của mảng.
-    ```javascript
-    newLength = mauSac.unshift("Hồng", "Cam");
-    console.log(mauSac);     // ["Hồng", "Cam", "Đỏ", "Vàng", "Xanh"]
-    console.log(newLength);  // 5
-    ```
--   **`shift()`**: Xóa phần tử **đầu tiên** của mảng. Trả về phần tử đã xóa.
-    ```javascript
-    ptuBiXoa = mauSac.shift();
-    console.log(mauSac);     // ["Cam", "Đỏ", "Vàng", "Xanh"]
-    console.log(ptuBiXoa); // "Hồng"
-    ```
+- **`push(...items)`**: Thêm một hoặc nhiều phần tử vào **cuối** mảng. Trả về độ dài mới của mảng.
+  ```javascript
+  let mauSac = ["Đỏ", "Vàng"];
+  let newLength = mauSac.push("Xanh", "Tím");
+  console.log(mauSac); // ["Đỏ", "Vàng", "Xanh", "Tím"]
+  console.log(newLength); // 4
+  ```
+- **`pop()`**: Xóa phần tử **cuối cùng** của mảng. Trả về phần tử đã xóa.
+  ```javascript
+  let ptuBiXoa = mauSac.pop();
+  console.log(mauSac); // ["Đỏ", "Vàng", "Xanh"]
+  console.log(ptuBiXoa); // "Tím"
+  ```
+- **`unshift(...items)`**: Thêm một hoặc nhiều phần tử vào **đầu** mảng. Trả về độ dài mới của mảng.
+  ```javascript
+  newLength = mauSac.unshift("Hồng", "Cam");
+  console.log(mauSac); // ["Hồng", "Cam", "Đỏ", "Vàng", "Xanh"]
+  console.log(newLength); // 5
+  ```
+- **`shift()`**: Xóa phần tử **đầu tiên** của mảng. Trả về phần tử đã xóa.
+  ```javascript
+  ptuBiXoa = mauSac.shift();
+  console.log(mauSac); // ["Cam", "Đỏ", "Vàng", "Xanh"]
+  console.log(ptuBiXoa); // "Hồng"
+  ```
 
 ### 2. "Cắt Lát" và "Chắp Vá" Mảng
 
--   **`slice(startIndex, endIndex)` (Non-mutating)**: Trả về một **mảng mới** chứa một bản sao nông (shallow copy) của một phần mảng gốc, từ `startIndex` (bao gồm) đến `endIndex` (không bao gồm). Mảng gốc không bị thay đổi.
-    -   Nếu `endIndex` bỏ qua, sẽ cắt đến hết mảng.
-    -   Nếu `startIndex` âm, sẽ đếm từ cuối mảng.
-    ```javascript
-    let dongVat = ["Mèo", "Chó", "Cá", "Chim", "Chuột"];
-    let petMoi = dongVat.slice(1, 3); // Từ index 1 đến trước index 3
-    console.log(petMoi);        // ["Chó", "Cá"]
-    console.log(dongVat);       // ["Mèo", "Chó", "Cá", "Chim", "Chuột"] (không đổi)
+- **`slice(startIndex, endIndex)` (Non-mutating)**: Trả về một **mảng mới** chứa một bản sao nông (shallow copy) của một phần mảng gốc, từ `startIndex` (bao gồm) đến `endIndex` (không bao gồm). Mảng gốc không bị thay đổi.
 
-    let conLai = dongVat.slice(2); // Từ index 2 đến hết
-    console.log(conLai);        // ["Cá", "Chim", "Chuột"]
+  - Nếu `endIndex` bỏ qua, sẽ cắt đến hết mảng.
+  - Nếu `startIndex` âm, sẽ đếm từ cuối mảng.
 
-    let cuoiCung = dongVat.slice(-2); // 2 phần tử cuối
-    console.log(cuoiCung);      // ["Chim", "Chuột"]
-    ```
+  ```javascript
+  let dongVat = ["Mèo", "Chó", "Cá", "Chim", "Chuột"];
+  let petMoi = dongVat.slice(1, 3); // Từ index 1 đến trước index 3
+  console.log(petMoi); // ["Chó", "Cá"]
+  console.log(dongVat); // ["Mèo", "Chó", "Cá", "Chim", "Chuột"] (không đổi)
 
--   **`splice(startIndex, deleteCount, ...itemsToAdd)` (Mutating)**: Thay đổi nội dung của mảng bằng cách xóa hoặc thay thế các phần tử hiện có và/hoặc thêm các phần tử mới **tại chỗ**. Trả về một mảng chứa các phần tử đã bị xóa.
-    ```javascript
-    let numbersGame = [10, 20, 30, 40, 50];
-    // Xóa 2 phần tử từ index 1
-    let deletedItems = numbersGame.splice(1, 2);
-    console.log(numbersGame);   // [10, 40, 50]
-    console.log(deletedItems); // [20, 30]
+  let conLai = dongVat.slice(2); // Từ index 2 đến hết
+  console.log(conLai); // ["Cá", "Chim", "Chuột"]
 
-    // Xóa 1 phần tử ở index 2 và thêm 2 phần tử mới vào đó
-    deletedItems = numbersGame.splice(2, 1, 60, 70);
-    console.log(numbersGame);   // [10, 40, 60, 70, 50] (số 50 cũ bị đẩy về sau)
-    console.log(deletedItems); // [50] (phần tử 50 cũ ở vị trí index 2 trước khi thêm 60, 70) -> chú ý chỗ này, 50 là phần tử ở vị trí index 2 của mảng [10,40,50]
+  let cuoiCung = dongVat.slice(-2); // 2 phần tử cuối
+  console.log(cuoiCung); // ["Chim", "Chuột"]
+  ```
 
-    // Chỉ thêm phần tử (deleteCount = 0)
-    deletedItems = numbersGame.splice(1, 0, 15, 25);
-    console.log(numbersGame);   // [10, 15, 25, 40, 60, 70, 50]
-    console.log(deletedItems); // [] (không có gì bị xóa)
-    ```
+- **`splice(startIndex, deleteCount, ...itemsToAdd)` (Mutating)**: Thay đổi nội dung của mảng bằng cách xóa hoặc thay thế các phần tử hiện có và/hoặc thêm các phần tử mới **tại chỗ**. Trả về một mảng chứa các phần tử đã bị xóa.
+
+  ```javascript
+  let numbersGame = [10, 20, 30, 40, 50];
+  // Xóa 2 phần tử từ index 1
+  let deletedItems = numbersGame.splice(1, 2);
+  console.log(numbersGame); // [10, 40, 50]
+  console.log(deletedItems); // [20, 30]
+
+  // Xóa 1 phần tử ở index 2 và thêm 2 phần tử mới vào đó
+  deletedItems = numbersGame.splice(2, 1, 60, 70);
+  console.log(numbersGame); // [10, 40, 60, 70, 50] (số 50 cũ bị đẩy về sau)
+  console.log(deletedItems); // [50] (phần tử 50 cũ ở vị trí index 2 trước khi thêm 60, 70) -> chú ý chỗ này, 50 là phần tử ở vị trí index 2 của mảng [10,40,50]
+
+  // Chỉ thêm phần tử (deleteCount = 0)
+  deletedItems = numbersGame.splice(1, 0, 15, 25);
+  console.log(numbersGame); // [10, 15, 25, 40, 60, 70, 50]
+  console.log(deletedItems); // [] (không có gì bị xóa)
+  ```
 
 ### 3. "Kết Nối" và "Hợp Nhất" Mảng
 
--   **`join(separator)` (Non-mutating)**: Nối tất cả các phần tử của mảng thành một chuỗi. `separator` (tùy chọn) là chuỗi dùng để ngăn cách các phần tử (mặc định là dấu phẩy `,`).
-    ```javascript
-    let tuKhoa = ["học", "JavaScript", "thật", "vui"];
-    let cauNoi = tuKhoa.join(" "); // Ngăn cách bằng dấu cách
-    console.log(cauNoi); // "học JavaScript thật vui"
+- **`join(separator)` (Non-mutating)**: Nối tất cả các phần tử của mảng thành một chuỗi. `separator` (tùy chọn) là chuỗi dùng để ngăn cách các phần tử (mặc định là dấu phẩy `,`).
 
-    let csvData = ["An", "25", "Hà Nội"].join(",");
-    console.log(csvData); // "An,25,Hà Nội"
-    ```
+  ```javascript
+  let tuKhoa = ["học", "JavaScript", "thật", "vui"];
+  let cauNoi = tuKhoa.join(" "); // Ngăn cách bằng dấu cách
+  console.log(cauNoi); // "học JavaScript thật vui"
 
--   **`concat(...arraysOrValues)` (Non-mutating)**: Trả về một **mảng mới** là kết quả của việc nối mảng hiện tại với các mảng hoặc giá trị khác được truyền vào.
-    ```javascript
-    let arr1 = [1, 2];
-    let arr2 = [3, 4];
-    let arr3 = [5, 6];
-    let gopMang = arr1.concat(arr2, arr3, 7, "Tám");
-    console.log(gopMang); // [1, 2, 3, 4, 5, 6, 7, "Tám"]
-    console.log(arr1);    // [1, 2] (không đổi)
-    ```
+  let csvData = ["An", "25", "Hà Nội"].join(",");
+  console.log(csvData); // "An,25,Hà Nội"
+  ```
+
+- **`concat(...arraysOrValues)` (Non-mutating)**: Trả về một **mảng mới** là kết quả của việc nối mảng hiện tại với các mảng hoặc giá trị khác được truyền vào.
+  ```javascript
+  let arr1 = [1, 2];
+  let arr2 = [3, 4];
+  let arr3 = [5, 6];
+  let gopMang = arr1.concat(arr2, arr3, 7, "Tám");
+  console.log(gopMang); // [1, 2, 3, 4, 5, 6, 7, "Tám"]
+  console.log(arr1); // [1, 2] (không đổi)
+  ```
 
 ### 4. Tìm Kiếm Phần Tử
 
--   **`indexOf(searchElement, fromIndex)` (Non-mutating)**: Trả về chỉ số (index) **đầu tiên** của `searchElement` trong mảng. Trả về `-1` nếu không tìm thấy. `fromIndex` (tùy chọn) là chỉ số bắt đầu tìm kiếm.
-    ```javascript
-    let diemThi = [5, 8, 7, 9, 7, 10];
-    console.log(diemThi.indexOf(7));       // 2 (tìm thấy 7 đầu tiên ở index 2)
-    console.log(diemThi.indexOf(7, 3));    // 4 (bắt đầu tìm 7 từ index 3, thấy ở index 4)
-    console.log(diemThi.indexOf(6));       // -1 (không có số 6)
-    ```
+- **`indexOf(searchElement, fromIndex)` (Non-mutating)**: Trả về chỉ số (index) **đầu tiên** của `searchElement` trong mảng. Trả về `-1` nếu không tìm thấy. `fromIndex` (tùy chọn) là chỉ số bắt đầu tìm kiếm.
 
--   **`lastIndexOf(searchElement, fromIndex)` (Non-mutating)**: Tương tự `indexOf`, nhưng tìm kiếm từ **cuối mảng về đầu**. `fromIndex` (tùy chọn) là chỉ số bắt đầu tìm kiếm ngược (mặc định là `array.length - 1`).
-    ```javascript
-    console.log(diemThi.lastIndexOf(7));    // 4 (tìm thấy 7 cuối cùng ở index 4)
-    console.log(diemThi.lastIndexOf(7, 3)); // 2 (bắt đầu tìm ngược 7 từ index 3, thấy ở index 2)
-    ```
+  ```javascript
+  let diemThi = [5, 8, 7, 9, 7, 10];
+  console.log(diemThi.indexOf(7)); // 2 (tìm thấy 7 đầu tiên ở index 2)
+  console.log(diemThi.indexOf(7, 3)); // 4 (bắt đầu tìm 7 từ index 3, thấy ở index 4)
+  console.log(diemThi.indexOf(6)); // -1 (không có số 6)
+  ```
 
--   **`includes(valueToFind, fromIndex)` (ES7 - Non-mutating)**: Trả về `true` nếu mảng chứa `valueToFind`, ngược lại trả về `false`. Dễ đọc hơn `indexOf(item) !== -1`.
-    ```javascript
-    console.log(diemThi.includes(9)); // true
-    console.log(diemThi.includes(6)); // false
-    console.log(diemThi.includes(8, 2)); // false (bắt đầu tìm 8 từ index 2)
-    ```
+- **`lastIndexOf(searchElement, fromIndex)` (Non-mutating)**: Tương tự `indexOf`, nhưng tìm kiếm từ **cuối mảng về đầu**. `fromIndex` (tùy chọn) là chỉ số bắt đầu tìm kiếm ngược (mặc định là `array.length - 1`).
+
+  ```javascript
+  console.log(diemThi.lastIndexOf(7)); // 4 (tìm thấy 7 cuối cùng ở index 4)
+  console.log(diemThi.lastIndexOf(7, 3)); // 2 (bắt đầu tìm ngược 7 từ index 3, thấy ở index 2)
+  ```
+
+- **`includes(valueToFind, fromIndex)` (ES7 - Non-mutating)**: Trả về `true` nếu mảng chứa `valueToFind`, ngược lại trả về `false`. Dễ đọc hơn `indexOf(item) !== -1`.
+  ```javascript
+  console.log(diemThi.includes(9)); // true
+  console.log(diemThi.includes(6)); // false
+  console.log(diemThi.includes(8, 2)); // false (bắt đầu tìm 8 từ index 2)
+  ```
 
 :::info[Info]
 
 `includes` có thể tìm thấy `NaN` trong mảng, trong khi `indexOf(NaN)` sẽ trả về `-1`.
+
 ```javascript
 let mangCoNaN = [1, NaN, 3];
 console.log(mangCoNaN.includes(NaN)); // true
-console.log(mangCoNaN.indexOf(NaN));  // -1
+console.log(mangCoNaN.indexOf(NaN)); // -1
 ```
 
 :::
@@ -283,6 +295,7 @@ for (let mon of monTheThao) {
 :::info[Info]
 
 Nếu bạn cần cả **chỉ số (index)** và **giá trị (value)** với `for...of`, bạn có thể dùng phương thức `entries()` của mảng:
+
 ```javascript
 for (let [index, value] of monTheThao.entries()) {
   console.log(`Vị trí ${index}: ${value}`);
@@ -296,8 +309,10 @@ for (let [index, value] of monTheThao.entries()) {
 Gọi một hàm (callback) một lần cho mỗi phần tử trong mảng. Callback nhận 3 đối số: `currentValue`, `index` (tùy chọn), `array` (tùy chọn). `forEach` không trả về giá trị (luôn là `undefined`) và không thể bị dừng bởi `break` (nhưng có thể dùng `return` bên trong callback để bỏ qua lần lặp hiện tại, giống `continue`).
 
 ```javascript
-monTheThao.forEach(function(mon, index, arr) {
-  console.log(`[forEach] Index ${index}: ${mon} (từ mảng: ${arr.length} phần tử)`);
+monTheThao.forEach(function (mon, index, arr) {
+  console.log(
+    `[forEach] Index ${index}: ${mon} (từ mảng: ${arr.length} phần tử)`
+  );
 });
 ```
 
@@ -311,14 +326,16 @@ Tạo ra một **mảng mới** bằng cách gọi callback function trên mỗi
 
 ```javascript
 let numbersArr = [1, 2, 3, 4, 5];
-let binhPhuong = numbersArr.map(function(num) {
+let binhPhuong = numbersArr.map(function (num) {
   return num * num;
 });
 console.log(binhPhuong); // [1, 4, 9, 16, 25]
 console.log(numbersArr); // [1, 2, 3, 4, 5] (không đổi)
 
 let tenNguoi = ["an", "BÌNH", "cHÂu"];
-let tenChuanHoa = tenNguoi.map(ten => ten.charAt(0).toUpperCase() + ten.slice(1).toLowerCase());
+let tenChuanHoa = tenNguoi.map(
+  (ten) => ten.charAt(0).toUpperCase() + ten.slice(1).toLowerCase()
+);
 console.log(tenChuanHoa); // ["An", "Bình", "Châu"]
 ```
 
@@ -327,7 +344,7 @@ console.log(tenChuanHoa); // ["An", "Bình", "Châu"]
 Tạo ra một **mảng mới** chứa tất cả các phần tử của mảng gốc mà callback function trả về `true` (hoặc một giá trị "truthy"). Callback nhận `currentValue`, `index`, `array`.
 
 ```javascript
-let soChan = numbersArr.filter(function(num) {
+let soChan = numbersArr.filter(function (num) {
   return num % 2 === 0;
 });
 console.log(soChan); // [2, 4]
@@ -335,23 +352,24 @@ console.log(soChan); // [2, 4]
 let sanPham = [
   { ten: "Áo Thun", gia: 150000, conHang: true },
   { ten: "Quần Jean", gia: 500000, conHang: false },
-  { ten: "Giày Sneaker", gia: 800000, conHang: true }
+  { ten: "Giày Sneaker", gia: 800000, conHang: true },
 ];
-let spConHangGiaCao = sanPham.filter(sp => sp.conHang && sp.gia > 200000);
+let spConHangGiaCao = sanPham.filter((sp) => sp.conHang && sp.gia > 200000);
 console.log(spConHangGiaCao); // [{ ten: "Giày Sneaker", gia: 800000, conHang: true }]
 ```
 
 ### 3. `reduce(callbackFunction, initialValue)` (Non-mutating)
 
 "Giảm" mảng xuống thành một giá trị duy nhất bằng cách thực thi callback function cho mỗi phần tử. Callback nhận 4 đối số:
--   `accumulator` (biến tích lũy): Giá trị trả về từ lần gọi callback trước đó (hoặc `initialValue` nếu là lần đầu).
--   `currentValue`: Phần tử hiện tại đang được xử lý.
--   `currentIndex` (tùy chọn).
--   `array` (tùy chọn).
-`initialValue` (tùy chọn): Giá trị ban đầu cho `accumulator`. Nếu không cung cấp, phần tử đầu tiên của mảng sẽ được dùng làm `initialValue` và callback bắt đầu từ phần tử thứ hai.
+
+- `accumulator` (biến tích lũy): Giá trị trả về từ lần gọi callback trước đó (hoặc `initialValue` nếu là lần đầu).
+- `currentValue`: Phần tử hiện tại đang được xử lý.
+- `currentIndex` (tùy chọn).
+- `array` (tùy chọn).
+  `initialValue` (tùy chọn): Giá trị ban đầu cho `accumulator`. Nếu không cung cấp, phần tử đầu tiên của mảng sẽ được dùng làm `initialValue` và callback bắt đầu từ phần tử thứ hai.
 
 ```javascript
-let tongCacSo = numbersArr.reduce(function(tong, soHienTai) {
+let tongCacSo = numbersArr.reduce(function (tong, soHienTai) {
   console.log(`Tong: ${tong}, SoHienTai: ${soHienTai}`);
   return tong + soHienTai;
 }, 0); // 0 là initialValue cho tong
@@ -373,31 +391,33 @@ console.log(soLuongTraiCay); // {Táo: 3, Cam: 2, Lê: 1}
 ### 4. `some(callbackFunction)` và `every(callbackFunction)` (Non-mutating)
 
 Kiểm tra các phần tử của mảng.
--   **`some(cb)`**: Trả về `true` nếu callback `cb` trả về `true` cho **ít nhất một** phần tử. Dừng lặp ngay khi tìm thấy.
--   **`every(cb)`**: Trả về `true` nếu callback `cb` trả về `true` cho **tất cả** các phần tử. Dừng lặp ngay khi một phần tử không thỏa mãn.
+
+- **`some(cb)`**: Trả về `true` nếu callback `cb` trả về `true` cho **ít nhất một** phần tử. Dừng lặp ngay khi tìm thấy.
+- **`every(cb)`**: Trả về `true` nếu callback `cb` trả về `true` cho **tất cả** các phần tử. Dừng lặp ngay khi một phần tử không thỏa mãn.
 
 ```javascript
-let coSoAm = [-1, 0, 5, 10].some(num => num < 0);
+let coSoAm = [-1, 0, 5, 10].some((num) => num < 0);
 console.log("Mảng có số âm không?", coSoAm); // true
 
-let tatCaDuong = [-1, 0, 5, 10].every(num => num >= 0);
+let tatCaDuong = [-1, 0, 5, 10].every((num) => num >= 0);
 console.log("Tất cả các số đều dương hoặc bằng 0?", tatCaDuong); // false
 ```
 
 ### 5. `find(callbackFunction)` và `findIndex(callbackFunction)` (ES6 - Non-mutating)
 
 Tìm kiếm phần tử trong mảng.
--   **`find(cb)`**: Trả về **giá trị của phần tử đầu tiên** trong mảng mà callback `cb` trả về `true`. Trả về `undefined` nếu không tìm thấy.
--   **`findIndex(cb)`**: Trả về **chỉ số (index) của phần tử đầu tiên** mà callback `cb` trả về `true`. Trả về `-1` nếu không tìm thấy.
+
+- **`find(cb)`**: Trả về **giá trị của phần tử đầu tiên** trong mảng mà callback `cb` trả về `true`. Trả về `undefined` nếu không tìm thấy.
+- **`findIndex(cb)`**: Trả về **chỉ số (index) của phần tử đầu tiên** mà callback `cb` trả về `true`. Trả về `-1` nếu không tìm thấy.
 
 ```javascript
-let sinhVienTim = sanPham.find(sp => sp.ten === "Quần Jean");
+let sinhVienTim = sanPham.find((sp) => sp.ten === "Quần Jean");
 console.log("Tìm thấy Quần Jean:", sinhVienTim); // { ten: "Quần Jean", gia: 500000, conHang: false }
 
-let indexGiay = sanPham.findIndex(sp => sp.ten === "Giày Sneaker");
+let indexGiay = sanPham.findIndex((sp) => sp.ten === "Giày Sneaker");
 console.log("Index của Giày Sneaker:", indexGiay); // 2
 
-let khongTimThay = sanPham.find(sp => sp.gia < 100000);
+let khongTimThay = sanPham.find((sp) => sp.gia < 100000);
 console.log("Không tìm thấy sản phẩm giá rẻ:", khongTimThay); // undefined
 ```
 
@@ -412,7 +432,7 @@ let gocArray = [1, 2, 3];
 let banSaoArray = [...gocArray];
 console.log(banSaoArray); // [1, 2, 3]
 banSaoArray.push(4);
-console.log(gocArray);    // [1, 2, 3] (không bị ảnh hưởng)
+console.log(gocArray); // [1, 2, 3] (không bị ảnh hưởng)
 console.log(banSaoArray); // [1, 2, 3, 4]
 ```
 
@@ -454,10 +474,10 @@ let thongTinNguoi = ["An Nguyễn", 28, "Lập trình viên", "Hà Nội"];
 // Cách mới với destructuring
 let [tenDayDu, tuoi, ngheNghiep, diaChi = "Chưa có"] = thongTinNguoi;
 
-console.log(tenDayDu);    // An Nguyễn
-console.log(tuoi);        // 28
-console.log(ngheNghiep);  // Lập trình viên
-console.log(diaChi);      // Hà Nội (nếu thongTinNguoi[3] là undefined, sẽ lấy "Chưa có")
+console.log(tenDayDu); // An Nguyễn
+console.log(tuoi); // 28
+console.log(ngheNghiep); // Lập trình viên
+console.log(diaChi); // Hà Nội (nếu thongTinNguoi[3] là undefined, sẽ lấy "Chưa có")
 
 // Bỏ qua phần tử
 let [tenCongTy, , , thanhPho] = ["Google", "USA", "Mountain View", "CA"];
@@ -465,9 +485,14 @@ console.log(tenCongTy); // Google
 console.log(thanhPho); // CA
 
 // Sử dụng với rest syntax để lấy các phần tử còn lại
-let [nguoiDauTien, nguoiThuHai, ...nhungNguoiConLai] = ["Tèo", "Tí", "Tửn", "Tèo Em"];
-console.log(nguoiDauTien);          // Tèo
-console.log(nhungNguoiConLai);      // ["Tửn", "Tèo Em"]
+let [nguoiDauTien, nguoiThuHai, ...nhungNguoiConLai] = [
+  "Tèo",
+  "Tí",
+  "Tửn",
+  "Tèo Em",
+];
+console.log(nguoiDauTien); // Tèo
+console.log(nhungNguoiConLai); // ["Tửn", "Tèo Em"]
 
 // Hoán đổi giá trị biến
 let x = 10;

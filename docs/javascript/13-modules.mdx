@@ -1,4 +1,7 @@
 ---
+sidebar_position: 13
+authors: Simon
+tags: [introduction, hello, foundation]
 title: JavaScript Modules (ES6 Modules) - Tổ Chức Code Chuyên Nghiệp
 description: Tìm hiểu về ES6 Modules trong JavaScript, cách sử dụng export, import, default exports để tổ chức code hiệu quả, dễ bảo trì và tái sử dụng.
 ---
@@ -12,6 +15,7 @@ Chào các bạn! Khi các dự án JavaScript ngày càng lớn và phức tạ
 ### Tại Sao Phải "Chia Để Trị" với Modules?
 
 Sử dụng modules mang lại vô số lợi ích:
+
 1.  **Tổ Chức Code (Code Organization):** Mỗi module tập trung vào một chức năng hoặc một tập hợp các chức năng liên quan. Điều này làm cho cấu trúc dự án rõ ràng hơn nhiều.
 2.  **Tái Sử Dụng (Reusability):** Bạn có thể dễ dàng sử dụng lại các module hữu ích trong nhiều phần khác nhau của dự án, hoặc thậm chí trong các dự án khác.
 3.  **Dễ Bảo Trì (Maintainability):** Khi cần sửa lỗi hoặc cập nhật một chức năng, bạn chỉ cần tập trung vào module cụ thể đó mà không sợ ảnh hưởng đến các phần khác.
@@ -22,9 +26,10 @@ Sử dụng modules mang lại vô số lợi ích:
 
 **Bối Cảnh Lịch Sử (Ngắn Gọn):**
 Trước khi ES6 Modules ra đời, cộng đồng JavaScript đã tự tạo ra nhiều hệ thống module khác nhau để giải quyết vấn đề tổ chức code, ví dụ:
--   **CommonJS (CJS):** Phổ biến trong môi trường Node.js, sử dụng `require()` để nhập và `module.exports` hoặc `exports` để xuất.
--   **AMD (Asynchronous Module Definition):** Dùng cho trình duyệt, nổi bật với thư viện RequireJS, tập trung vào việc tải module bất đồng bộ.
--   **UMD (Universal Module Definition):** Cố gắng tạo ra một định dạng module có thể chạy được ở cả môi trường CommonJS và AMD.
+
+- **CommonJS (CJS):** Phổ biến trong môi trường Node.js, sử dụng `require()` để nhập và `module.exports` hoặc `exports` để xuất.
+- **AMD (Asynchronous Module Definition):** Dùng cho trình duyệt, nổi bật với thư viện RequireJS, tập trung vào việc tải module bất đồng bộ.
+- **UMD (Universal Module Definition):** Cố gắng tạo ra một định dạng module có thể chạy được ở cả môi trường CommonJS và AMD.
 
 Tuy nhiên, ES6 Modules hiện là tiêu chuẩn chính thức và được hỗ trợ rộng rãi trong cả trình duyệt hiện đại và Node.js, mang lại một cách tiếp cận thống nhất. Bài viết này sẽ tập trung vào **ES6 Modules**.
 
@@ -55,14 +60,19 @@ export class MayTinhBoTui {
   constructor(ten) {
     this.ten = ten;
   }
-  cong(a,b) { return a + b; }
+  cong(a, b) {
+    return a + b;
+  }
 }
 
 // Bạn cũng có thể export một generator function
 export function* demSo() {
-  yield 1; yield 2; yield 3;
+  yield 1;
+  yield 2;
+  yield 3;
 }
 ```
+
 Với cách này, `PI`, `E`, `tinhTong`, `MayTinhBoTui`, và `demSo` đều sẵn sàng để được "nhập khẩu" ở nơi khác.
 
 #### Cách 2: "Lên Danh Sách" Xuất Khẩu Ở Cuối File
@@ -105,11 +115,9 @@ function luuTruDuLieu(data) {
 }
 
 // Đổi tên khi export
-export {
-  xuLyDuLieuTho as processRawData,
-  luuTruDuLieu as saveDataToStorage
-};
+export { xuLyDuLieuTho as processRawData, luuTruDuLieu as saveDataToStorage };
 ```
+
 Giờ đây, khi module khác "nhập khẩu", họ sẽ dùng tên `processRawData` và `saveDataToStorage`.
 
 ## `import`: "Nhập Khẩu" Hàng Hóa Vào Module
@@ -123,8 +131,8 @@ Nếu một module đã export nhiều thứ bằng named exports, bạn có th�
 ```javascript
 // === file: main.js ===
 // Giả sử mathUtils.js và stringUtils.js ở cùng thư mục
-import { PI, tinhTong } from './mathUtils.js';
-import { vietHoaChuDau } from './stringUtils.js';
+import { PI, tinhTong } from "./mathUtils.js";
+import { vietHoaChuDau } from "./stringUtils.js";
 
 console.log("Số PI là:", PI); // 3.1415926535
 console.log("Tổng của 5 và 7 là:", tinhTong(5, 7)); // 12
@@ -132,8 +140,9 @@ console.log("Tổng của 5 và 7 là:", tinhTong(5, 7)); // 12
 let tenCuaToi = "cò";
 console.log("Tên đã chuẩn hóa:", vietHoaChuDau(tenCuaToi)); // Cò
 ```
--   Đường dẫn đến module (ví dụ: `./mathUtils.js`) thường là tương đối (relative) so với file hiện tại.
--   Bạn phải sử dụng đúng tên đã được export (trừ khi bạn đổi tên khi import).
+
+- Đường dẫn đến module (ví dụ: `./mathUtils.js`) thường là tương đối (relative) so với file hiện tại.
+- Bạn phải sử dụng đúng tên đã được export (trừ khi bạn đổi tên khi import).
 
 ### 2. "Nhập Khẩu" Toàn Bộ Hàng Hóa Dưới Một Cái Tên (Namespace Import)
 
@@ -141,17 +150,21 @@ console.log("Tên đã chuẩn hóa:", vietHoaChuDau(tenCuaToi)); // Cò
 
 ```javascript
 // === file: app.js ===
-import * as maths from './mathUtils.js'; // maths là một đối tượng
-import * as strings from './stringUtils.js';
+import * as maths from "./mathUtils.js"; // maths là một đối tượng
+import * as strings from "./stringUtils.js";
 
 console.log("Epsilon của toán học:", maths.E);
 console.log("Tổng 10 và 20:", maths.tinhTong(10, 20));
 
 let mayTinh = new maths.MayTinhBoTui("Casio");
-console.log(mayTinh.cong(1,2));
+console.log(mayTinh.cong(1, 2));
 
-console.log("Chuỗi 'javascript' viết hoa chữ đầu:", strings.vietHoaChuDau("javascript"));
+console.log(
+  "Chuỗi 'javascript' viết hoa chữ đầu:",
+  strings.vietHoaChuDau("javascript")
+);
 ```
+
 `maths` và `strings` giờ đây là các đối tượng, mỗi thuộc tính của chúng tương ứng với một named export từ module gốc.
 
 ### 3. "Đổi Tên Hàng" Khi Nhập Khẩu (Dùng `as`)
@@ -160,8 +173,8 @@ Tương tự như khi export, bạn cũng có thể đổi tên một named impo
 
 ```javascript
 // === file: anotherApp.js ===
-import { PI as soPi, tinhTong as congHaiSo } from './mathUtils.js';
-import { processRawData as xuLyData } from './dataProcessor.js'; // Nhớ dataProcessor đã đổi tên khi export
+import { PI as soPi, tinhTong as congHaiSo } from "./mathUtils.js";
+import { processRawData as xuLyData } from "./dataProcessor.js"; // Nhớ dataProcessor đã đổi tên khi export
 
 console.log("Giá trị Pi gần đúng:", soPi);
 console.log("15 + 25 =", congHaiSo(15, 25));
@@ -225,10 +238,10 @@ Khi import một default export, bạn **không cần dùng dấu ngoặc nhọn
 
 ```javascript
 // === file: mainApp.js ===
-import MyUser from './myClass.js'; // Tên MyUser là do bạn tự đặt
-import greet from './myFunction.js'; // Tên greet cũng vậy
-import config from './myConfig.js';
-import someValue from './myValue.js';
+import MyUser from "./myClass.js"; // Tên MyUser là do bạn tự đặt
+import greet from "./myFunction.js"; // Tên greet cũng vậy
+import config from "./myConfig.js";
+import someValue from "./myValue.js";
 
 const user = new MyUser("Bình An", 30);
 user.display(); // Tên: Bình An, Tuổi: 30
@@ -247,7 +260,9 @@ Một module hoàn toàn có thể có cả default export và nhiều named exp
 const VERSION = "1.0.0";
 
 function logMessage(message, level = "info") {
-  console.log(`[${level.toUpperCase()} - ${new Date().toISOString()}] ${message}`);
+  console.log(
+    `[${level.toUpperCase()} - ${new Date().toISOString()}] ${message}`
+  );
 }
 
 export function warn(message) {
@@ -270,10 +285,14 @@ export { VERSION };
 ```javascript
 // === file: service.js ===
 // Import default export (tên `ghiLog`) và named exports (warn, error, VERSION)
-import ghiLog, { warn, error as logError, VERSION as LoggerVersion } from './logger.js';
+import ghiLog, {
+  warn,
+  error as logError,
+  VERSION as LoggerVersion,
+} from "./logger.js";
 
 ghiLog("Dịch vụ đã khởi động."); // Gọi default export
-warn("Có một cảnh báo nhỏ.");    // Gọi named export
+warn("Có một cảnh báo nhỏ."); // Gọi named export
 logError("Đã xảy ra lỗi nghiêm trọng!"); // Gọi named export đã đổi tên
 
 console.log("Phiên bản Logger:", LoggerVersion);
@@ -288,27 +307,28 @@ console.log("Phiên bản Logger:", LoggerVersion);
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <title>ES6 Modules Demo</title>
-</head>
-<body>
-  <!-- main.js sử dụng import/export -->
-  <script type="module" src="main.js"></script>
+  <head>
+    <title>ES6 Modules Demo</title>
+  </head>
+  <body>
+    <!-- main.js sử dụng import/export -->
+    <script type="module" src="main.js"></script>
 
-  <!-- moduleUtils.js cũng là một module -->
-  <!-- <script type="module" src="moduleUtils.js"></script> -->
-  <!-- Bạn không cần phải load từng module riêng lẻ như thế này nếu main.js đã import chúng -->
-</body>
+    <!-- moduleUtils.js cũng là một module -->
+    <!-- <script type="module" src="moduleUtils.js"></script> -->
+    <!-- Bạn không cần phải load từng module riêng lẻ như thế này nếu main.js đã import chúng -->
+  </body>
 </html>
 ```
+
 Trình duyệt sẽ tự động xử lý việc tải các module được `import` bên trong `main.js`.
 
 ### 2. Đường Dẫn File Khi Import
 
--   **Thường là tương đối (Relative paths):** Bắt đầu bằng `./` (cùng thư mục) hoặc `../` (thư mục cha). Ví dụ: `import { myFunc } from './utils.js';`.
--   **Hoặc tuyệt đối (Absolute paths):** Bắt đầu bằng `/` (tính từ gốc của domain). Ít dùng hơn cho các module tự viết, thường dùng cho các thư viện được phục vụ từ gốc.
--   **URL:** Bạn thậm chí có thể import từ một URL đầy đủ (ví dụ: từ một CDN), nhưng hãy cẩn thận về vấn đề bảo mật và CORS.
--   **Không cần đuôi `.js`?** Trong một số môi trường build hoặc Node.js với cấu hình nhất định, bạn có thể bỏ qua đuôi `.js`. Tuy nhiên, trên trình duyệt thuần túy, việc ghi rõ đuôi file (ví dụ: `.js` hoặc `.mjs`) thường là bắt buộc hoặc an toàn hơn.
+- **Thường là tương đối (Relative paths):** Bắt đầu bằng `./` (cùng thư mục) hoặc `../` (thư mục cha). Ví dụ: `import { myFunc } from './utils.js';`.
+- **Hoặc tuyệt đối (Absolute paths):** Bắt đầu bằng `/` (tính từ gốc của domain). Ít dùng hơn cho các module tự viết, thường dùng cho các thư viện được phục vụ từ gốc.
+- **URL:** Bạn thậm chí có thể import từ một URL đầy đủ (ví dụ: từ một CDN), nhưng hãy cẩn thận về vấn đề bảo mật và CORS.
+- **Không cần đuôi `.js`?** Trong một số môi trường build hoặc Node.js với cấu hình nhất định, bạn có thể bỏ qua đuôi `.js`. Tuy nhiên, trên trình duyệt thuần túy, việc ghi rõ đuôi file (ví dụ: `.js` hoặc `.mjs`) thường là bắt buộc hoặc an toàn hơn.
 
 ### 3. Modules Luôn Ở "Strict Mode"
 
@@ -332,12 +352,12 @@ export function getCount() {
 }
 
 // === file: app1.js ===
-import { increment, getCount } from './counter.js';
+import { increment, getCount } from "./counter.js";
 console.log("App1:", increment()); // Module counter.js đang được thực thi! (chỉ 1 lần) -> App1: 1
 console.log("App1 getCount:", getCount()); // 1
 
 // === file: app2.js ===
-import { increment, getCount } from './counter.js'; // Sẽ dùng lại module đã cached
+import { increment, getCount } from "./counter.js"; // Sẽ dùng lại module đã cached
 console.log("App2:", increment()); // App2: 2 (count tiếp tục từ giá trị trước đó)
 console.log("App2 getCount:", getCount()); // 2
 

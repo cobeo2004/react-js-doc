@@ -1,6 +1,9 @@
 ---
+sidebar_position: 6
 title: Luồng Điều Khiển trong JavaScript
 description: Tìm hiểu về các cấu trúc điều khiển luồng trong JavaScript như if/else, switch, vòng lặp for, while, do...while, break, continue và xử lý lỗi với try/catch/finally.
+authors: Simon
+tags: [introduction, hello, foundation]
 ---
 
 # Luồng Điều Khiển trong JavaScript (Control Flow)
@@ -172,9 +175,9 @@ for (khoiTao; dieuKienLap; buocNhay) {
 }
 ```
 
-- `khoiTao`: Biểu thức được thực thi một lần duy nhất *trước khi* vòng lặp bắt đầu. Thường dùng để khởi tạo một biến đếm (ví dụ: `let i = 0`).
-- `dieuKienLap`: Biểu thức được kiểm tra *trước mỗi* lần lặp. Nếu là `true`, khối lệnh bên trong vòng lặp sẽ được thực thi. Nếu là `false`, vòng lặp kết thúc.
-- `buocNhay`: Biểu thức được thực thi *sau mỗi* lần lặp. Thường dùng để cập nhật biến đếm (ví dụ: `i++` hoặc `i += 2`).
+- `khoiTao`: Biểu thức được thực thi một lần duy nhất _trước khi_ vòng lặp bắt đầu. Thường dùng để khởi tạo một biến đếm (ví dụ: `let i = 0`).
+- `dieuKienLap`: Biểu thức được kiểm tra _trước mỗi_ lần lặp. Nếu là `true`, khối lệnh bên trong vòng lặp sẽ được thực thi. Nếu là `false`, vòng lặp kết thúc.
+- `buocNhay`: Biểu thức được thực thi _sau mỗi_ lần lặp. Thường dùng để cập nhật biến đếm (ví dụ: `i++` hoặc `i += 2`).
 
 **Ví dụ: In ra các số từ 0 đến 4**
 
@@ -207,7 +210,7 @@ JavaScript còn có các biến thể vòng lặp `for...in` (để duyệt qua 
 
 ## Vòng Lặp `while` (While Loops)
 
-Vòng lặp `while` cũng dùng để lặp lại một khối lệnh, nhưng nó sẽ tiếp tục lặp *chừng nào* một điều kiện cụ thể còn đúng. Bạn không biết trước số lần lặp, mà chỉ biết điều kiện dừng.
+Vòng lặp `while` cũng dùng để lặp lại một khối lệnh, nhưng nó sẽ tiếp tục lặp _chừng nào_ một điều kiện cụ thể còn đúng. Bạn không biết trước số lần lặp, mà chỉ biết điều kiện dừng.
 
 ### Cú pháp cơ bản
 
@@ -220,7 +223,7 @@ while (dieuKien) {
 }
 ```
 
-- `dieuKien`: Biểu thức được kiểm tra *trước mỗi* lần lặp. Nếu là `true`, khối lệnh được thực thi. Nếu `false`, vòng lặp dừng.
+- `dieuKien`: Biểu thức được kiểm tra _trước mỗi_ lần lặp. Nếu là `true`, khối lệnh được thực thi. Nếu `false`, vòng lặp dừng.
 
 **Ví dụ: Đếm ngược từ 3 về 1**
 
@@ -246,7 +249,7 @@ console.log("Chúc mừng năm mới!");
 
 ## Vòng Lặp `do...while` (Do...while Loops)
 
-Vòng lặp `do...while` rất giống với `while`, nhưng có một khác biệt quan trọng: khối lệnh bên trong `do...while` sẽ được thực thi *ít nhất một lần*, ngay cả khi điều kiện ban đầu là `false`. Điều này là do điều kiện được kiểm tra *sau khi* khối lệnh đã chạy.
+Vòng lặp `do...while` rất giống với `while`, nhưng có một khác biệt quan trọng: khối lệnh bên trong `do...while` sẽ được thực thi _ít nhất một lần_, ngay cả khi điều kiện ban đầu là `false`. Điều này là do điều kiện được kiểm tra _sau khi_ khối lệnh đã chạy.
 
 ### Cú pháp cơ bản
 
@@ -267,15 +270,16 @@ let matKhauNhap;
 do {
   matKhauNhap = prompt("Nhập mật khẩu của bạn:"); // prompt sẽ trả về null nếu người dùng bấm Cancel
   if (matKhauNhap === null) {
-      console.log("Bạn đã hủy việc nhập mật khẩu.");
-      break; // Thoát vòng lặp nếu người dùng hủy
+    console.log("Bạn đã hủy việc nhập mật khẩu.");
+    break; // Thoát vòng lặp nếu người dùng hủy
   }
 } while (matKhauNhap !== matKhauDung);
 
 if (matKhauNhap === matKhauDung) {
-    console.log("Mật khẩu chính xác! Chào mừng bạn.");
+  console.log("Mật khẩu chính xác! Chào mừng bạn.");
 }
 ```
+
 Trong ví dụ này, người dùng sẽ được yêu cầu nhập mật khẩu ít nhất một lần. Vòng lặp sẽ tiếp tục cho đến khi họ nhập đúng "12345" hoặc bấm hủy.
 
 ## Câu Lệnh `break` và `continue`
@@ -315,7 +319,8 @@ Câu lệnh `continue` dùng để **bỏ qua lần lặp hiện tại** và chu
 
 ```javascript
 for (let i = 0; i < 10; i++) {
-  if (i % 2 === 0) { // Nếu i là số chẵn
+  if (i % 2 === 0) {
+    // Nếu i là số chẵn
     continue; // Bỏ qua lần lặp này, không thực hiện console.log
   }
   console.log("Số lẻ:", i);
@@ -377,7 +382,7 @@ function chiaHaiSo(a, b) {
 
 chiaHaiSo(10, 2); // Kết quả phép chia: 5, Hàm chiaHaiSo đã kết thúc.
 console.log("---");
-chiaHaiSo(5, 0);  // Lỗi trong hàm chiaHaiSo: Không thể chia cho không!, Hàm chiaHaiSo đã kết thúc.
+chiaHaiSo(5, 0); // Lỗi trong hàm chiaHaiSo: Không thể chia cho không!, Hàm chiaHaiSo đã kết thúc.
 ```
 
 Sử dụng `try...catch` giúp chương trình của bạn "kiên cường" hơn, có thể xử lý các tình huống không mong muốn mà không bị dừng đột ngột.
