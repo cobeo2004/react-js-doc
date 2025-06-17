@@ -1,0 +1,389 @@
+---
+title: Luồng Điều Khiển trong JavaScript
+description: Tìm hiểu về các cấu trúc điều khiển luồng trong JavaScript như if/else, switch, vòng lặp for, while, do...while, break, continue và xử lý lỗi với try/catch/finally.
+---
+
+# Luồng Điều Khiển trong JavaScript (Control Flow)
+
+Chào các bạn! Trong hành trình "code dạo" với JavaScript, không phải lúc nào chúng ta cũng muốn các dòng lệnh chạy tuần tự từ trên xuống dưới. Sẽ có lúc bạn muốn chương trình "rẽ nhánh" để đưa ra quyết định, hoặc "lặp đi lặp lại" một công việc nào đó nhiều lần. İşte (đó là tiếng Thổ Nhĩ Kỳ, nghĩa là "đây này" hoặc "chính là nó"), những công cụ giúp bạn làm điều đó được gọi là **cấu trúc điều khiển luồng (control flow structures)**.
+
+Chúng giống như những biển báo giao thông hay người điều phối, hướng dẫn dòng chảy thực thi của chương trình, giúp code của bạn trở nên thông minh, linh hoạt và mạnh mẽ hơn rất nhiều. Hãy cùng khám phá những "nhân vật" chính trong gia đình control flow của JavaScript nhé!
+
+## Câu Lệnh `if...else` (If...else Statements)
+
+Khi code, đôi lúc ta muốn chương trình rẽ nhánh, kiểu như "nếu điều này đúng thì làm A, còn sai thì làm B". Đó chính là lúc `if...else` tỏa sáng! Nó giúp chương trình của chúng ta đưa ra quyết định dựa trên một điều kiện cụ thể.
+
+### Cú pháp cơ bản
+
+```javascript
+if (dieuKien) {
+  // Khối lệnh được thực thi nếu dieuKien là true
+  console.log("Điều kiện đúng, làm việc A!");
+} else {
+  // Khối lệnh được thực thi nếu dieuKien là false
+  console.log("Điều kiện sai, làm việc B!");
+}
+```
+
+Trong đó, `dieuKien` là một biểu thức trả về giá trị boolean (`true` hoặc `false`).
+
+**Ví dụ nè:**
+
+Hãy tưởng tượng bạn đang kiểm tra xem một người có đủ tuổi để xem phim 18+ không nhé.
+
+```javascript
+let tuoi = 20;
+
+if (tuoi >= 18) {
+  console.log("Bạn đã đủ tuổi, mời vào xem phim!");
+} else {
+  console.log("Rất tiếc, bạn chưa đủ tuổi. Hẹn gặp lại khi lớn hơn nhé!");
+}
+// Kết quả: Bạn đã đủ tuổi, mời vào xem phim!
+```
+
+Bạn thấy không? Vì `tuoi` là 20 (lớn hơn hoặc bằng 18), nên khối lệnh trong `if` được thực thi. Nếu `tuoi` là 15, thì khối lệnh trong `else` sẽ lên tiếng đó.
+
+### `else if` cho nhiều điều kiện
+
+Đôi khi, chúng ta có nhiều hơn hai khả năng. Lúc này, `else if` sẽ ra tay giúp đỡ.
+
+```javascript
+let diem = 7.5;
+
+if (diem >= 8) {
+  console.log("Xếp loại: Giỏi");
+} else if (diem >= 6.5) {
+  console.log("Xếp loại: Khá");
+} else if (diem >= 5) {
+  console.log("Xếp loại: Trung bình");
+} else {
+  console.log("Xếp loại: Yếu (cần cố gắng thêm!)");
+}
+// Kết quả: Xếp loại: Khá
+```
+
+Chương trình sẽ kiểm tra các điều kiện từ trên xuống dưới. Điều kiện nào đúng đầu tiên, khối lệnh tương ứng sẽ được thực thi, và các `else if` hoặc `else` còn lại sẽ được bỏ qua.
+
+:::info[Info]
+
+Khối `else` cuối cùng là tùy chọn. Bạn có thể chỉ dùng `if` hoặc `if...else if` mà không có `else`.
+
+:::
+
+## Câu Lệnh `switch` (Switch Statements)
+
+Câu lệnh `switch` là một cách khác để xử lý nhiều điều kiện, đặc biệt hữu ích khi bạn muốn so sánh một biến với nhiều giá trị cụ thể. Nó giống như một người trực tổng đài, chuyển cuộc gọi của bạn đến đúng người dựa trên lựa chọn của bạn.
+
+### Cú pháp cơ bản
+
+```javascript
+switch (bieuThuc) {
+  case giaTri1:
+    // Khối lệnh thực thi nếu bieuThuc === giaTri1
+    console.log("Trường hợp 1 nè!");
+    break; // Đừng quên break nhé!
+  case giaTri2:
+    // Khối lệnh thực thi nếu bieuThuc === giaTri2
+    console.log("Đây là trường hợp 2.");
+    break;
+  // ... thêm các case khác nếu cần
+  default:
+    // Khối lệnh thực thi nếu không có case nào khớp
+    console.log("Không khớp với trường hợp nào cả.");
+}
+```
+
+- `bieuThuc`: Giá trị cần được so sánh.
+- `case giaTriN`: So sánh `bieuThuc` với `giaTriN` bằng phép so sánh nghiêm ngặt (`===`).
+- `break`: Rất quan trọng! Nó dùng để thoát khỏi `switch` sau khi một `case` được thực thi. Nếu thiếu `break`, chương trình sẽ "rơi" xuống và thực thi cả những `case` tiếp theo, bất kể điều kiện có đúng hay không (hành vi này gọi là "fall-through").
+- `default`: Tùy chọn. Khối lệnh này sẽ được thực thi nếu không có `case` nào khớp.
+
+**Ví dụ về thứ trong tuần:**
+
+```javascript
+let homNay = new Date().getDay(); // Trả về số từ 0 (Chủ Nhật) đến 6 (Thứ Bảy)
+let tenThu;
+
+switch (homNay) {
+  case 0:
+    tenThu = "Chủ Nhật";
+    break;
+  case 1:
+    tenThu = "Thứ Hai";
+    break;
+  case 2:
+    tenThu = "Thứ Ba";
+    break;
+  case 3:
+    tenThu = "Thứ Tư";
+    break;
+  case 4:
+    tenThu = "Thứ Năm";
+    break;
+  case 5:
+    tenThu = "Thứ Sáu";
+    break;
+  case 6:
+    tenThu = "Thứ Bảy";
+    break;
+  default:
+    tenThu = "Hmm, ngày gì lạ vậy?";
+}
+console.log("Hôm nay là:", tenThu);
+```
+
+:::warning[⚠️ Warning]
+
+**Cẩn thận với "fall-through"!** Nếu bạn cố ý muốn nhiều `case` cùng thực thi một khối lệnh, bạn có thể bỏ `break`. Nhưng hãy chắc chắn đó là ý đồ của bạn, nếu không sẽ dễ gây ra lỗi khó tìm.
+
+:::
+
+```javascript
+// Ví dụ về fall-through (có chủ ý)
+let loaiTraiCay = "Táo";
+let mauSac;
+
+switch (loaiTraiCay) {
+  case "Chuối":
+  case "Xoài":
+    mauSac = "Vàng";
+    break;
+  case "Táo":
+  case "Dâu":
+    mauSac = "Đỏ";
+    break;
+  default:
+    mauSac = "Không xác định";
+}
+console.log(loaiTraiCay + " thường có màu " + mauSac); // Táo thường có màu Đỏ
+```
+
+## Vòng Lặp `for` (For Loops)
+
+Khi bạn muốn thực hiện một công việc lặp đi lặp lại một số lần nhất định, `for` là người bạn đồng hành lý tưởng. Nó giống như việc bạn đếm từ 1 đến 10 và làm gì đó ở mỗi bước đếm.
+
+### Cú pháp cơ bản
+
+```javascript
+for (khoiTao; dieuKienLap; buocNhay) {
+  // Khối lệnh được thực thi trong mỗi lần lặp
+  console.log("Đây là lần lặp...");
+}
+```
+
+- `khoiTao`: Biểu thức được thực thi một lần duy nhất *trước khi* vòng lặp bắt đầu. Thường dùng để khởi tạo một biến đếm (ví dụ: `let i = 0`).
+- `dieuKienLap`: Biểu thức được kiểm tra *trước mỗi* lần lặp. Nếu là `true`, khối lệnh bên trong vòng lặp sẽ được thực thi. Nếu là `false`, vòng lặp kết thúc.
+- `buocNhay`: Biểu thức được thực thi *sau mỗi* lần lặp. Thường dùng để cập nhật biến đếm (ví dụ: `i++` hoặc `i += 2`).
+
+**Ví dụ: In ra các số từ 0 đến 4**
+
+```javascript
+for (let i = 0; i < 5; i++) {
+  console.log("Số hiện tại là:", i);
+}
+// Kết quả:
+// Số hiện tại là: 0
+// Số hiện tại là: 1
+// Số hiện tại là: 2
+// Số hiện tại là: 3
+// Số hiện tại là: 4
+```
+
+**Làm việc với mảng (array):**
+
+```javascript
+let traiCay = ["Táo", "Chuối", "Cam", "Xoài"];
+for (let i = 0; i < traiCay.length; i++) {
+  console.log("Tôi thích ăn:", traiCay[i]);
+}
+```
+
+:::info[Info]
+
+JavaScript còn có các biến thể vòng lặp `for...in` (để duyệt qua các thuộc tính của đối tượng) và `for...of` (để duyệt qua các phần tử của các đối tượng có thể lặp lại như mảng, chuỗi). Chúng sẽ được tìm hiểu kỹ hơn ở các bài viết khác.
+
+:::
+
+## Vòng Lặp `while` (While Loops)
+
+Vòng lặp `while` cũng dùng để lặp lại một khối lệnh, nhưng nó sẽ tiếp tục lặp *chừng nào* một điều kiện cụ thể còn đúng. Bạn không biết trước số lần lặp, mà chỉ biết điều kiện dừng.
+
+### Cú pháp cơ bản
+
+```javascript
+while (dieuKien) {
+  // Khối lệnh được thực thi chừng nào dieuKien còn true
+  console.log("Vẫn đang lặp...");
+  // Quan trọng: Phải có gì đó trong vòng lặp làm thay đổi dieuKien
+  // để tránh vòng lặp vô hạn!
+}
+```
+
+- `dieuKien`: Biểu thức được kiểm tra *trước mỗi* lần lặp. Nếu là `true`, khối lệnh được thực thi. Nếu `false`, vòng lặp dừng.
+
+**Ví dụ: Đếm ngược từ 3 về 1**
+
+```javascript
+let demNguoc = 3;
+while (demNguoc > 0) {
+  console.log(demNguoc);
+  demNguoc--; // Giảm biến đếm, nếu không sẽ lặp vô hạn!
+}
+console.log("Chúc mừng năm mới!");
+// Kết quả:
+// 3
+// 2
+// 1
+// Chúc mừng năm mới!
+```
+
+:::danger[🚨 Danger]
+
+**Nguy cơ vòng lặp vô hạn!** Nếu `dieuKien` trong `while` không bao giờ trở thành `false`, chương trình của bạn sẽ bị "treo". Luôn đảm bảo rằng có một cơ chế nào đó bên trong vòng lặp để cuối cùng điều kiện cũng sẽ sai.
+
+:::
+
+## Vòng Lặp `do...while` (Do...while Loops)
+
+Vòng lặp `do...while` rất giống với `while`, nhưng có một khác biệt quan trọng: khối lệnh bên trong `do...while` sẽ được thực thi *ít nhất một lần*, ngay cả khi điều kiện ban đầu là `false`. Điều này là do điều kiện được kiểm tra *sau khi* khối lệnh đã chạy.
+
+### Cú pháp cơ bản
+
+```javascript
+do {
+  // Khối lệnh được thực thi ít nhất một lần
+  console.log("Thực thi ít nhất một lần!");
+  // Và cũng cần có gì đó làm thay đổi dieuKien ở đây
+} while (dieuKien);
+```
+
+**Ví dụ: Hỏi người dùng cho đến khi nhập đúng**
+
+```javascript
+let matKhauDung = "12345";
+let matKhauNhap;
+
+do {
+  matKhauNhap = prompt("Nhập mật khẩu của bạn:"); // prompt sẽ trả về null nếu người dùng bấm Cancel
+  if (matKhauNhap === null) {
+      console.log("Bạn đã hủy việc nhập mật khẩu.");
+      break; // Thoát vòng lặp nếu người dùng hủy
+  }
+} while (matKhauNhap !== matKhauDung);
+
+if (matKhauNhap === matKhauDung) {
+    console.log("Mật khẩu chính xác! Chào mừng bạn.");
+}
+```
+Trong ví dụ này, người dùng sẽ được yêu cầu nhập mật khẩu ít nhất một lần. Vòng lặp sẽ tiếp tục cho đến khi họ nhập đúng "12345" hoặc bấm hủy.
+
+## Câu Lệnh `break` và `continue`
+
+Hai câu lệnh này cung cấp thêm sự kiểm soát bên trong các vòng lặp (và `switch` đối với `break`).
+
+### `break`
+
+Câu lệnh `break` dùng để **thoát ngay lập tức** khỏi vòng lặp hiện tại (hoặc `switch`). Khi gặp `break`, chương trình sẽ bỏ qua phần còn lại của vòng lặp và chuyển đến câu lệnh tiếp theo sau vòng lặp.
+
+**Ví dụ: Tìm một số trong mảng và dừng lại**
+
+```javascript
+let numbers = [1, 5, 10, 15, 20, 25];
+let soCanTim = 15;
+
+for (let i = 0; i < numbers.length; i++) {
+  console.log("Đang kiểm tra số:", numbers[i]);
+  if (numbers[i] === soCanTim) {
+    console.log("Đã tìm thấy số", soCanTim, "tại vị trí", i);
+    break; // Thoát khỏi vòng lặp ngay khi tìm thấy
+  }
+}
+// Kết quả:
+// Đang kiểm tra số: 1
+// Đang kiểm tra số: 5
+// Đang kiểm tra số: 10
+// Đang kiểm tra số: 15
+// Đã tìm thấy số 15 tại vị trí 3
+```
+
+### `continue`
+
+Câu lệnh `continue` dùng để **bỏ qua lần lặp hiện tại** và chuyển ngay sang lần lặp tiếp theo của vòng lặp. Bất kỳ mã nào còn lại trong khối lệnh của lần lặp hiện tại (sau `continue`) sẽ không được thực thi.
+
+**Ví dụ: Chỉ in ra các số lẻ**
+
+```javascript
+for (let i = 0; i < 10; i++) {
+  if (i % 2 === 0) { // Nếu i là số chẵn
+    continue; // Bỏ qua lần lặp này, không thực hiện console.log
+  }
+  console.log("Số lẻ:", i);
+}
+// Kết quả:
+// Số lẻ: 1
+// Số lẻ: 3
+// Số lẻ: 5
+// Số lẻ: 7
+// Số lẻ: 9
+```
+
+## Xử Lý Lỗi với `try...catch...finally` (Error Handling)
+
+Trong quá trình chạy, chương trình có thể gặp lỗi (exceptions). Nếu không xử lý, những lỗi này có thể làm "sập" chương trình của bạn. `try...catch...finally` là cơ chế giúp bạn "bắt" và xử lý những lỗi này một cách duyên dáng.
+
+### Cú pháp cơ bản
+
+```javascript
+try {
+  // Khối lệnh có khả năng gây lỗi (code bạn muốn "thử")
+  console.log("Bắt đầu thử một việc gì đó...");
+  // let ketQua = bienKhongTonTai / 10; // Dòng này sẽ gây lỗi
+  console.log("Việc đó thành công!"); // Sẽ không chạy nếu có lỗi ở trên
+} catch (error) {
+  // Khối lệnh được thực thi NẾU có lỗi xảy ra trong khối try
+  console.error("Ối! Có lỗi xảy ra rồi:", error.message);
+  // error là một đối tượng chứa thông tin về lỗi (ví dụ: error.name, error.message)
+} finally {
+  // Khối lệnh này LUÔN LUÔN được thực thi,
+  // dù có lỗi hay không, dù có return trong try/catch hay không.
+  // Thường dùng để dọn dẹp tài nguyên.
+  console.log("Xong xuôi cả rồi, dọn dẹp thôi!");
+}
+```
+
+- **`try`**: Chứa đoạn code mà bạn nghi ngờ có thể phát sinh lỗi.
+- **`catch (error)`**: Nếu một lỗi (exception) xảy ra trong khối `try`, JavaScript sẽ dừng thực thi `try` và nhảy đến khối `catch`. Biến `error` (bạn có thể đặt tên khác) sẽ chứa thông tin về lỗi đó.
+- **`finally`**: Khối này là tùy chọn. Code trong `finally` sẽ luôn được thực thi sau khi `try` (và `catch` nếu có lỗi) hoàn thành, bất kể kết quả ra sao. Rất hữu ích cho việc giải phóng tài nguyên (như đóng file, đóng kết nối mạng).
+
+**Ví dụ thực tế:**
+
+```javascript
+function chiaHaiSo(a, b) {
+  try {
+    if (b === 0) {
+      throw new Error("Không thể chia cho không!"); // Chủ động "ném" ra một lỗi
+    }
+    let ketQua = a / b;
+    console.log("Kết quả phép chia:", ketQua);
+    return ketQua;
+  } catch (loiPhatSinh) {
+    console.error("Lỗi trong hàm chiaHaiSo:", loiPhatSinh.message);
+    // return undefined; // Hoặc trả về một giá trị mặc định
+  } finally {
+    console.log("Hàm chiaHaiSo đã kết thúc.");
+  }
+}
+
+chiaHaiSo(10, 2); // Kết quả phép chia: 5, Hàm chiaHaiSo đã kết thúc.
+console.log("---");
+chiaHaiSo(5, 0);  // Lỗi trong hàm chiaHaiSo: Không thể chia cho không!, Hàm chiaHaiSo đã kết thúc.
+```
+
+Sử dụng `try...catch` giúp chương trình của bạn "kiên cường" hơn, có thể xử lý các tình huống không mong muốn mà không bị dừng đột ngột.
+
+## Tóm Lược
+
+Các cấu trúc điều khiển luồng như `if...else`, `switch`, các loại vòng lặp (`for`, `while`, `do...while`), cùng với `break`, `continue` và `try...catch...finally` là những viên gạch nền tảng xây dựng nên logic của bất kỳ chương trình JavaScript nào. Chúng cho phép bạn tạo ra các kịch bản phức tạp, đưa ra quyết định dựa trên điều kiện, lặp lại các tác vụ một cách hiệu quả và xử lý lỗi một cách mượt mà.
+
+Việc nắm vững cách sử dụng những công cụ này sẽ mở ra vô vàn khả năng khi bạn viết code. Hãy thực hành nhiều, thử nghiệm các tình huống khác nhau, và bạn sẽ thấy việc "chỉ huy" dòng chảy của chương trình trở nên dễ dàng hơn bao giờ hết! Chúc các bạn thành công!

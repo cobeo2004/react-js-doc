@@ -1,0 +1,300 @@
+---
+title: Hàm trong JavaScript (Phần 1)
+description: Tìm hiểu những kiến thức cơ bản về hàm trong JavaScript, bao gồm cách khai báo, tham số, giá trị trả về và arrow functions.
+---
+
+# Hàm trong JavaScript (Phần 1) - Những Viên Gạch Vạn Năng
+
+Chào mừng các bạn đến với thế giới của **hàm (functions)** trong JavaScript! Nếu ví von code như một công trình xây dựng, thì hàm chính là những viên gạch đa năng, những cỗ máy nhỏ mà bạn có thể tự tạo ra để thực hiện các tác vụ cụ thể. Thay vì phải viết đi viết lại những đoạn code giống nhau ở nhiều nơi, bạn chỉ cần "gọi tên" hàm, và nó sẽ thực hiện công việc đó cho bạn. Quá tuyệt vời phải không nào?
+
+Hàm giúp code của bạn trở nên **gọn gàng hơn**, **dễ đọc hơn**, **dễ bảo trì hơn** và quan trọng nhất là **có thể tái sử dụng (reusable)**. Chúng là một trong những khái niệm nền tảng và quan trọng nhất trong JavaScript, cũng như trong hầu hết các ngôn ngữ lập trình khác.
+
+Trong phần 1 này, chúng ta sẽ cùng nhau tìm hiểu những kiến thức cơ bản nhất về hàm, từ cách "khai sinh" ra chúng cho đến cách chúng nhận "nguyên liệu" và "trả về sản phẩm". Let's go!
+
+## Khai Báo Hàm (Function Declarations) vs Biểu Thức Hàm (Function Expressions)
+
+Có hai cách phổ biến để tạo ra một hàm trong JavaScript: Khai báo hàm và Biểu thức hàm.
+
+### 1. Khai Báo Hàm (Function Declarations)
+
+Đây là cách "truyền thống" và có lẽ là quen thuộc nhất để định nghĩa một hàm. Bạn "khai báo" sự tồn tại của hàm với một cái tên cụ thể.
+
+#### Cú pháp "khai sinh"
+
+```javascript
+function tenHam(thamSo1, thamSo2) {
+  // Code để thực hiện công việc gì đó
+  console.log("Hàm đang chạy nè!");
+  return ketQua; // (Không bắt buộc, sẽ nói kỹ hơn ở dưới)
+}
+```
+
+- `function`: Từ khóa "thần thánh" báo cho JavaScript biết "Ê, tôi đang tạo hàm đây!".
+- `tenHam`: Là cái tên bạn đặt cho hàm của mình. Nhớ đặt tên sao cho dễ hiểu, dễ nhớ nhé! Ví dụ: `tinhTong`, `guiLoiChao`.
+- `(thamSo1, thamSo2)`: Đây là nơi bạn khai báo các "nguyên liệu đầu vào" (tham số - parameters) mà hàm cần để hoạt động. Có thể có một, nhiều, hoặc không có tham số nào cả.
+- `{ ... }`: Bên trong cặp dấu ngoặc nhọn này là "bộ não" của hàm, nơi chứa các dòng lệnh thực hiện công việc.
+- `return ketQua`: (Tùy chọn) Nếu hàm của bạn cần "trả về" một kết quả nào đó sau khi làm xong việc, hãy dùng `return`.
+
+**Ví dụ cho dễ hình dung:**
+
+Hãy tạo một hàm đơn giản để chào một ai đó.
+
+```javascript
+function chaoBan(ten) {
+  console.log("Chào bạn " + ten + "! Chúc một ngày tốt lành!");
+}
+
+// Giờ thì "gọi" hàm thôi
+chaoBan("Cò");    // Kết quả: Chào bạn Cò! Chúc một ngày tốt lành!
+chaoBan("Simon"); // Kết quả: Chao bạn Simon! Chúc một ngày tốt lành!
+```
+
+Thấy không? Chỉ cần định nghĩa hàm `chaoBan` một lần, bạn có thể gọi nó bao nhiêu lần cũng được, với những cái tên khác nhau. Tiện lợi quá phải không nào?
+
+:::info[💡 Info]
+
+**Hoisting với Function Declarations:** Một đặc điểm thú vị (và đôi khi hơi "ma thuật") của khai báo hàm là chúng được "hoisted" (đưa lên đầu). Điều này có nghĩa là bạn có thể gọi hàm trước cả khi bạn khai báo nó trong code.
+```javascript
+// Gọi hàm trước khi khai báo
+xinChao(); // Vẫn chạy ngon ơ!
+
+function xinChao() {
+  console.log("Xin chào từ hàm được hoisted!");
+}
+```
+Tuy nhiên, để code dễ đọc và dễ hiểu, tốt nhất là bạn nên khai báo hàm trước khi sử dụng nó nhé!
+
+:::
+
+### 2. Biểu Thức Hàm (Function Expressions)
+
+Biểu thức hàm là một cách khác để định nghĩa hàm. Thay vì "khai báo" một hàm có tên riêng, bạn tạo ra một hàm (có thể là ẩn danh - không tên, hoặc có tên) và gán nó cho một biến.
+
+#### Cú pháp "gắn kết"
+
+```javascript
+let tenBienChuaHam = function(thamSo1, thamSo2) {
+  // Code để thực hiện công việc
+  return ketQua;
+}; // Lưu ý dấu chấm phẩy ở cuối nếu đây là một phần của câu lệnh gán lớn hơn
+
+// Hàm cũng có thể có tên (ít phổ biến hơn trong trường hợp này)
+let tenBienKhac = function tenHamNoiBo(thamSo1) {
+  // tenHamNoiBo chỉ có thể được gọi bên trong chính nó (hữu ích cho đệ quy)
+  console.log("Hàm có tên nội bộ đang chạy");
+};
+```
+
+**Ví dụ tương tự hàm chào:**
+
+```javascript
+let loiChao = function(ten) {
+  console.log("Xin chào " + ten + " từ biểu thức hàm!");
+};
+
+// Gọi hàm thông qua biến
+loiChao("Bo"); // Kết quả: Xin chào Bo từ biểu thức hàm!
+```
+
+:::warning[⚠️ Warning]
+
+**Không có Hoisting cho Function Expressions (theo cách của declaration):** Biến `loiChao` ở trên được hoisted (vì nó là biến khai báo với `let`), nhưng bản thân hàm thì không. Nghĩa là, bạn không thể gọi `loiChao()` *trước* dòng lệnh gán hàm cho nó.
+```javascript
+// thuGoiHam(); // Lỗi! TypeError: thuGoiHam is not a function
+
+let thuGoiHam = function() {
+  console.log("Hàm này sẽ không được gọi nếu gọi trước khi gán.");
+};
+```
+
+:::
+
+**Khi nào dùng cái nào?**
+- **Function Declarations** thường được dùng cho các hàm "chính", có vai trò rõ ràng trong chương trình của bạn. Việc hoisting có thể tiện lợi trong một số trường hợp.
+- **Function Expressions** rất hữu ích khi bạn muốn truyền một hàm như một đối số cho một hàm khác (callback functions), hoặc khi bạn muốn định nghĩa một hàm dựa trên một điều kiện nào đó. Chúng cũng thường được dùng trong các IIFE (Immediately Invoked Function Expressions - Biểu thức hàm được gọi ngay lập tức), một khái niệm nâng cao hơn.
+
+## Tham Số (Parameters) và Đối Số (Arguments) - "Nguyên Liệu" và "Đồ Thật"
+
+Đây là hai khái niệm dễ gây nhầm lẫn, nhưng thực ra lại rất đơn giản nếu bạn hình dung đúng.
+
+- **Tham số (Parameters):** Là những cái tên biến bạn liệt kê trong dấu ngoặc đơn `()` khi **định nghĩa** (khai báo hoặc tạo biểu thức) hàm. Chúng giống như những "chỗ giữ chỗ" cho các giá trị mà hàm sẽ nhận vào khi nó được gọi.
+  ```javascript
+  function tinhTong(soA, soB) { // soA và soB là THAM SỐ
+    console.log(soA + soB);
+  }
+  ```
+
+- **Đối số (Arguments):** Là những giá trị thực tế mà bạn **truyền vào** hàm khi bạn **gọi** hàm đó. Chúng sẽ được gán cho các tham số tương ứng bên trong hàm.
+  ```javascript
+  tinhTong(5, 3); // 5 và 3 là ĐỐI SỐ
+  // Khi hàm tinhTong chạy: soA sẽ là 5, soB sẽ là 3
+  ```
+
+**Ví dụ tổng hợp:**
+
+```javascript
+// 'ten' và 'namSinh' là các tham số (parameters)
+function gioiThieu(ten, namSinh) {
+  let tuoi = new Date().getFullYear() - namSinh;
+  console.log("Xin chào, tôi là " + ten + ". Năm nay tôi " + tuoi + " tuổi.");
+}
+
+// "Cò" và 1995 là các đối số (arguments)
+gioiThieu("Cò", 1995); // Xin chào, tôi là Cò. Năm nay tôi 29 tuổi. (Giả sử năm hiện tại là 2024)
+
+// "Bo" và 2003 là các đối số (arguments)
+gioiThieu("Bo", 2003); // Xin chào, tôi là Bo. Năm nay tôi 21 tuổi.
+```
+
+### Tham số mặc định (Default Parameters - ES6)
+
+Từ phiên bản ES6, bạn có thể gán giá trị mặc định cho tham số. Nếu khi gọi hàm, bạn không truyền đối số cho tham số đó (hoặc truyền `undefined`), nó sẽ tự lấy giá trị mặc định.
+
+```javascript
+function loiMoi(tenKhach = "bạn", diaDiem = "bữa tiệc") {
+  console.log("Chào " + tenKhach + ", mời bạn đến " + diaDiem + " của chúng tôi!");
+}
+
+loiMoi("Anh Ba", "đám cưới"); // Chào Anh Ba, mời bạn đến đám cưới của chúng tôi!
+loiMoi("Chị Tư");           // Chào Chị Tư, mời bạn đến bữa tiệc của chúng tôi! (diaDiem lấy giá trị mặc định)
+loiMoi();                   // Chào bạn, mời bạn đến bữa tiệc của chúng tôi! (cả hai lấy giá trị mặc định)
+```
+
+### Đối tượng `arguments` (Arguments Object)
+
+Bên trong mỗi hàm (trừ arrow function), có một đối tượng đặc biệt giống mảng tên là `arguments`. Nó chứa tất cả các đối số được truyền vào hàm, bất kể hàm đó có khai báo tham số tương ứng hay không.
+
+```javascript
+function lietKeTatCa() {
+  console.log("Bạn đã truyền vào các đối số sau:");
+  for (let i = 0; i < arguments.length; i++) {
+    console.log(arguments[i]);
+  }
+}
+
+lietKeTatCa(1, "hello", true, null);
+// Kết quả:
+// Bạn đã truyền vào các đối số sau:
+// 1
+// hello
+// true
+// null
+```
+
+:::warning[Warning]
+
+Đối tượng `arguments` không phải là một mảng thực sự (nó không có các phương thức của mảng như `forEach`, `map`). Để thao tác như mảng, bạn có thể chuyển nó thành mảng, ví dụ: `let argsArray = Array.from(arguments);`. Tuy nhiên, với sự ra đời của **rest parameters** (sẽ tìm hiểu ở phần sau), việc sử dụng `arguments` đã ít phổ biến hơn.
+
+:::
+
+## Giá Trị Trả Về (Return Values) - "Sản Phẩm Đầu Ra"
+
+Không phải hàm nào cũng chỉ im lặng làm việc rồi thôi. Nhiều hàm sau khi hoàn thành nhiệm vụ sẽ "trả về" một kết quả nào đó. Đó chính là lúc từ khóa `return` phát huy tác dụng.
+
+Khi JavaScript gặp câu lệnh `return` trong một hàm, nó sẽ:
+1.  **Dừng ngay lập tức** việc thực thi hàm đó (bất kể còn code nào phía sau `return` trong hàm hay không).
+2.  **Trả về giá trị** được chỉ định sau `return` cho nơi đã gọi hàm.
+
+```javascript
+function tinhTong(a, b) {
+  let tong = a + b;
+  return tong; // Trả về giá trị của biến 'tong'
+  console.log("Dòng này sẽ không bao giờ được chạy!"); // Vì nó sau return
+}
+
+let ketQuaPhepCong = tinhTong(8, 4); // Gọi hàm và hứng giá trị trả về
+console.log("Kết quả là:", ketQuaPhepCong); // Kết quả là: 12
+```
+
+### Hàm không có `return` hoặc `return` không có giá trị
+
+Nếu một hàm không có câu lệnh `return`, hoặc có `return;` (không có giá trị theo sau), nó sẽ tự động trả về `undefined`.
+
+```javascript
+function khongTraVeGi() {
+  console.log("Tôi chỉ làm việc và không trả về gì cả.");
+  // Ngầm định là 'return undefined;' ở đây
+}
+
+let giaTriNhanDuoc = khongTraVeGi();
+console.log("Giá trị nhận được:", giaTriNhanDuoc); // Giá trị nhận được: undefined
+```
+
+### Trả về nhiều giá trị?
+
+Một hàm chỉ có thể `return` một giá trị duy nhất. Tuy nhiên, giá trị đó có thể là một đối tượng (object) hoặc một mảng (array), cho phép bạn "gói ghém" nhiều thông tin lại với nhau.
+
+```javascript
+function thongTinCaNhan(ten, tuoi) {
+  return { // Trả về một đối tượng
+    tenNguoiDung: ten,
+    tuoiNguoiDung: tuoi,
+    namSinh: new Date().getFullYear() - tuoi
+  };
+}
+
+let nguoiA = thongTinCaNhan("Tèo", 30);
+console.log(nguoiA.tenNguoiDung); // Tèo
+console.log(nguoiA.namSinh);    // (Năm hiện tại - 30)
+```
+
+## Hàm Mũi Tên (Arrow Functions - ES6) - Cú Pháp Ngắn Gọn, Hiện Đại
+
+Arrow functions được giới thiệu trong ES6, mang đến một cú pháp ngắn gọn hơn để viết hàm, đặc biệt là các hàm đơn giản hoặc khi dùng làm callback. Chúng cũng có một vài khác biệt quan trọng về hành vi so với hàm truyền thống (đặc biệt là về `this`, sẽ tìm hiểu kỹ hơn ở bài khác).
+
+### Cú pháp "tên lửa"
+
+```javascript
+// Cách 1: Không có tham số
+const chaoBuoiSang = () => {
+  console.log("Chào buổi sáng!");
+};
+chaoBuoiSang();
+
+// Cách 2: Một tham số (có thể bỏ qua dấu ngoặc đơn quanh tham số)
+const binhPhuong = x => {
+  return x * x;
+};
+// Hoặc ngắn hơn nữa nếu hàm chỉ có một dòng return
+const binhPhuongNgon = x => x * x; // Tự động return giá trị của biểu thức x * x
+
+console.log("Bình phương của 5 là:", binhPhuong(5));       // 25
+console.log("Bình phương (ngắn) của 6 là:", binhPhuongNgon(6)); // 36
+
+// Cách 3: Nhiều tham số (bắt buộc có dấu ngoặc đơn)
+const phepNhan = (a, b) => {
+  return a * b;
+};
+// Hoặc ngắn hơn
+const phepNhanNgon = (a, b) => a * b;
+
+console.log("Tích của 7 và 8 là:", phepNhan(7, 8));             // 56
+console.log("Tích (ngắn) của 3 và 4 là:", phepNhanNgon(3, 4));   // 12
+
+// Cách 4: Trả về một đối tượng (cần dấu ngoặc đơn bao quanh đối tượng)
+const taoNguoi = (ten, tuoi) => ({ ten: ten, tuoi: tuoi });
+// Nếu không có dấu () bao quanh {}, JavaScript sẽ hiểu {} là khối lệnh của hàm, không phải đối tượng.
+
+let nguoiB = taoNguoi("Tí", 25);
+console.log(nguoiB); // { ten: 'Tí', tuoi: 25 }
+```
+
+### Tại sao lại dùng Arrow Function?
+
+1.  **Ngắn gọn:** Rõ ràng là cú pháp của arrow function thường ngắn hơn nhiều so với function expression truyền thống, giúp code dễ đọc hơn với các hàm đơn giản.
+2.  **`this` không bị ràng buộc (lexical `this`):** Đây là điểm khác biệt quan trọng nhất. Arrow function không có `this` của riêng nó. Thay vào đó, nó "mượn" giá trị `this` của context (ngữ cảnh) bao quanh nó lúc nó được định nghĩa. Điều này rất hữu ích trong việc xử lý sự kiện hoặc khi làm việc với các phương thức của đối tượng mà cần truy cập `this` của đối tượng đó. (Chúng ta sẽ đào sâu hơn về `this` ở một bài khác nhé!)
+3.  **Không có đối tượng `arguments`:** Arrow function không có đối tượng `arguments` như hàm truyền thống. Nếu bạn cần truy cập tất cả các đối số, bạn nên sử dụng "rest parameters" (`...tenBien`).
+
+:::info[Info]
+
+Arrow function rất tuyệt vời cho các hàm callback (hàm được truyền làm đối số cho hàm khác) và các hàm xử lý logic đơn giản. Tuy nhiên, chúng không phải lúc nào cũng là lựa chọn tốt nhất để thay thế hoàn toàn hàm truyền thống, đặc biệt khi bạn cần hành vi của `this`แบบ truyền thống hoặc cần dùng làm constructor (hàm tạo đối tượng).
+
+:::
+
+## Tạm Kết Phần 1
+
+Wow, chúng ta đã cùng nhau khám phá những viên gạch đầu tiên và cực kỳ quan trọng về hàm trong JavaScript! Từ việc "khai sinh" hàm bằng **function declaration** và **function expression**, "cung cấp nguyên liệu" qua **tham số (parameters)** và **đối số (arguments)**, nhận lại "thành phẩm" qua **return values**, cho đến làm quen với "siêu nhân rút gọn" **arrow functions**.
+
+Những kiến thức này là nền tảng vững chắc để bạn có thể xây dựng những chương trình JavaScript phức tạp và hiệu quả hơn. Hàm không chỉ giúp code bạn chạy, mà còn giúp code bạn "sống" một cách có tổ chức và dễ dàng phát triển.
+
+Ở phần tiếp theo, chúng ta sẽ đào sâu hơn vào các khái niệm nâng cao hơn của hàm như scope (phạm vi), closures (bao đóng), IIFE, callback functions, và nhiều điều thú vị khác. Còn bây giờ, hãy thực hành thật nhiều với những gì đã học nhé! Chúc các bạn "xây" được nhiều "cỗ máy" hữu ích!

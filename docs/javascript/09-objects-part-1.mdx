@@ -1,0 +1,291 @@
+---
+title: Đối Tượng trong JavaScript (Phần 1)
+description: Tìm hiểu những kiến thức cơ bản về đối tượng trong JavaScript, bao gồm object literals, thuộc tính, phương thức và từ khóa 'this'.
+---
+
+# Đối Tượng trong JavaScript (Phần 1) - Xây Dựng Thế Giới Của Riêng Bạn
+
+Chào mừng các bạn đến với thế giới của **đối tượng (objects)** trong JavaScript! Đây là một trong những khái niệm trụ cột, nền tảng nhất của ngôn ngữ này. Nếu bạn đã từng nghe JavaScript là một ngôn ngữ "hướng đối tượng" (object-oriented) hoặc "dựa trên đối tượng" (object-based), thì đây chính là "nhân vật chính" mà chúng ta sắp tìm hiểu.
+
+Hãy tưởng tượng đối tượng như những "thực thể" trong thế giới code của bạn. Chúng có thể đại diện cho bất cứ thứ gì: một người dùng, một sản phẩm, một chiếc xe hơi, một đơn hàng, hay thậm chí là những khái niệm trừu tượng hơn. Mỗi đối tượng là một "túi" chứa đựng các thông tin (dưới dạng **thuộc tính - properties**) và các hành động mà nó có thể thực hiện (dưới dạng **phương thức - methods**).
+
+Ví dụ, một đối tượng `xeHoi` có thể có các thuộc tính như `mauSac`, `hangSanXuat`, `soChoNgoi` và các phương thức như `khoiDong()`, `tangToc()`, `phanhLai()`.
+
+Trong Phần 1 này, chúng ta sẽ bắt đầu với những cách cơ bản nhất để tạo và làm việc với đối tượng. Nắm vững những điều này, bạn sẽ có thể "xây dựng" nên những cấu trúc dữ liệu phức tạp và logic chương trình tinh vi hơn rất nhiều. Cùng bắt đầu nào!
+
+## "Triệu Hồi" Đối Tượng với Object Literals
+
+Cách đơn giản, trực tiếp và phổ biến nhất để tạo ra một đối tượng trong JavaScript là sử dụng cú pháp **object literal (đối tượng chữ)**. Nó giống như bạn đang "viết ra" trực tiếp hình hài và nội dung của đối tượng đó.
+
+### Cú pháp "khai sinh"
+
+```javascript
+let tenDoiTuong = {
+  // Thuộc tính (property)
+  tenThuocTinh1: giaTri1, // key: value
+  tenThuocTinh2: "một chuỗi giá trị",
+  tenThuocTinh3: 12345,
+  "thuộc tính có dấu cách": true, // Nếu key có ký tự đặc biệt hoặc dấu cách, đặt trong "" hoặc ''
+
+  // Phương thức (method)
+  tenPhuongThuc1: function() {
+    // Code của phương thức
+    console.log("Phương thức 1 đang chạy!");
+  },
+  tenPhuongThuc2: function(thamSo) {
+    console.log("Phương thức 2 chạy với tham số:", thamSo);
+  }
+};
+```
+
+-   Cặp dấu ngoặc nhọn `{}` chính là "ngôi nhà" của đối tượng.
+-   Bên trong là các cặp `key: value` (khóa: giá trị), mỗi cặp được gọi là một **thuộc tính**. Các cặp này cách nhau bởi dấu phẩy `,`.
+-   `key` (tên thuộc tính) thường là một chuỗi (string). Nếu tên thuộc tính là một từ hợp lệ trong JavaScript (không chứa dấu cách, ký tự đặc biệt, không bắt đầu bằng số), bạn có thể bỏ qua dấu nháy (`""` hoặc `''`).
+-   `value` (giá trị thuộc tính) có thể là bất kỳ kiểu dữ liệu nào trong JavaScript: số (number), chuỗi (string), boolean (`true`/`false`), mảng (array), `null`, `undefined`, thậm chí là một đối tượng khác (tạo thành đối tượng lồng nhau) hoặc một hàm (function).
+-   Khi giá trị của một thuộc tính là một hàm, chúng ta gọi nó là một **phương thức (method)** của đối tượng. Phương thức định nghĩa hành vi, những gì đối tượng có thể làm.
+
+**Ví dụ về "anh bạn" điện thoại:**
+
+```javascript
+let dienThoaiCuaToi = {
+  hangSanXuat: "Samsung",
+  model: "Galaxy S24 Ultra",
+  mauSac: "Xám Titan",
+  dungLuongGB: 512,
+  daBat: true,
+  danhBa: [ // Giá trị là một mảng
+    { ten: "Mẹ", sdt: "090xxxxxxx" }, // Mảng chứa các đối tượng khác
+    { ten: "Bạn Thân", sdt: "091xxxxxxx" }
+  ],
+
+  // Đây là một phương thức
+  goiDien: function(soDienThoai) {
+    if (this.daBat) { // 'this' sẽ được giải thích ngay sau đây
+      console.log("Đang gọi tới số: " + soDienThoai + " bằng " + this.model);
+    } else {
+      console.log(this.model + " đang tắt, không thể gọi!");
+    }
+  },
+
+  // Một phương thức khác
+  tatMay: function() {
+    this.daBat = false;
+    console.log(this.model + " đã được tắt.");
+  }
+};
+
+// Xem thử thông tin nào
+console.log("Hãng sản xuất:", dienThoaiCuaToi.hangSanXuat); // Samsung
+console.log("Danh bạ của mẹ:", dienThoaiCuaToi.danhBa[0].ten); // Mẹ
+
+// Gọi phương thức
+dienThoaiCuaToi.goiDien("0123456789"); // Đang gọi tới số: 0123456789 bằng Galaxy S24 Ultra
+dienThoaiCuaToi.tatMay(); // Galaxy S24 Ultra đã được tắt.
+dienThoaiCuaToi.goiDien("0987654321"); // Galaxy S24 Ultra đang tắt, không thể gọi!
+```
+
+Đó, chỉ với object literal, bạn đã tạo ra một "em" điện thoại khá là xịn sò trong code rồi đó!
+
+## Truy Cập Thuộc Tính - "Moi" Thông Tin Từ Đối Tượng
+
+Sau khi đã có đối tượng, làm sao để lấy ra các giá trị thuộc tính hoặc gọi các phương thức của nó? Có hai cách chính:
+
+### 1. Dấu Chấm (Dot Notation)
+
+Đây là cách phổ biến và dễ đọc nhất, khi tên thuộc tính là một từ hợp lệ.
+
+Cú pháp: `tenDoiTuong.tenThuocTinh`
+
+```javascript
+let hocSinh = {
+  ten: "Nguyễn Văn An",
+  lop: "10A1",
+  tuoi: 16
+};
+
+console.log("Tên học sinh:", hocSinh.ten); // Nguyễn Văn An
+console.log("Tuổi:", hocSinh.tuoi);     // 16
+```
+
+### 2. Dấu Ngoặc Vuông (Bracket Notation)
+
+Cách này linh hoạt hơn, cho phép bạn truy cập thuộc tính bằng một biểu thức chuỗi.
+
+Cú pháp: `tenDoiTuong["tenThuocTinhDayDu"]`
+
+```javascript
+let mayTinh = {
+  "ten san pham": "Laptop Gaming Pro", // Tên thuộc tính có dấu cách
+  "cau-hinh": { chip: "Core i9", ram: "32GB" },
+  gia: 50000000
+};
+
+// Dùng dấu chấm sẽ lỗi nếu tên thuộc tính có dấu cách hoặc ký tự đặc biệt
+// console.log(mayTinh.ten san pham); // SyntaxError
+
+console.log("Tên sản phẩm:", mayTinh["ten san pham"]); // Laptop Gaming Pro
+console.log("Giá:", mayTinh["gia"]); // 50000000
+
+// Dùng với biến chứa tên thuộc tính (dynamic property access)
+let thongTinCanLay = "cau-hinh";
+console.log("Cấu hình:", mayTinh[thongTinCanLay]); // { chip: "Core i9", ram: "32GB" }
+console.log("Chip:", mayTinh[thongTinCanLay].chip); // Core i9
+// hoặc
+console.log("Chip (cách khác):", mayTinh["cau-hinh"]["chip"]); // Core i9
+```
+
+**Khi nào nên dùng Bracket Notation?**
+
+-   **Khi tên thuộc tính chứa dấu cách hoặc các ký tự đặc biệt** mà không hợp lệ cho dot notation (ví dụ: `"Mã sản phẩm"`, `"user-id"`).
+-   **Khi tên thuộc tính là một biến hoặc kết quả của một biểu thức (dynamic properties).** Điều này cực kỳ hữu ích khi bạn muốn truy cập thuộc tính một cách linh động dựa trên đầu vào hoặc logic nào đó.
+-   Khi tên thuộc tính là số (mặc dù ít phổ biến hơn cho tên thuộc tính đối tượng, nhưng có thể xảy ra).
+
+```javascript
+let diemSo = {
+  toan: 9,
+  ly: 8,
+  hoa: 7
+};
+let monHoc = "ly";
+console.log("Điểm môn " + monHoc + ":", diemSo[monHoc]); // Điểm môn ly: 8
+```
+
+## Thêm và Xóa Thuộc Tính - "Biến Hóa" Đối Tượng
+
+Đối tượng trong JavaScript rất linh hoạt. Bạn có thể dễ dàng thêm thuộc tính mới hoặc xóa thuộc tính hiện có sau khi đối tượng đã được tạo.
+
+### 1. Thêm (hoặc cập nhật) Thuộc Tính
+
+Bạn chỉ cần gán một giá trị cho một tên thuộc tính mới (hoặc tên thuộc tính đã có nếu muốn cập nhật).
+
+```javascript
+let quyenSach = {
+  tieuDe: "Lập Trình JavaScript Cơ Bản",
+  tacGia: "Nguyễn Văn A"
+};
+console.log("Sách ban đầu:", quyenSach);
+
+// Thêm thuộc tính mới
+quyenSach.namXuatBan = 2024;
+quyenSach["soTrang"] = 300; // Dùng bracket notation cũng được
+
+// Cập nhật thuộc tính đã có
+quyenSach.tieuDe = "Lập Trình JavaScript Nâng Cao";
+
+console.log("Sách sau khi cập nhật:", quyenSach);
+// Kết quả:
+// Sách ban đầu: {tieuDe: "Lập Trình JavaScript Cơ Bản", tacGia: "Nguyễn Văn A"}
+// Sách sau khi cập nhật: {tieuDe: "Lập Trình JavaScript Nâng Cao", tacGia: "Nguyễn Văn A", namXuatBan: 2024, soTrang: 300}
+```
+
+### 2. Xóa Thuộc Tính
+
+Sử dụng toán tử `delete` để loại bỏ một thuộc tính khỏi đối tượng.
+
+```javascript
+let mayAnh = {
+  hang: "Canon",
+  model: "EOS R6",
+  megapixels: 20,
+  daBan: false
+};
+console.log("Máy ảnh trước khi xóa:", mayAnh);
+
+delete mayAnh.daBan; // Xóa thuộc tính daBan
+delete mayAnh["megapixels"]; // Dùng bracket notation cũng được
+
+console.log("Máy ảnh sau khi xóa:", mayAnh);
+// Kết quả:
+// Máy ảnh trước khi xóa: {hang: "Canon", model: "EOS R6", megapixels: 20, daBan: false}
+// Máy ảnh sau khi xóa: {hang: "Canon", model: "EOS R6"}
+```
+
+:::info[Info]
+
+Toán tử `delete` trả về `true` nếu xóa thành công (hoặc nếu thuộc tính không tồn tại), và `false` nếu thuộc tính không thể xóa được (ví dụ, các thuộc tính kế thừa không thể xóa trực tiếp bằng `delete` trên đối tượng con). Nó chỉ xóa thuộc tính của chính đối tượng đó, không xóa thuộc tính từ prototype chain (sẽ học ở phần sau).
+
+:::
+
+## Phương Thức Đối Tượng (Object Methods) - Khi Đối Tượng "Hành Động"
+
+Như đã đề cập, khi một thuộc tính của đối tượng có giá trị là một hàm, chúng ta gọi đó là **phương thức (method)**. Phương thức định nghĩa các hành động mà đối tượng có thể thực hiện.
+
+### Định nghĩa và Gọi Phương thức
+
+```javascript
+let chienBinh = {
+  ten: "Siêu Nhân X",
+  vuKhi: "Kiếm Ánh Sáng",
+  nangLuong: 100,
+
+  // Định nghĩa phương thức tanCong
+  tanCong: function(mucTieu) {
+    if (this.nangLuong > 10) {
+      console.log(this.ten + " dùng " + this.vuKhi + " tấn công " + mucTieu + "!");
+      this.nangLuong -= 10; // Giảm năng lượng sau khi tấn công
+    } else {
+      console.log(this.ten + " đã hết năng lượng, không thể tấn công!");
+    }
+  },
+
+  // Định nghĩa phương thức napNangLuong
+  napNangLuong: function(luongNap) {
+    this.nangLuong += luongNap;
+    console.log(this.ten + " đã nạp " + luongNap + " năng lượng. Năng lượng hiện tại: " + this.nangLuong);
+  }
+};
+
+// Gọi phương thức
+chienBinh.tanCong("Quái Vật A"); // Siêu Nhân X dùng Kiếm Ánh Sáng tấn công Quái Vật A!
+console.log("Năng lượng còn lại:", chienBinh.nangLuong); // 90
+
+chienBinh.napNangLuong(50); // Siêu Nhân X đã nạp 50 năng lượng. Năng lượng hiện tại: 140
+chienBinh.tanCong("Trùm Cuối"); // Siêu Nhân X dùng Kiếm Ánh Sáng tấn công Trùm Cuối!
+```
+
+### Từ Khóa `this` Bên Trong Phương Thức
+
+Đây là một điểm cực kỳ quan trọng! Bên trong một phương thức của đối tượng (khi phương thức đó được gọi thông qua đối tượng, ví dụ: `chienBinh.tanCong()`), từ khóa `this` sẽ **tham chiếu đến chính đối tượng đó**.
+
+Trong ví dụ `chienBinh`:
+- Bên trong `tanCong()`, `this.ten` chính là `chienBinh.ten` ("Siêu Nhân X").
+- `this.nangLuong` chính là `chienBinh.nangLuong`.
+
+Điều này cho phép phương thức truy cập và thao tác trên các thuộc tính khác của cùng một đối tượng.
+
+:::warning[⚠️ Warning]
+
+**Hành vi của `this` có thể thay đổi!** Như đã học ở bài về Hàm (Phần 2), giá trị của `this` phụ thuộc vào cách hàm được gọi. Nếu bạn tách một phương thức ra khỏi đối tượng của nó và gọi nó như một hàm thông thường, `this` bên trong nó có thể không còn trỏ đến đối tượng ban đầu nữa (mà có thể là `window` hoặc `undefined` trong strict mode).
+```javascript
+let game = {
+  title: "Awesome Game",
+  start: function() {
+    console.log("Starting " + this.title); // 'this' ở đây là 'game'
+  }
+};
+
+game.start(); // Starting Awesome Game
+
+let startGameFunction = game.start;
+// startGameFunction(); // Nếu gọi thế này, 'this' bên trong sẽ không phải là 'game' nữa!
+                        // Kết quả có thể là "Starting undefined" hoặc lỗi.
+
+// Để khắc phục, có thể dùng bind:
+let boundStartFunction = game.start.bind(game);
+boundStartFunction(); // Starting Awesome Game (this đã được bind đúng)
+```
+Chúng ta sẽ tìm hiểu kỹ hơn về các cách ràng buộc `this` và các trường hợp phức tạp của nó ở những phần sau.
+
+:::
+
+## Tạm Kết Phần 1 về Đối Tượng
+
+Qua Phần 1 này, chúng ta đã làm quen với những viên gạch đầu tiên để xây dựng nên thế giới đối tượng trong JavaScript:
+- Tạo đối tượng một cách nhanh chóng với **object literals**.
+- "Đọc vị" thông tin bằng cách **truy cập thuộc tính** qua dấu chấm `.` hoặc dấu ngoặc vuông `[]`.
+- "Biến hình" đối tượng bằng cách **thêm và xóa thuộc tính**.
+- Cho đối tượng "biết hành động" với các **phương thức**, và hiểu được vai trò ban đầu của từ khóa **`this`** bên trong chúng.
+
+Đây mới chỉ là bề nổi của tảng băng chìm. Đối tượng trong JavaScript còn rất nhiều điều thú vị và mạnh mẽ khác như prototypes, constructors, getters/setters, và các phương thức tích hợp sẵn. Chúng ta sẽ cùng nhau khám phá chúng ở những phần tiếp theo.
+
+Còn bây giờ, hãy thử tạo ra các đối tượng của riêng bạn, mô tả những thứ xung quanh bạn xem sao. Thực hành chính là cách tốt nhất để "thấm" những kiến thức này!

@@ -1,0 +1,489 @@
+---
+title: Toán Tử trong JavaScript
+description: Tìm hiểu về các loại toán tử trong JavaScript, cách sử dụng và các ví dụ minh họa.
+---
+
+# Toán Tử trong JavaScript (Operators)
+
+Chào mừng các bạn đến với thế giới của các toán tử trong JavaScript! Nghe có vẻ "nguy hiểm" nhưng thực ra chúng là những công cụ vô cùng hữu ích, giúp chúng ta thực hiện đủ loại thao tác với dữ liệu. Toán tử cho phép chúng ta tính toán, so sánh, gán giá trị, và nhiều hơn thế nữa. Hãy cùng khám phá xem JavaScript có những "trợ thủ đắc lực" nào nhé!
+
+## Toán Tử Số Học (Arithmetic Operators)
+
+Trong JavaScript, toán tử số học là những người bạn đồng hành quen thuộc giúp chúng ta thực hiện các phép toán cơ bản như cộng, trừ, nhân, chia. Hãy cùng "điểm danh" những anh bạn này nhé!
+
+### Cộng (`+`)
+
+Dùng để cộng hai số hoặc ghép (nối) hai chuỗi.
+
+```javascript
+// Cộng số
+let tong = 5 + 10; // tong sẽ là 15
+console.log("Tổng của 5 và 10 là:", tong);
+
+// Nối chuỗi
+let loiChao = "Chào bạn, " + "Cò!"; // loiChao sẽ là "Chào bạn, Cò!"
+console.log(loiChao);
+```
+
+:::info[Info]
+
+Lưu ý: Khi dùng toán tử `+` với một số và một chuỗi, JavaScript sẽ "ưu ái" biến số thành chuỗi rồi thực hiện phép nối. Cẩn thận nhé!
+
+:::
+
+```javascript
+let ketHop = "Điểm của bạn là: " + 9; // ketHop sẽ là "Điểm của bạn là: 9"
+console.log(ketHop);
+```
+
+### Trừ (`-`)
+
+Dùng để trừ một số cho một số khác.
+
+```javascript
+let hieu = 20 - 8; // hieu sẽ là 12
+console.log("Kết quả của 20 - 8 là:", hieu);
+```
+
+### Nhân (`*`)
+
+Dùng để nhân hai số với nhau.
+
+```javascript
+let tich = 7 * 6; // tich sẽ là 42
+console.log("Tích của 7 và 6 là:", tich);
+```
+
+### Chia (`/`)
+
+Dùng để chia một số cho một số khác. Kết quả sẽ là số thập phân nếu phép chia không hết.
+
+```javascript
+let thuong = 20 / 4; // thuong sẽ là 5
+console.log("Thương của 20 chia 4 là:", thuong);
+
+let thuongLe = 10 / 3; // thuongLe sẽ là 3.333...
+console.log("Thương của 10 chia 3 là:", thuongLe);
+```
+
+### Chia lấy dư (`%`)
+
+Toán tử này trả về phần dư của một phép chia. Rất hữu ích để kiểm tra một số có chia hết cho số khác không.
+
+```javascript
+let phanDu = 10 % 3; // phanDu sẽ là 1 (vì 10 chia 3 được 3 dư 1)
+console.log("10 chia 3 dư:", phanDu);
+
+let kiemTraChanLe = 7 % 2; // kiemTraChanLe sẽ là 1 (số lẻ)
+console.log("7 là số lẻ phải không? (dư 1 là lẻ):", kiemTraChanLe);
+```
+
+### Tăng lên một đơn vị (`++`)
+
+Tăng giá trị của một biến số lên 1. Có hai cách dùng:
+- **Tiền tố (`++bien`):** Tăng giá trị của `bien` lên 1, *sau đó* trả về giá trị mới.
+- **Hậu tố (`bien++`):** Trả về giá trị *hiện tại* của `bien`, *sau đó* tăng giá trị của `bien` lên 1.
+
+```javascript
+let soA = 5;
+let ketQuaA = ++soA; // soA thành 6, ketQuaA là 6
+console.log("soA:", soA, "ketQuaA:", ketQuaA);
+
+let soB = 5;
+let ketQuaB = soB++; // ketQuaB là 5, soB thành 6
+console.log("soB:", soB, "ketQuaB:", ketQuaB);
+```
+
+### Giảm đi một đơn vị (`--`)
+
+Tương tự như `++`, nhưng là giảm giá trị của biến số đi 1.
+- **Tiền tố (`--bien`):** Giảm giá trị của `bien` đi 1, *sau đó* trả về giá trị mới.
+- **Hậu tố (`bien--`):** Trả về giá trị *hiện tại* của `bien`, *sau đó* giảm giá trị của `bien` đi 1.
+
+```javascript
+let soC = 10;
+let ketQuaC = --soC; // soC thành 9, ketQuaC là 9
+console.log("soC:", soC, "ketQuaC:", ketQuaC);
+
+let soD = 10;
+let ketQuaD = soD--; // ketQuaD là 10, soD thành 9
+console.log("soD:", soD, "ketQuaD:", ketQuaD);
+```
+
+## Toán Tử Gán (Assignment Operators)
+
+Toán tử gán được dùng để "trao" giá trị cho các biến. Anh bạn quen thuộc nhất chính là dấu bằng (`=`).
+
+### Gán đơn giản (`=`)
+
+Gán giá trị bên phải cho biến bên trái.
+
+```javascript
+let tuoi = 30; // Gán giá trị 30 cho biến tuoi
+console.log("Tuổi của bạn là:", tuoi);
+```
+
+### Cộng và gán (`+=`)
+
+Cộng giá trị bên phải vào biến bên trái, rồi gán kết quả lại cho biến đó.
+`x += y` tương đương với `x = x + y`.
+
+```javascript
+let diem = 10;
+diem += 5; // diem bây giờ là 15 (10 + 5)
+console.log("Điểm sau khi cộng:", diem);
+```
+
+### Trừ và gán (`-=`)
+
+Trừ giá trị bên phải khỏi biến bên trái, rồi gán kết quả lại cho biến đó.
+`x -= y` tương đương với `x = x - y`.
+
+```javascript
+let tien = 100;
+tien -= 20; // tien bây giờ là 80 (100 - 20)
+console.log("Tiền còn lại:", tien);
+```
+
+### Nhân và gán (`*=`)
+
+Nhân biến bên trái với giá trị bên phải, rồi gán kết quả lại cho biến đó.
+`x *= y` tương đương với `x = x * y`.
+
+```javascript
+let soLuong = 5;
+soLuong *= 3; // soLuong bây giờ là 15 (5 * 3)
+console.log("Tổng số lượng:", soLuong);
+```
+
+### Chia và gán (`/=`)
+
+Chia biến bên trái cho giá trị bên phải, rồi gán kết quả lại cho biến đó.
+`x /= y` tương đương với `x = x / y`.
+
+```javascript
+let tongDiem = 100;
+tongDiem /= 4; // tongDiem bây giờ là 25 (100 / 4)
+console.log("Điểm trung bình:", tongDiem);
+```
+
+### Chia lấy dư và gán (`%=`)
+
+Chia biến bên trái cho giá trị bên phải, lấy phần dư rồi gán kết quả lại cho biến đó.
+`x %= y` tương đương với `x = x % y`.
+
+```javascript
+let soKeo = 17;
+soKeo %= 5; // soKeo bây giờ là 2 (17 chia 5 dư 2)
+console.log("Số kẹo còn dư sau khi chia đều:", soKeo);
+```
+
+## Toán Tử So Sánh (Comparison Operators)
+
+Toán tử so sánh giúp chúng ta "cân đo đong đếm" các giá trị, xem chúng có bằng nhau, lớn hơn, hay nhỏ hơn không. Kết quả của phép so sánh luôn là `true` (đúng) hoặc `false` (sai).
+
+### Bằng (`==`)
+
+So sánh xem hai giá trị có bằng nhau không, *sau khi đã thực hiện chuyển đổi kiểu dữ liệu nếu cần*.
+Ví dụ, `5 == "5"` sẽ là `true` vì JavaScript sẽ chuyển chuỗi `"5"` thành số `5` trước khi so sánh.
+
+```javascript
+console.log("5 == 8:", 5 == 8);     // false
+console.log("5 == 5:", 5 == 5);     // true
+console.log("5 == '5':", 5 == '5'); // true (chuỗi '5' được chuyển thành số 5)
+```
+
+:::warning[Warning]
+
+**Thận trọng với `==`!** Việc tự động chuyển đổi kiểu có thể dẫn đến kết quả không mong muốn. Nên ưu tiên dùng `===` khi có thể.
+
+:::
+
+### Bằng tuyệt đối (`===`)
+
+So sánh xem hai giá trị có bằng nhau không *VÀ* có cùng kiểu dữ liệu không. Không có chuyển đổi kiểu tự động.
+Đây là cách so sánh "an toàn" và được khuyên dùng hơn.
+
+```javascript
+console.log("5 === 5:", 5 === 5);     // true (cùng giá trị, cùng kiểu số)
+console.log("5 === '5':", 5 === '5'); // false (khác kiểu dữ liệu)
+```
+
+### Không bằng (`!=`)
+
+Ngược lại với `==`. Trả về `true` nếu hai giá trị không bằng nhau (sau khi chuyển đổi kiểu).
+
+```javascript
+console.log("5 != 8:", 5 != 8);     // true
+console.log("5 != 5:", 5 != 5);     // false
+console.log("5 != '5':", 5 != '5'); // false (vì '5' chuyển thành 5, nên chúng bằng nhau)
+```
+
+### Không bằng tuyệt đối (`!==`)
+
+Ngược lại với `===`. Trả về `true` nếu hai giá trị không bằng nhau *HOẶC* không cùng kiểu dữ liệu.
+
+```javascript
+console.log("5 !== 5:", 5 !== 5);     // false
+console.log("5 !== '5':", 5 !== '5'); // true (khác kiểu dữ liệu)
+console.log("5 !== 8:", 5 !== 8);     // true
+```
+
+### Lớn hơn (`>`)
+
+Kiểm tra xem giá trị bên trái có lớn hơn giá trị bên phải không.
+
+```javascript
+console.log("10 > 5:", 10 > 5); // true
+console.log("5 > 10:", 5 > 10); // false
+console.log("5 > 5:", 5 > 5);   // false
+```
+
+### Nhỏ hơn (`<`)
+
+Kiểm tra xem giá trị bên trái có nhỏ hơn giá trị bên phải không.
+
+```javascript
+console.log("10 < 5:", 10 < 5); // false
+console.log("5 < 10:", 5 < 10); // true
+console.log("5 < 5:", 5 < 5);   // false
+```
+
+### Lớn hơn hoặc bằng (`>=`)
+
+Kiểm tra xem giá trị bên trái có lớn hơn hoặc bằng giá trị bên phải không.
+
+```javascript
+console.log("10 >= 5:", 10 >= 5); // true
+console.log("5 >= 10:", 5 >= 10); // false
+console.log("5 >= 5:", 5 >= 5);   // true
+```
+
+### Nhỏ hơn hoặc bằng (`<=`)
+
+Kiểm tra xem giá trị bên trái có nhỏ hơn hoặc bằng giá trị bên phải không.
+
+```javascript
+console.log("10 <= 5:", 10 <= 5); // false
+console.log("5 <= 10:", 5 <= 10); // true
+console.log("5 <= 5:", 5 <= 5);   // true
+```
+
+## Toán Tử Logic (Logical Operators)
+
+Toán tử logic cho phép chúng ta kết hợp nhiều điều kiện lại với nhau hoặc đảo ngược một điều kiện. Chúng rất quan trọng trong việc xây dựng các luồng điều khiển phức tạp.
+
+### Và (`&&` - Logical AND)
+
+Trả về `true` nếu *cả hai* điều kiện (toán hạng) đều là `true`. Nếu một trong hai là `false`, kết quả sẽ là `false`.
+
+```javascript
+let coBangLai = true;
+let duTuoiLaiXe = true;
+console.log("Được phép lái xe (cả hai true):", coBangLai && duTuoiLaiXe); // true
+
+let coTien = true;
+let cuaHangMoCua = false;
+console.log("Mua được hàng (một cái false):", coTien && cuaHangMoCua); // false
+```
+
+:::info[Info]
+
+`&&` có một tính năng "short-circuiting": nếu toán hạng đầu tiên là `false`, nó sẽ không cần kiểm tra toán hạng thứ hai nữa mà trả về `false` luôn.
+
+:::
+
+### Hoặc (`||` - Logical OR)
+
+Trả về `true` nếu *ít nhất một trong hai* điều kiện là `true`. Chỉ trả về `false` nếu cả hai đều `false`.
+
+```javascript
+let troiMua = true;
+let coDu = false;
+console.log("Có nên ở nhà không (một cái true):", troiMua || coDu); // true
+
+let nghiLe = false;
+let cuoiTuan = false;
+console.log("Có được nghỉ làm không (cả hai false):", nghiLe || cuoiTuan); // false
+```
+
+:::info[Info]
+
+`||` cũng có "short-circuiting": nếu toán hạng đầu tiên là `true`, nó sẽ không cần kiểm tra toán hạng thứ hai nữa mà trả về `true` luôn.
+
+:::
+
+### Phủ định (`!` - Logical NOT)
+
+Đảo ngược giá trị boolean của một điều kiện. Nếu điều kiện là `true`, `!` sẽ biến nó thành `false`, và ngược lại.
+
+```javascript
+let daAnCom = true;
+console.log("Chưa ăn cơm phải không?:", !daAnCom); // false
+
+let metMoi = false;
+console.log("Không mệt mỏi:", !metMoi); // true
+```
+
+## Toán Tử Bitwise (Bitwise Operators)
+
+Toán tử bitwise làm việc trực tiếp trên các bit (0 và 1) của các số nguyên. Chúng thường được sử dụng trong các tác vụ cấp thấp, xử lý đồ họa, hoặc các thuật toán tối ưu hóa cụ thể. Đối với lập trình web hàng ngày, bạn có thể ít gặp chúng hơn, nhưng biết về sự tồn tại của chúng cũng rất hữu ích.
+
+:::warning[Warning]
+
+Toán tử bitwise coi các toán hạng của chúng là một chuỗi 32 bit (0 và 1). Kết quả trả về cũng là một số.
+
+:::
+
+### AND Bitwise (`&`)
+
+Thực hiện phép AND trên từng cặp bit tương ứng của hai số. Kết quả bit là 1 nếu cả hai bit đều là 1.
+
+```javascript
+// 5  -> 00000000000000000000000000000101
+// 3  -> 00000000000000000000000000000011
+// --------------
+// 1  <- 00000000000000000000000000000001 (Kết quả là 1)
+console.log("5 & 3 =", 5 & 3); // 1
+```
+
+### OR Bitwise (`|`)
+
+Thực hiện phép OR trên từng cặp bit tương ứng của hai số. Kết quả bit là 1 nếu ít nhất một trong hai bit là 1.
+
+```javascript
+// 5  -> 00000101
+// 3  -> 00000011
+// --------------
+// 7  <- 00000111 (Kết quả là 7)
+console.log("5 | 3 =", 5 | 3); // 7
+```
+
+### XOR Bitwise (`^`)
+
+Thực hiện phép XOR (OR loại trừ) trên từng cặp bit. Kết quả bit là 1 nếu hai bit khác nhau.
+
+```javascript
+// 5  -> 00000101
+// 3  -> 00000011
+// --------------
+// 6  <- 00000110 (Kết quả là 6)
+console.log("5 ^ 3 =", 5 ^ 3); // 6
+```
+
+### NOT Bitwise (`~`)
+
+Đảo ngược tất cả các bit của toán hạng (0 thành 1, 1 thành 0).
+`~x` tương đương với `-(x+1)`.
+
+```javascript
+// 5  -> ...00000101
+// ~5 -> ...11111010 (Đây là biểu diễn bù 2 của -6)
+console.log("~5 =", ~5); // -6
+```
+
+### Dịch trái (`<<`)
+
+Dịch chuyển tất cả các bit của toán hạng đầu tiên sang trái một số vị trí được xác định bởi toán hạng thứ hai. Các bit mới ở bên phải được điền bằng 0.
+`x << y` tương đương với nhân `x` với `2^y`.
+
+```javascript
+// 5 (00000101) << 1  -> 00001010 (10)
+console.log("5 << 1 =", 5 << 1); // 10 (tương đương 5 * 2^1)
+
+// 5 (00000101) << 2  -> 00010100 (20)
+console.log("5 << 2 =", 5 << 2); // 20 (tương đương 5 * 2^2)
+```
+
+### Dịch phải (có dấu) (`>>`)
+
+Dịch chuyển tất cả các bit của toán hạng đầu tiên sang phải một số vị trí. Các bit bị đẩy ra bên phải sẽ bị loại bỏ. Các bit mới ở bên trái được điền bằng bit dấu ban đầu (bit ngoài cùng bên trái), do đó giữ nguyên dấu của số.
+`x >> y` tương đương với chia `x` cho `2^y` (làm tròn xuống).
+
+```javascript
+// 5 (00000101) >> 1  -> 00000010 (2)
+console.log("5 >> 1 =", 5 >> 1); // 2
+
+// -5 (...11111011) >> 1 -> ...11111101 (-3) (Duy trì bit dấu)
+console.log("-5 >> 1 =", -5 >> 1); // -3
+```
+
+### Dịch phải (không dấu / điền 0) (`>>>`)
+
+Tương tự như `>>`, nhưng các bit mới ở bên trái luôn được điền bằng 0, bất kể dấu của số. Điều này có nghĩa là kết quả luôn là số không âm.
+
+```javascript
+// 5 (00000101) >>> 1  -> 00000010 (2)
+console.log("5 >>> 1 =", 5 >>> 1); // 2
+
+// -5 (biểu diễn 32-bit: 11111111111111111111111111111011)
+// -5 >>> 1 -> 01111111111111111111111111111101 (một số dương rất lớn)
+console.log("-5 >>> 1 =", -5 >>> 1); // 2147483645
+```
+
+## Toán Tử Ba Ngôi (Ternary Operator) (`? :`)
+
+Đây là toán tử duy nhất trong JavaScript nhận ba toán hạng. Nó là một cách viết tắt cho câu lệnh `if...else`.
+Cú pháp: `dieu_kien ? gia_tri_neu_dung : gia_tri_neu_sai`
+
+Nếu `dieu_kien` là `true`, biểu thức sẽ trả về `gia_tri_neu_dung`.
+Nếu `dieu_kien` là `false`, biểu thức sẽ trả về `gia_tri_neu_sai`.
+
+```javascript
+let tuoiNguoiDung = 20;
+let thongBao = (tuoiNguoiDung >= 18) ? "Bạn đã đủ tuổi" : "Bạn chưa đủ tuổi";
+console.log(thongBao); // "Bạn đã đủ tuổi"
+
+let diemTrungBinh = 7.5;
+let xepLoai = (diemTrungBinh >= 8) ? "Giỏi" : (diemTrungBinh >= 6.5) ? "Khá" : "Trung bình";
+console.log("Xếp loại của bạn là:", xepLoai); // "Khá"
+```
+Toán tử ba ngôi giúp code ngắn gọn hơn trong nhiều trường hợp gán giá trị dựa trên điều kiện đơn giản.
+
+## Toán Tử `typeof`
+
+Toán tử `typeof` trả về một chuỗi cho biết kiểu dữ liệu của một biến hoặc một biểu thức.
+
+```javascript
+console.log("typeof 5:", typeof 5);                     // "number"
+console.log("typeof 'Xin chào':", typeof "Xin chào");   // "string"
+console.log("typeof true:", typeof true);                 // "boolean"
+console.log("typeof undefined:", typeof undefined);         // "undefined"
+console.log("typeof null:", typeof null);                 // "object" (Đây là một đặc điểm lâu đời của JS, null thực ra là một kiểu nguyên thủy)
+console.log("typeof {ten: 'Cò'}:", typeof {ten: "Cò"});   // "object"
+console.log("typeof [1, 2, 3]:", typeof [1, 2, 3]);       // "object" (Mảng cũng là một loại object)
+console.log("typeof function(){}:", typeof function(){}); // "function"
+console.log("typeof Symbol():", typeof Symbol());         // "symbol"
+console.log("typeof NaN:", typeof NaN);                   // "number" (NaN là viết tắt của Not-a-Number, nhưng kiểu của nó vẫn là number)
+```
+`typeof` rất hữu ích để kiểm tra kiểu dữ liệu trước khi thực hiện các thao tác cụ thể.
+
+## Toán Tử `instanceof`
+
+Toán tử `instanceof` kiểm tra xem một đối tượng có phải là một thực thể (instance) của một lớp (constructor) cụ thể hay không. Nói cách khác, nó kiểm tra xem đối tượng đó có nằm trong chuỗi prototype của constructor đó không.
+
+```javascript
+function Dog(name) {
+  this.name = name;
+}
+let myDog = new Dog("Buddy");
+
+console.log("myDog instanceof Dog:", myDog instanceof Dog);         // true
+console.log("myDog instanceof Object:", myDog instanceof Object);     // true (vì Dog kế thừa từ Object)
+console.log("myDog instanceof Array:", myDog instanceof Array);       // false
+
+let ngaySinh = new Date();
+console.log("ngaySinh instanceof Date:", ngaySinh instanceof Date);     // true
+
+let arr = [1, 2, 3];
+console.log("arr instanceof Array:", arr instanceof Array);       // true
+console.log("arr instanceof Object:", arr instanceof Object);     // true (vì Array kế thừa từ Object)
+```
+
+`instanceof` hữu ích khi bạn làm việc với các đối tượng phức tạp và cần xác định "nguồn gốc" hoặc loại của chúng.
+
+## Tóm Lược
+
+Vậy là chúng ta đã cùng nhau dạo một vòng qua "vườn bách thú" các toán tử trong JavaScript. Từ những phép tính số học đơn giản, gán giá trị, so sánh logic, cho đến những thao tác phức tạp hơn với bit, mỗi toán tử đều có vai trò riêng và góp phần tạo nên sự linh hoạt, mạnh mẽ của JavaScript.
+
+Hiểu rõ và sử dụng thành thạo các toán tử này sẽ giúp bạn viết code hiệu quả hơn, dễ đọc hơn và kiểm soát tốt hơn luồng dữ liệu trong chương trình của mình. Đừng ngần ngại thực hành nhiều với chúng nhé! Chúc các bạn "thuần phục" thành công các toán tử này!
